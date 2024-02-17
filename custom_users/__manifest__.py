@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "nvt_users",
+    'name': "NVT Admin Portal",
 
     'summary': "Short (1 phrase/line) summary of the module's purpose",
 
@@ -12,7 +12,7 @@ Long description of module's purpose
     'website': "https://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
+    # Check https://github.com/odoo/odoo/blob/17.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Uncategorized',
     'version': '0.1',

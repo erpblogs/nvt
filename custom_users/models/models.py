@@ -8,10 +8,10 @@ class NvtUserInherit(models.Model):
 
     
     def _default_groups_custom(self):
-        template = 'base.default_user'
-        if self._context.get('default_portal_user'):
-            template = 'base.template_portal_user_id'
-        default_user_id = self.env['ir.model.data']._xmlid_to_res_id('base.default_user', raise_if_not_found=False)
+        default_user_template = 'base.default_user'
+        if self._context.get('portal_user_template'):
+            default_user_template = 'base.template_portal_user_id'
+        default_user_id = self.env['ir.model.data']._xmlid_to_res_id(default_user_template, raise_if_not_found=False)
         return self.env['res.users'].browse(default_user_id).sudo().groups_id if default_user_id else []
     
     is_manager = fields.Boolean("Is Manager")

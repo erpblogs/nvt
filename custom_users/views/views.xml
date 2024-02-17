@@ -55,8 +55,8 @@
     </record>
 
 
-    <record model="ir.actions.act_window" id="custom_users.action_window">
-      <field name="name">Users</field>
+    <record model="ir.actions.act_window" id="custom_users.action_admin_window">
+      <field name="name">Admin</field>
       <field name="res_model">res.users</field>
       <field name="view_mode">tree,form</field>
       <field name="domain">[('share','=',False)]</field>
@@ -64,13 +64,13 @@
 
 
 
-    <record model="ir.actions.act_window" id="custom_users.action_customer_window">
-      <field name="name">Customers</field>
+    <record model="ir.actions.act_window" id="custom_users.action_user_window">
+      <field name="name">Users</field>
       <field name="res_model">res.users</field>
       <field name="view_mode">tree,form</field>
       <field name="domain">[('share','=',True)]</field>
       <field name="context">{
-              'default_portal_user': True,
+              'portal_user_template': True,
           }
       </field>
     </record>
@@ -94,20 +94,20 @@
 
     <!-- Top menu item -->
 
-    <menuitem name="NVT USERS" id="custom_users.menu_root" />
+    <menuitem name="Admin Portal" id="custom_users.menu_root" />
 
     <!-- menu categories -->
 
-    <menuitem name="Users" id="custom_users.menu_user_detail" parent="custom_users.menu_root" />
-    <menuitem name="Customers" id="custom_users.menu_customer_detail" parent="custom_users.menu_root" />
+    <menuitem name="Admin management" id="custom_users.menu_manager_user" parent="custom_users.menu_root" sequence="10"/>
+    <menuitem name="User Management" id="custom_users.menu_user_detail" parent="custom_users.menu_root" sequence="20"/>
     <!-- <menuitem name="Menu 2" id="custom_users.menu_2" parent="custom_users.menu_root"/> -->
 
     <!-- actions -->
 
+    <menuitem name="List" id="custom_users.menu_admin_detail_list" parent="custom_users.menu_manager_user"
+      action="custom_users.action_admin_window" />
     <menuitem name="List" id="custom_users.menu_user_detail_list" parent="custom_users.menu_user_detail"
-      action="custom_users.action_window" />
-    <menuitem name="List" id="custom_users.menu_customer_detail_list" parent="custom_users.menu_customer_detail"
-      action="custom_users.action_customer_window" />
+      action="custom_users.action_user_window" />
 
   </data>
 </odoo>
