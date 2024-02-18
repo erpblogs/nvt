@@ -1,83 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data>
-    <!-- explicit list view definition -->
+	<data>
+		<!-- explicit list view definition -->
 
-    <record model="ir.ui.view" id="custom_users.view_users_list">
-      <field name="name">custom_users list</field>
-      <field name="model">res.users</field>
-      <field name="arch" type="xml">
-        <tree string="Users">
-          <field name="name" />
-          <field name="email" />
-          <field name="phone" />
-        </tree>
-      </field>
-    </record>
-
-
-    <record model="ir.ui.view" id="custom_users.view_users_simple_form_inherit_hr">
-      <field name="name">view.users.simple.form.inherit.hr</field>
-      <field name="model">res.users</field>
-      <field name="inherit_id" ref="base.view_users_simple_form" />
-      <field name="arch" type="xml">
-        <xpath expr="//group[@name='phone_numbers']" position="attributes">
-          <attribute name="invisible">true</attribute>
-        </xpath>
-        <xpath expr="//group[@name='phone_numbers']" position="after">
-          <group name="custom_personal_inf">
-            <field name="phone" widget="phone" />
-          </group>
-
-          <notebook colspan="4">
-            <page name="custom_preferences" string="Preferences" >
-              <group>
-                <group string="Localization" name="preferences">
-                  <field name="active" invisible="1" />
-                  <label for="lang" />
-                  <div class="o_row">
-                    <field name="lang" required="1" />
-                  </div>
-                  <field name="tz" widget="timezone_mismatch"
-                    options="{'tz_offset_field': 'tz_offset'}" />
-                  <field name="tz_offset" invisible="1" />
-                </group>
-              </group>
-            </page>
-            <page name="custom_access_rights" string="Access Rights" groups="custom_users.group_partner_manager">
-              <group name="custom_access_rights">
-                <field name="is_manager" />
-                <field name="groups_id" />
-              </group>
-            </page>
-          </notebook>
-        </xpath>
-      </field>
-    </record>
+		<record model="ir.ui.view" id="custom_users.view_users_list">
+			<field name="name">custom_users list</field>
+			<field name="model">res.users</field>
+			<field name="arch" type="xml">
+				<tree string="Users">
+					<field name="name" />
+					<field name="email" />
+					<field name="phone" />
+					<field name="web_user" column_invisible="True" />
+					<field name="portal_company_id" column_invisible="not context.get('default_web_user')"/>
+				</tree>
+			</field>
+		</record>
 
 
-    <record model="ir.actions.act_window" id="custom_users.action_admin_window">
-      <field name="name">Admin</field>
-      <field name="res_model">res.users</field>
-      <field name="view_mode">tree,form</field>
-      <field name="domain">[('share','=',False)]</field>
-    </record>
+		<record model="ir.ui.view" id="custom_users.view_users_simple_form_inherit_hr">
+			<field name="name">view.users.simple.form.inherit.hr</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="base.view_users_simple_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//group[@name='phone_numbers']" position="attributes">
+					<attribute name="invisible">true</attribute>
+				</xpath>
+				<xpath expr="//label[@for='login']" position="attributes">
+					<attribute name="string">Account</attribute>
+				</xpath>
+				<xpath expr="//group[@name='phone_numbers']" position="after">
+			
+					<notebook colspan="4">
+						
+
+						<page name="custom_preferences" string="Preferences">
+							<group>
+								<group string="Contact Information" name="custom_personal_inf">
+									<field name="phone" widget="phone" />
+									<field name="email" widget="email" />
+									<field name="web_user" invisible="1" />
+									<field name="portal_company_id" invisible="web_user == False" />
+								</group>
+								<group string="Localization" name="preferences">
+									<field name="active" invisible="1" />
+									<label for="lang" />
+									<div class="o_row">
+										<field name="lang" required="1" />
+									</div>
+									<field name="tz" widget="timezone_mismatch"
+										options="{'tz_offset_field': 'tz_offset'}" />
+									<field name="tz_offset" invisible="1" />
+								</group>
+							</group>
+						</page>
+						<page name="custom_access_rights" string="Access Rights"
+							groups="custom_users.group_web_admin">
+							<group name="custom_access_rights">
+								<field name="is_manager" invisible="web_user == False" />
+								<field name="groups_id" invisible="1" />
+							</group>
+							<group name="company_following">
+								<field name="portal_company_following_ids" invisible="web_user == True" context="{'default_web_company': True}" domain="[('web_company', '=', True)]">
+									<tree>
+										<field name="name" />
+										<field name="phone" />
+										<field name="email" />
+									</tree>
+								</field>
+							</group>
+						</page>
+					</notebook>
+				</xpath>
+			</field>
+		</record>
 
 
-
-    <record model="ir.actions.act_window" id="custom_users.action_user_window">
-      <field name="name">Users</field>
-      <field name="res_model">res.users</field>
-      <field name="view_mode">tree,form</field>
-      <field name="domain">[('share','=',True)]</field>
-      <field name="context">{
-              'portal_user_template': True,
-          }
-      </field>
-    </record>
+		<record model="ir.actions.act_window" id="custom_users.action_admin_window">
+			<field name="name">Admin</field>
+			<field name="res_model">res.users</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('web_user','=',False)]</field>
+		</record>
 
 
-    <!-- server action to the one above -->
-    <!-- 
+		<record model="ir.actions.act_window" id="custom_users.action_user_window">
+			<field name="name">Users</field>
+			<field name="res_model">res.users</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('web_user','=',True)]</field>
+			<field name="context">{
+				'portal_user_template': True,
+				'default_web_user': True,
+				}
+			</field>
+		</record>
+
+
+		<!-- server action to the one above -->
+		<!-- 
     <record model="ir.actions.server" id="custom_users.action_server">
       <field name="name">custom_users server</field>
       <field name="model_id" ref="model_custom_users_custom_users"/>
@@ -92,22 +113,27 @@
     </record> -->
 
 
-    <!-- Top menu item -->
+		<!-- Top menu item -->
 
-    <menuitem name="Admin Portal" id="custom_users.menu_root" />
+		<menuitem name="Admin Portal" id="custom_users.menu_root"
+			web_icon="contacts,static/description/icon.png" />
 
-    <!-- menu categories -->
+		<!-- menu categories -->
 
-    <menuitem name="Admin management" id="custom_users.menu_manager_user" parent="custom_users.menu_root" sequence="10"/>
-    <menuitem name="User Management" id="custom_users.menu_user_detail" parent="custom_users.menu_root" sequence="20"/>
-    <!-- <menuitem name="Menu 2" id="custom_users.menu_2" parent="custom_users.menu_root"/> -->
+		<menuitem name="Admin management" id="custom_users.menu_manager_user"
+			parent="custom_users.menu_root" sequence="10" />
+		<menuitem name="User Management" id="custom_users.menu_user_detail"
+			parent="custom_users.menu_root" sequence="20" />
+		<!-- <menuitem name="Menu 2" id="custom_users.menu_2" parent="custom_users.menu_root"/> -->
 
-    <!-- actions -->
+		<!-- actions -->
 
-    <menuitem name="List" id="custom_users.menu_admin_detail_list" parent="custom_users.menu_manager_user"
-      action="custom_users.action_admin_window" />
-    <menuitem name="List" id="custom_users.menu_user_detail_list" parent="custom_users.menu_user_detail"
-      action="custom_users.action_user_window" />
+		<menuitem name="List" id="custom_users.menu_admin_detail_list"
+			parent="custom_users.menu_manager_user"
+			action="custom_users.action_admin_window" />
+		<menuitem name="List" id="custom_users.menu_user_detail_list"
+			parent="custom_users.menu_user_detail"
+			action="custom_users.action_user_window" />
 
-  </data>
+	</data>
 </odoo>

@@ -6,10 +6,10 @@
             <field name="sequence">101</field>
         </record>
 
-        <record model="res.groups" id="group_partner_approval">
+        <record model="res.groups" id="group_web_admin">
             <field name="category_id" ref="module_category_customs" />
         </record>
-        <record model="res.groups" id="group_partner_manager">
+        <record model="res.groups" id="group_portal_admin">
             <field name="category_id" ref="module_category_customs" />
         </record>
     </data>

@@ -27,6 +27,7 @@ Long description of module's purpose
         'data/ir_module_category_data.xml',
         
         'views/views.xml',
+        'views/company_views.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode
