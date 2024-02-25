@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
 access_custom_users_custom_users,custom_users.custom_users,model_res_users,custom_users.group_web_admin,1,1,1,1
+custom_users.web_admin_company_access,custom_users.web_admin_company_access,model_res_company,custom_users.group_web_admin,1,1,1,1
 custom_users.custom_company_access,custom_users.custom_company_access,model_res_company,base.group_portal,1,0,0,0
+

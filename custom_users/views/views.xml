@@ -11,6 +11,8 @@
 					<field name="name" />
 					<field name="email" />
 					<field name="phone" />
+					<field name="active"/>
+					<field name="login_date" readonly="1"/>
 					<field name="web_user" column_invisible="True" />
 					<field name="portal_company_id" column_invisible="not context.get('default_web_user')"/>
 				</tree>
@@ -28,6 +30,14 @@
 				</xpath>
 				<xpath expr="//label[@for='login']" position="attributes">
 					<attribute name="string">Account</attribute>
+				</xpath>
+				<xpath expr="//field[@name='id']" position="after">
+					<field name="active" invisible="1"/>
+				</xpath>
+				<xpath expr="//field[@name='avatar_128']" position="before">
+					<div name="button_box" class="oe_button_box">
+					</div>
+					<widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
 				</xpath>
 				<xpath expr="//group[@name='phone_numbers']" position="after">
 			
