@@ -4,3 +4,9 @@ access_custom_users_custom_users,custom_users.custom_users,model_res_users,custo
 custom_users.web_admin_company_access,custom_users.web_admin_company_access,model_res_company,custom_users.group_web_admin,1,1,1,1
 custom_users.custom_company_access,custom_users.custom_company_access,model_res_company,base.group_portal,1,0,0,0
 
+custom_users.custom_department_access,custom_users.custom_department_access,model_res_department,base.group_portal,1,0,0,0
+custom_users.custom_department_portal_admin_access,custom_users.custom_department_portal_admin_access,model_res_department,custom_users.group_portal_admin,1,1,1,1
+custom_users.custom_department_web_admin_access,custom_users.custom_department_web_admin_access,model_res_department,custom_users.group_web_admin,1,1,1,1
+
+custom_users.custom_users_access,custom_users.custom_users_access,model_res_users,custom_users.group_portal_admin,1,1,1,1
+

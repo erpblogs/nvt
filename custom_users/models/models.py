@@ -3,7 +3,15 @@
 from odoo import models, fields, api
 
 
-class NvtUserInherit(models.Model):
+class CustomDepartment(models.Model):
+    _name = 'res.department'
+    _description = "Res Department"
+    
+    name = fields.Char("Name")
+    company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company)
+
+
+class CustomUserInherit(models.Model):
     _inherit = 'res.users'
 
     
@@ -17,7 +25,7 @@ class NvtUserInherit(models.Model):
     web_user = fields.Boolean("Is Web User")
     is_manager = fields.Boolean("Is Manager")
     groups_id = fields.Many2many(default=_default_groups_custom)
-    portal_company_id = fields.Many2one('res.company', 'Customer Company')
+    portal_department_id = fields.Many2one('res.department', 'Department')
     portal_company_following_ids = fields.Many2many('res.company', 'portal_user_company_ref',
                                                     string="Company Following", domain="[('web_company', '=', True)]")
     

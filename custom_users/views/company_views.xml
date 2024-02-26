@@ -10,7 +10,7 @@
 				<field name="name" />
 				<field name="phone" />
 				<field name="email" />
-				<field name="web_company" group="base.group_system" column_invisible="True"/>
+				<field name="web_company" groups="base.group_system" column_invisible="True"/>
 			</tree>
 		</field>
 	</record>

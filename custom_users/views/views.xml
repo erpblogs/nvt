@@ -14,7 +14,8 @@
 					<field name="active"/>
 					<field name="login_date" readonly="1"/>
 					<field name="web_user" column_invisible="True" />
-					<field name="portal_company_id" column_invisible="not context.get('default_web_user')"/>
+					<field name="portal_department_id" />
+					<field name="company_id" column_invisible="not context.get('default_web_user')"/>
 				</tree>
 			</field>
 		</record>
@@ -50,7 +51,8 @@
 									<field name="phone" widget="phone" />
 									<field name="email" widget="email" />
 									<field name="web_user" invisible="1" />
-									<field name="portal_company_id" invisible="web_user == False" />
+									<field name="company_id" invisible="web_user == False" />
+									<field name="portal_department_id" />
 								</group>
 								<group string="Localization" name="preferences">
 									<field name="active" invisible="1" />

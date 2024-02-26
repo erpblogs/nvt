@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- res.department tree view -->
+	<record id="res_department_view_tree" model="ir.ui.view">
+		<field name="name">res.department.view.tree</field>
+		<field name="model">res.department</field>
+		<field name="arch" type="xml">
+			<tree string="partner department tree" multi_edit="1">
+				<!-- Add your fields here -->
+				<field name="name" />
+				<field name="company_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="res_department_view_form" model="ir.ui.view">
+		<field name="name">res.department.view.form</field>
+		<field name="model">res.department</field>
+		<field name="arch" type="xml">
+			<form string="partner department form">
+				<!-- Add your fields here -->
+				<group>
+					<field name="name" />
+					<field name="company_id" />
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_partner_department" model="ir.actions.act_window">
+		<field name="name">Department</field>
+		<field name="res_model">res.department</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	
+	<menuitem name="Department" id="menu_portal_department" sequence="30"
+		parent="custom_users.menu_root"
+		groups="custom_users.group_web_admin" />
+
+	<menuitem name="List" id="custom_users.menu_partner_department_list"
+		parent="menu_portal_department"
+		action="action_partner_department" />
+
+</odoo>

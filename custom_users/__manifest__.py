@@ -28,6 +28,7 @@ Long description of module's purpose
         
         'views/views.xml',
         'views/company_views.xml',
+        'views/department_views.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode
