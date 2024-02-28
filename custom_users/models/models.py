@@ -29,13 +29,16 @@ class CustomUserInherit(models.Model):
     portal_company_following_ids = fields.Many2many('res.company', 'portal_user_company_ref',
                                                     string="Company Following", domain="[('web_company', '=', True)]")
     
+    user_group = fields.Selection([
+        ('group_user_account_manager', 'Account Manager'),
+        ('group_user_sa_manager', 'SA manager'),
+        ('group_user_cfo', 'CFO')
+        ], string='Users Access')
+
     portal_group = fields.Selection([
-        ('group_user_account_manager': 'Account Manager'),
-        ('group_user_sa_manager': 'SA manager'),
-        ('group_user_cooperate': 'Cooperate'),
-        ('group_user_cfo': 'CFO'),
-        ('group_user_employee': 'Employee')
-        ], 'Access', require=True)
+        ('group_user_cooperate', 'Cooperate'),
+        ('group_user_employee', 'Employee')
+        ], string='Portal Access')
 
     # @api.model
     # def create(self, vals):
@@ -46,8 +49,15 @@ class CustomUserInherit(models.Model):
     #         })
     #     return super().create(vals)
     
-    @api.onchange('portal_group')
-    def onchange_is_manager(self):
-        self.groups_id = [(5, 0, 0),] + [(4, self.env.ref(f'custom_users.{self.portal_group}').id)]
+    @api.onchange('portal_group', 'user_group', 'web_user')
+    def onchange_user_group(self):
+        if self.web_user:
+            portal_group = self.portal_group or self._context.get('default_portal_group') or 'group_user_employee'
+            self.groups_id = [(5, 0, 0),] + [(4, self.env.ref(f'custom_users.{portal_group}').id)]
+        else:
+            user_group = self.user_group or self._context.get('default_user_group') or 'group_user_account_manager'
+            self.groups_id = [(5, 0, 0),] + [(4, self.env.ref(f'custom_users.{user_group}').id)]
+
+        
 
         

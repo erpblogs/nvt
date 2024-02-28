@@ -11,11 +11,12 @@
 					<field name="name" />
 					<field name="email" />
 					<field name="phone" />
-					<field name="active"/>
-					<field name="login_date" readonly="1"/>
 					<field name="web_user" column_invisible="True" />
 					<field name="portal_department_id" />
-					<field name="company_id" column_invisible="not context.get('default_web_user')"/>
+					<field name="company_id"/>
+					<!-- <field name="company_id" column_invisible="not context.get('default_web_user')"/> -->
+					<field name="active"/>
+					<field name="login_date" readonly="1"/>
 				</tree>
 			</field>
 		</record>
@@ -51,7 +52,7 @@
 									<field name="phone" widget="phone" />
 									<field name="email" widget="email" />
 									<field name="web_user" invisible="1" />
-									<field name="company_id" invisible="web_user == False" />
+									<field name="company_id" />
 									<field name="portal_department_id" />
 								</group>
 								<group string="Localization" name="preferences">
@@ -68,18 +69,26 @@
 						</page>
 						<page name="custom_access_rights" string="Access Rights"
 							groups="custom_users.group_user_account_manager">
-							<group name="custom_access_rights">
-								<field name="is_manager" invisible="web_user == False" />
-								<field name="groups_id" invisible="1" />
-							</group>
-							<group name="company_following">
-								<field name="portal_company_following_ids" invisible="web_user == True" context="{'default_web_company': True}" domain="[('web_company', '=', True)]">
-									<tree>
-										<field name="name" />
-										<field name="phone" />
-										<field name="email" />
-									</tree>
-								</field>
+							<group>
+								<group name="custom_access_rights">
+									<field name="user_group" invisible="web_user == True" 
+									required="web_user != True"/>
+									<field name="portal_group" invisible="web_user == False" 
+									required="web_user == True"/>
+									<field name="groups_id" invisible="1" />
+								</group>
+								<group name="company_following">
+									<!-- <field name="portal_company_following_ids"  -->
+									<field name="portal_company_following_ids" 
+									widget="many2many_tags"
+									invisible="web_user == True" context="{'default_web_company': True}" domain="[('web_company', '=', True)]">
+										<tree>
+											<field name="name" />
+											<field name="phone" />
+											<field name="email" />
+										</tree>
+									</field>
+								</group>
 							</group>
 						</page>
 					</notebook>
@@ -87,21 +96,66 @@
 			</field>
 		</record>
 
+		<!-- Account Manager -->
 
-		<record model="ir.actions.act_window" id="custom_users.action_admin_window">
-			<field name="name">Admin</field>
+		<record model="ir.actions.act_window" id="custom_users.action_account_manager_users">
+			<field name="name">Account Manager</field>
 			<field name="res_model">res.users</field>
 			<field name="view_mode">tree,form</field>
-			<field name="domain">[('web_user','=',False)]</field>
+			<field name="domain">[('user_group','=', 'group_user_account_manager')]</field>
+			<field name="context">{
+				'default_user_group': 'group_user_account_manager'
+				}
+			</field>
 		</record>
 
 
-		<record model="ir.actions.act_window" id="custom_users.action_user_window">
-			<field name="name">Users</field>
+		<record model="ir.actions.act_window" id="custom_users.action_sa_manager_users">
+			<field name="name">SA manager</field>
 			<field name="res_model">res.users</field>
 			<field name="view_mode">tree,form</field>
-			<field name="domain">[('web_user','=',True)]</field>
+			<field name="domain">[('user_group','=', 'group_user_sa_manager')]</field>
 			<field name="context">{
+				'default_user_group': 'group_user_sa_manager'
+				}
+			</field>
+		</record>
+
+
+
+		<record model="ir.actions.act_window" id="custom_users.action_cfo_users">
+			<field name="name">CFO</field>
+			<field name="res_model">res.users</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('user_group','=', 'group_user_cfo')]</field>
+			<field name="context">{
+				'default_user_group': 'group_user_cfo'
+				}
+			</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="custom_users.action_cooperate_users">
+			<field name="name">Cooperate</field>
+			<field name="res_model">res.users</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('portal_group','=', 'group_user_cooperate')]</field>
+			<field name="context">{
+				'default_portal_group': 'group_user_cooperate',
+				'portal_user_template': True,
+				'default_web_user': True,
+				}
+			</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="custom_users.action_employee_users">
+			<field name="name">Employee</field>
+			<field name="res_model">res.users</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('portal_group','=', 'group_user_employee')]</field>
+			<field name="context">{
+				'default_portal_group': 'group_user_employee',
 				'portal_user_template': True,
 				'default_web_user': True,
 				}
@@ -127,25 +181,44 @@
 
 		<!-- Top menu item -->
 
-		<menuitem name="Admin Portal" id="custom_users.menu_root"
+		<menuitem name="Users Management" id="custom_users.menu_user_root"
 			web_icon="contacts,static/description/icon.png" />
 
 		<!-- menu categories -->
 
-		<menuitem name="Admin management" id="custom_users.menu_manager_user"
-			parent="custom_users.menu_root" sequence="10" />
-		<menuitem name="User Management" id="custom_users.menu_user_detail"
-			parent="custom_users.menu_root" sequence="20" />
-		<!-- <menuitem name="Menu 2" id="custom_users.menu_2" parent="custom_users.menu_root"/> -->
+		<menuitem name="Web Admin" id="custom_users.menu_web_admin_manager_users"
+			parent="custom_users.menu_user_root" sequence="10" />
+		<menuitem name="Web User" id="custom_users.menu_web_user_manager_users"
+			parent="custom_users.menu_user_root" sequence="20" />
+		<!-- <menuitem name="Menu 2" id="custom_users.menu_2" parent="custom_users.menu_user_root"/> -->
 
 		<!-- actions -->
+		<!-- Internal User -->
+		<menuitem name="Account Manager" id="custom_users.menu_user_account_manager_users"
+			parent="custom_users.menu_web_admin_manager_users"
+			action="custom_users.action_account_manager_users" />
 
-		<menuitem name="List" id="custom_users.menu_admin_detail_list"
-			parent="custom_users.menu_manager_user"
-			action="custom_users.action_admin_window" />
-		<menuitem name="List" id="custom_users.menu_user_detail_list"
-			parent="custom_users.menu_user_detail"
-			action="custom_users.action_user_window" />
+
+		<menuitem name="SA manager" id="custom_users.menu_user_sa_manager_users"
+			parent="custom_users.menu_web_admin_manager_users"
+			action="custom_users.action_sa_manager_users" />
+
+
+
+		<menuitem name="CFO" id="custom_users.menu_user_cfo_users"
+			parent="custom_users.menu_web_admin_manager_users"
+			action="custom_users.action_cfo_users" />
+
+
+
+		<!-- Portal Employee -->
+		<menuitem name="Cooperate" id="custom_users.menu_user_cooperate_users"
+			parent="custom_users.menu_web_user_manager_users"
+			action="custom_users.action_cooperate_users" />
+
+		<menuitem name="Employee" id="custom_users.menu_user_employee_users"
+			parent="custom_users.menu_web_user_manager_users"
+			action="custom_users.action_employee_users" />
 
 	</data>
 </odoo>
