@@ -130,7 +130,7 @@
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('customer_group','=', 'group_user_sa_manager')]</field>
 			<field name="context">{
-				'default_admin_group': 'group_user_sa_manager'
+				'default_customer_group': 'group_user_sa_manager'
 				}
 			</field>
 		</record>
@@ -143,7 +143,7 @@
 			<field name="view_mode">tree,form</field>
 			<field name="domain">[('customer_group','=', 'group_user_cfo')]</field>
 			<field name="context">{
-				'default_admin_group': 'group_user_cfo'
+				'default_customer_group': 'group_user_cfo'
 				}
 			</field>
 		</record>

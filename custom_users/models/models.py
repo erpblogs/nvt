@@ -20,6 +20,9 @@ class CustomUserInherit(models.Model):
             return self.env.ref(f'custom_users.super_admin').ids
         if self._context.get('default_account_manager'):
             return self.env.ref(f'custom_users.account_manager').ids
+        customer_group = self._context.get('default_customer_group')
+        if customer_group:
+            return self.env.ref(f'custom_users.{customer_group}').ids
             
         default_user_template = 'base.default_user'
         if self._context.get('default_portal_user'):
