@@ -44,7 +44,7 @@
 	
 	<menuitem name="Companies" id="menu_portal_company" sequence="30"
 		parent="custom_users.menu_root"
-		groups="custom_users.group_web_admin" />
+		groups="custom_users.group_user_account_manager" />
 
 	<menuitem name="List" id="custom_users.menu_partner_company_list"
 		parent="menu_portal_company"

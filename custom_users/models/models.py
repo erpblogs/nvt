@@ -29,6 +29,13 @@ class CustomUserInherit(models.Model):
     portal_company_following_ids = fields.Many2many('res.company', 'portal_user_company_ref',
                                                     string="Company Following", domain="[('web_company', '=', True)]")
     
+    portal_group = fields.Selection([
+        ('group_user_account_manager': 'Account Manager'),
+        ('group_user_sa_manager': 'SA manager'),
+        ('group_user_cooperate': 'Cooperate'),
+        ('group_user_cfo': 'CFO'),
+        ('group_user_employee': 'Employee')
+        ], 'Access', require=True)
 
     # @api.model
     # def create(self, vals):
@@ -39,9 +46,8 @@ class CustomUserInherit(models.Model):
     #         })
     #     return super().create(vals)
     
-    @api.onchange('is_manager')
+    @api.onchange('portal_group')
     def onchange_is_manager(self):
-        if self.is_manager:
-            self.groups_id = [(4, self.env.ref('custom_users.group_portal_admin').id)]
-        else:
-            self.groups_id = [(3, self.env.ref('custom_users.group_portal_admin').id)]
+        self.groups_id = [(5, 0, 0),] + [(4, self.env.ref(f'custom_users.{self.portal_group}').id)]
+
+        

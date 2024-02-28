@@ -67,7 +67,7 @@
 							</group>
 						</page>
 						<page name="custom_access_rights" string="Access Rights"
-							groups="custom_users.group_web_admin">
+							groups="custom_users.group_user_account_manager">
 							<group name="custom_access_rights">
 								<field name="is_manager" invisible="web_user == False" />
 								<field name="groups_id" invisible="1" />
