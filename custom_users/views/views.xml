@@ -13,8 +13,7 @@
 					<field name="phone" />
 					<field name="portal_user" column_invisible="True" />
 					<field name="portal_department_id" />
-					<field name="company_id"/>
-					<!-- <field name="company_id" column_invisible="not context.get('default_portal_user')"/> -->
+					<field name="portal_company_id" column_invisible="not context.get('default_portal_user', False)"/>
 					<field name="active"/>
 					<field name="login_date" readonly="1"/>
 				</tree>
@@ -54,8 +53,10 @@
 									<field name="portal_user" invisible="1" />
 									<field name="super_admin" invisible="1" />
 									<field name="account_manager" invisible="1" />
-									<field name="company_id" />
-									<field name="portal_department_id" />
+									<field name="portal_company_id" column_invisible="not context.get('default_portal_user', False)" 
+										domain="[('is_company', '=', True)]"
+										options="{'no_create': True}"/>
+									<!-- <field name="portal_department_id" /> -->
 								</group>
 								<group string="Localization" name="preferences">
 									<field name="active" invisible="1" />
@@ -69,27 +70,24 @@
 								</group>
 							</group>
 						</page>
-						<page name="custom_access_rights" string="Access Rights" groups="custom_users.super_admin">
-							<group>
-								<group name="access_rights">
-									<field name="customer_group" invisible="portal_user == False" 
-									required="portal_user == True"/>
-									<field name="groups_id" invisible="1" />
-								</group>
-								<group name="company_following">
-									<!-- <field name="portal_company_following_ids"  -->
-									<field name="company_ids" 
-									widget="many2many_tags"
-									groups="custom_users.super_admin"
-									invisible="account_manager != True" context="{'default_web_company': True}" >
-										<tree>
-											<field name="name" />
-											<field name="phone" />
-											<field name="email" />
-										</tree>
-									</field>
-									<!-- <field name="company_ids"  widget="many2many_tags" /> -->
-								</group>
+						<page name="custom_access_rights" string="Access Rights" groups="custom_users.super_admin,custom_users.account_manager">
+							<group name="access_rights" >
+								<field name="customer_group" invisible="portal_user == False" 
+								required="portal_user == True"/>
+								<field name="groups_id" invisible="1" />
+							</group>
+							<group name="company_following">
+								<field name="customer_following_ids" 
+								widget="many2many_tags"
+								domain="[('is_company', '=', True)]"
+								options="{'no_create': True}"
+								>
+									<tree>
+										<field name="name" />
+										<field name="phone" />
+										<field name="email" />
+									</tree>
+								</field>
 							</group>
 						</page>
 					</notebook>

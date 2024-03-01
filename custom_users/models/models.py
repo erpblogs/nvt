@@ -35,8 +35,9 @@ class CustomUserInherit(models.Model):
     account_manager = fields.Boolean("Account Manager")
     groups_id = fields.Many2many(default=_default_groups_custom)
     portal_department_id = fields.Many2one('res.department', 'Department')
-    portal_company_following_ids = fields.Many2many('res.company', 'portal_user_company_ref', string="Company Following")
-
+    customer_following_ids = fields.One2many('res.partner', 'user_id', string="Customers")
+    portal_company_id = fields.Many2one('res.partner', string="Company")
+    
     customer_group = fields.Selection([
         ('group_user_sa_manager', 'SA manager'),
         ('group_user_cfo', 'CFO'),
@@ -81,10 +82,10 @@ class CustomUserInherit(models.Model):
 
         
 
-    # @api.onchange('portal_company_following_ids')
-    # def onchange_portal_company_following_ids(self):
-    #     if self.portal_company_following_ids:
-    #         self.company_ids = [(6,0, self.company_id.ids + self.portal_company_following_ids.ids)]
+    # @api.onchange('customer_following_ids')
+    # def onchange_customer_following_ids(self):
+    #     if self.customer_following_ids:
+    #         self.company_ids = [(6,0, self.company_id.ids + self.customer_following_ids.ids)]
     #     else:
     #         self.company_ids = [(6,0, self.company_id.ids)]
             

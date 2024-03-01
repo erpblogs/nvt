@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "NVT Admin Portal",
+    'name': "Users Management",
 
     'summary': "Short (1 phrase/line) summary of the module's purpose",
 
@@ -26,7 +26,7 @@ Long description of module's purpose
         'data/ir_module_category_data.xml',
         
         'views/views.xml',
-        'views/company_views.xml',
+        'views/res_partner_views.xml',
         'views/department_views.xml',
         'views/templates.xml',
     ],
