@@ -13,8 +13,8 @@ class ParnerDepartment(models.Model):
     _name = 'res.partner.department'
     _description = "Partner Department"
     
-    name = fields.Char("Name")
-    company_id = fields.Many2one('res.partner', required=True, domain=[('is_company', '=', True)])
+    name = fields.Char("Name", required="True")
+    company_id = fields.Many2one('res.partner', required=True, domain=[('is_company', '=', True), ('partner_company', '=', True)])
     
     
 

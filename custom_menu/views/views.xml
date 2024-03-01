@@ -1,7 +1,13 @@
 <odoo>
   <data>
 
-    <!-- Only admin can view those menu -->
+    <!-- Update menu -->
+    <record id="spreadsheet_dashboard.spreadsheet_dashboard_menu_root" model="ir.ui.menu">
+      <field name="sequence" eval="1"/>
+    </record>
+
+
+    
     <record id="base.menu_administration" model="ir.ui.menu">
       <field name="groups_id" eval="[(6,0, [ref('base.group_system')])]"/>
     </record>

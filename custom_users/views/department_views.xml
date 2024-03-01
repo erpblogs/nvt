@@ -8,7 +8,7 @@
 			<tree string="partner department tree" editable="top">
 				<!-- Add your fields here -->
 				<field name="name" />
-				<field name="company_id" invisible="True" />
+				<!-- <field name="company_id" invisible="True" /> -->
 			</tree>
 		</field>
 	</record>
@@ -29,7 +29,7 @@
 		</field>
 	</record>
 
-	<record id="action_partner_department" model="ir.actions.act_window">
+	<record id="action_res_user_department" model="ir.actions.act_window">
 		<field name="name">Department</field>
 		<field name="res_model">res.department</field>
 		<field name="view_mode">tree,form</field>
@@ -38,10 +38,11 @@
 
 	<menuitem name="Department" id="menu_portal_department" sequence="30"
 		parent="custom_users.menu_user_root"
+		action="action_res_user_department" 
 		groups="custom_users.super_admin" />
-
+<!-- 
 	<menuitem name="List" id="custom_users.menu_partner_department_list"
 		parent="menu_portal_department"
-		action="action_partner_department" />
+		action="action_res_user_department" /> -->
 
 </odoo>

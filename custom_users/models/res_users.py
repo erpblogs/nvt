@@ -9,7 +9,7 @@ class CustomDepartment(models.Model):
     _name = 'res.department'
     _description = "Res Department"
     
-    name = fields.Char("Name")
+    name = fields.Char("Name", required="True")
     company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company)
 
 

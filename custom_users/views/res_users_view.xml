@@ -162,7 +162,7 @@
 
 		<menuitem name="Admin Management" id="custom_users.menu_user_root"
 			groups="custom_users.super_admin"
-			sequence="10"
+			sequence="100"
 			web_icon="contacts,static/description/icon.png" />
 
 		<!-- menu categories -->
