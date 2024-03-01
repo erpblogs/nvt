@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Web User -->
+
+    <record model="ir.actions.act_window" id="custom_users.action_sa_manager_users">
+        <field name="name">SA manager</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('customer_group','=', 'group_user_sa_manager')]</field>
+        <field name="context">{
+            'default_customer_group': 'group_user_sa_manager',
+            'default_is_customer': True,
+            }
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="custom_users.action_cfo_users">
+        <field name="name">CFO</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('customer_group','=', 'group_user_cfo')]</field>
+        <field name="context">{
+            'default_customer_group': 'group_user_cfo',
+            'default_is_customer': True,
+            }
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="custom_users.action_cooperate_users">
+        <field name="name">Cooperate</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('customer_group','=', 'group_user_cooperate')]</field>
+        <field name="context">{
+            'default_customer_group': 'group_user_cooperate',
+            'default_is_customer': True,
+            }
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="custom_users.action_employee_users">
+        <field name="name">Employee</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('customer_group','=', 'group_user_employee')]</field>
+        <field name="context">{
+            'default_customer_group': 'group_user_employee',
+            'default_is_customer': True,
+            }
+        </field>
+    </record>
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="Customers" id="custom_users.menu_customer_root"
+        groups="custom_users.account_manager,custom_users.super_admin"
+        sequence="10"
+        web_icon="contacts,static/description/icon.png" />
+
+
+    <menuitem name="User Management" id="custom_users.menu_web_user_manager_users"
+        groups="custom_users.account_manager,custom_users.super_admin"
+        parent="custom_users.menu_customer_root" sequence="20" />
+
+    <!-- Web User -->
+
+    <menuitem name="SA manager" id="custom_users.menu_user_sa_manager_users"
+        groups="custom_users.account_manager,custom_users.super_admin"
+        parent="custom_users.menu_web_user_manager_users"
+        action="custom_users.action_sa_manager_users" />
+
+
+    <menuitem name="CFO" id="custom_users.menu_user_cfo_users"
+        groups="custom_users.account_manager,custom_users.super_admin"
+        parent="custom_users.menu_web_user_manager_users"
+        action="custom_users.action_cfo_users" />
+
+    <!-- Portal Employee -->
+    <menuitem name="Cooperate" id="custom_users.menu_is_customer_cooperate_users"
+        groups="custom_users.account_manager,custom_users.super_admin"
+        parent="custom_users.menu_web_user_manager_users"
+        action="custom_users.action_cooperate_users" />
+
+    <menuitem name="Employee" id="custom_users.menu_is_customer_employee_users"
+        groups="custom_users.account_manager,custom_users.super_admin"
+        parent="custom_users.menu_web_user_manager_users"
+        action="custom_users.action_employee_users" />
+</odoo>

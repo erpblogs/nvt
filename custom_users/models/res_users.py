@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.tools import email_normalize
+from odoo.exceptions import UserError
 
 
 class CustomDepartment(models.Model):
@@ -35,6 +37,7 @@ class CustomUserInherit(models.Model):
     account_manager = fields.Boolean("Account Manager")
     groups_id = fields.Many2many(default=_default_groups_custom)
     user_department_id = fields.Many2one('res.department', 'Department')
+    partner_department_id = fields.Many2one('res.partner.department', string="Contact Department")
     customer_following_ids = fields.One2many('res.partner', 'user_id', string="Customers")
     portal_company_id = fields.Many2one('res.partner', string="Company")
     
@@ -43,8 +46,8 @@ class CustomUserInherit(models.Model):
         ('group_user_cfo', 'CFO'),
         ('group_user_cooperate', 'Cooperate'),
         ('group_user_employee', 'Employee')
-        ], string='Customer Access')
-
+        ], string='Role')
+        
     # @api.model
     # def create(self, vals):
         

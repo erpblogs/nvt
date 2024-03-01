@@ -26,8 +26,10 @@ Long description of module's purpose
         'data/ir_module_category_data.xml',
         
         'views/res_users_view.xml',
-        'views/res_partner_views.xml',
+        'views/customer_users.xml',
         'views/department_views.xml',
+        
+        'views/res_partner_views.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode
