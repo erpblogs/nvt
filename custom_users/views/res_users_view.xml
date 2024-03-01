@@ -138,57 +138,7 @@
 		</record>
 
 
-		<record model="ir.actions.act_window" id="custom_users.action_sa_manager_users">
-			<field name="name">SA manager</field>
-			<field name="res_model">res.users</field>
-			<field name="view_mode">tree,form</field>
-			<field name="domain">[('customer_group','=', 'group_user_sa_manager')]</field>
-			<field name="context">{
-				'default_customer_group': 'group_user_sa_manager',
-				'default_is_customer': True,
-				}
-			</field>
-		</record>
-
-
-		<record model="ir.actions.act_window" id="custom_users.action_cfo_users">
-			<field name="name">CFO</field>
-			<field name="res_model">res.users</field>
-			<field name="view_mode">tree,form</field>
-			<field name="domain">[('customer_group','=', 'group_user_cfo')]</field>
-			<field name="context">{
-				'default_customer_group': 'group_user_cfo',
-				'default_is_customer': True,
-				}
-			</field>
-		</record>
-
-
-		<record model="ir.actions.act_window" id="custom_users.action_cooperate_users">
-			<field name="name">Cooperate</field>
-			<field name="res_model">res.users</field>
-			<field name="view_mode">tree,form</field>
-			<field name="domain">[('customer_group','=', 'group_user_cooperate')]</field>
-			<field name="context">{
-				'default_customer_group': 'group_user_cooperate',
-				'default_is_customer': True,
-				}
-			</field>
-		</record>
-
-
-		<record model="ir.actions.act_window" id="custom_users.action_employee_users">
-			<field name="name">Employee</field>
-			<field name="res_model">res.users</field>
-			<field name="view_mode">tree,form</field>
-			<field name="domain">[('customer_group','=', 'group_user_employee')]</field>
-			<field name="context">{
-				'default_customer_group': 'group_user_employee',
-				'default_is_customer': True,
-				}
-			</field>
-		</record>
-
+	
 
 		<!-- server action to the one above -->
 		<!-- 
@@ -208,20 +158,18 @@
 
 		<!-- Top menu item -->
 
-		<menuitem name="Users Management" id="custom_users.menu_user_root"
-			groups="custom_users.account_manager,custom_users.super_admin"
+		<menuitem name="Admin Management" id="custom_users.menu_user_root"
+			groups="custom_users.super_admin"
 			sequence="10"
 			web_icon="contacts,static/description/icon.png" />
 
 		<!-- menu categories -->
 
-		<menuitem name="Web Admin" id="custom_users.menu_web_admin_manager_users"
+		<menuitem name="Account" id="custom_users.menu_web_admin_manager_users"
 			groups="custom_users.super_admin"
 			parent="custom_users.menu_user_root" sequence="10" />
 
-		<menuitem name="Web User" id="custom_users.menu_web_user_manager_users"
-			groups="custom_users.account_manager,custom_users.super_admin"
-			parent="custom_users.menu_user_root" sequence="20" />
+	
 		<!-- <menuitem name="Menu 2" id="custom_users.menu_2" parent="custom_users.menu_user_root"/> -->
 
 		<!-- actions -->
@@ -238,29 +186,6 @@
 			action="custom_users.action_account_manager_users" />
 
 
-		<!-- Web User -->
-
-		<menuitem name="SA manager" id="custom_users.menu_user_sa_manager_users"
-			groups="custom_users.account_manager,custom_users.super_admin"
-			parent="custom_users.menu_web_user_manager_users"
-			action="custom_users.action_sa_manager_users" />
-
-
-		<menuitem name="CFO" id="custom_users.menu_user_cfo_users"
-			groups="custom_users.account_manager,custom_users.super_admin"
-			parent="custom_users.menu_web_user_manager_users"
-			action="custom_users.action_cfo_users" />
-
-		<!-- Portal Employee -->
-		<menuitem name="Cooperate" id="custom_users.menu_is_customer_cooperate_users"
-			groups="custom_users.account_manager,custom_users.super_admin"
-			parent="custom_users.menu_web_user_manager_users"
-			action="custom_users.action_cooperate_users" />
-
-		<menuitem name="Employee" id="custom_users.menu_is_customer_employee_users"
-			groups="custom_users.account_manager,custom_users.super_admin"
-			parent="custom_users.menu_web_user_manager_users"
-			action="custom_users.action_employee_users" />
 
 	</data>
 </odoo>

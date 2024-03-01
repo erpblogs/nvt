@@ -1,5 +1,10 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
+
+"access_super_admin_change_password_wizard","access.super.admin.change.password.wizard","base.model_change_password_wizard","custom_users.super_admin",1,1,1,0
+"access_super_admin_change_password_user","access.super.admin.change.password.user","base.model_change_password_user","custom_users.super_admin",1,1,1,0
+
+
 super_admin_res_users_access,super_admin_res_users_access,base.model_res_users,custom_users.super_admin,1,1,1,1
 account_manager_res_users_access,account_manager_res_users_access,base.model_res_users,custom_users.account_manager,1,1,1,1
 
@@ -7,14 +12,14 @@ super_admin_res_partner_access,super_admin_res_partner_access,base.model_res_par
 account_manager_res_partner_access,account_manager_res_partner_access,base.model_res_partner,custom_users.account_manager,1,1,1,1
 
 custom_department_super_admin_access,custom_users.custom_department_super_admin_access,model_res_department,custom_users.super_admin,1,1,1,1
-custom_department_account_manager_access,custom_users.custom_department_account_manager_access,model_res_department,custom_users.account_manager,1,1,1,1
 custom_department_portal_access,custom_users.custom_department_portal_access,model_res_department,base.group_portal,1,0,0,0
-
-
-"access_super_admin_change_password_wizard","access.super.admin.change.password.wizard","base.model_change_password_wizard","custom_users.super_admin",1,1,1,0
-"access_super_admin_change_password_user","access.super.admin.change.password.user","base.model_change_password_user","custom_users.super_admin",1,1,1,0
-
-
-
 custom_department_access,custom_users.custom_department_access,model_res_department,base.group_user,1,0,0,0
+
+
+
+custom_department_account_manager_access,custom_users.custom_department_account_manager_access,model_res_department,custom_users.account_manager,1,1,1,1
+custom_department_super_admin_access,custom_users.custom_department_super_admin_access,model_res_department,custom_users.super_admin,1,1,1,1
+custom_department_access,custom_users.custom_department_access,model_res_department,base.group_user,1,0,0,0
+
+custom_department_portal_access,custom_users.custom_department_portal_access,model_res_department,base.group_portal,1,0,0,0
 

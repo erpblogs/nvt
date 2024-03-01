@@ -17,7 +17,7 @@ Long description of module's purpose
     'category': 'Uncategorized',
     'version': '0.1',
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','auth_signup','contacts'],
 
     # always loaded
     'data': [
@@ -25,7 +25,7 @@ Long description of module's purpose
         'security/ir.model.access.csv',
         'data/ir_module_category_data.xml',
         
-        'views/views.xml',
+        'views/res_users_view.xml',
         'views/res_partner_views.xml',
         'views/department_views.xml',
         'views/templates.xml',
