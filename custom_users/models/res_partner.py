@@ -3,6 +3,9 @@
 from odoo import models, fields, api
 
 
+
+
+
 # class NvtCompanyInherit(models.Model):
 #     _inherit = 'res.company'
 

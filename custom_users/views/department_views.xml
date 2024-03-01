@@ -8,7 +8,7 @@
 			<tree string="partner department tree" multi_edit="1">
 				<!-- Add your fields here -->
 				<field name="name" />
-				<field name="company_id" />
+				<field name="company_id" invisible="True" />
 			</tree>
 		</field>
 	</record>
@@ -22,7 +22,7 @@
 				<!-- Add your fields here -->
 					<group>
 						<field name="name" />
-						<field name="company_id" />
+						<field name="company_id" invisible="True"/>
 					</group>
 				</sheet>
 			</form>
@@ -36,7 +36,7 @@
 	</record>
 
 	
-	<menuitem name="Department" id="menu_portal_department" sequence="30"
+	<menuitem name="Admin Department" id="menu_portal_department" sequence="30"
 		parent="custom_users.menu_user_root"
 			groups="custom_users.account_manager,custom_users.super_admin"/>
 

@@ -3,14 +3,6 @@
 from odoo import models, fields, api
 
 
-class CustomDepartment(models.Model):
-    _name = 'res.department'
-    _description = "Res Department"
-    
-    name = fields.Char("Name")
-    company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company)
-
-
 class CustomUserInherit(models.Model):
     _inherit = 'res.users'
 
@@ -25,12 +17,12 @@ class CustomUserInherit(models.Model):
             return self.env.ref(f'custom_users.{customer_group}').ids
             
         default_user_template = 'base.default_user'
-        if self._context.get('default_portal_user'):
-            default_user_template = 'base.template_portal_user_id'
+        if self._context.get('default_is_customer'):
+            default_user_template = 'base.template_is_customer_id'
         default_user_id = self.env['ir.model.data']._xmlid_to_res_id(default_user_template, raise_if_not_found=False)
         return self.env['res.users'].browse(default_user_id).sudo().groups_id if default_user_id else []
     
-    portal_user = fields.Boolean("Is Web User")
+    is_customer = fields.Boolean("Is Web User")
     super_admin = fields.Boolean("Super Admin")
     account_manager = fields.Boolean("Account Manager")
     groups_id = fields.Many2many(default=_default_groups_custom)
@@ -48,7 +40,7 @@ class CustomUserInherit(models.Model):
     # @api.model
     # def create(self, vals):
         
-    #     if self._context.get('default_portal_user'):
+    #     if self._context.get('default_is_customer'):
     #         vals.update({
     #             'groups_id': [(6, 0, [self.env.ref('base.group_portal').id])]
     #         })
@@ -56,7 +48,7 @@ class CustomUserInherit(models.Model):
     
     @api.onchange('super_admin')
     def onchange_super_admin(self):
-        # if self.portal_user:
+        # if self.is_customer:
         if self.super_admin:
             self.groups_id = [(5, 0, 0),] + [(4, self.env.ref(f'custom_users.super_admin').id)]
         else:
@@ -65,7 +57,7 @@ class CustomUserInherit(models.Model):
     
     @api.onchange('account_manager')
     def onchange_account_manager(self):
-        # if self.portal_user:
+        # if self.is_customer:
         if self.account_manager:
             self.groups_id = [(5, 0, 0),] + [(4, self.env.ref(f'custom_users.account_manager').id)]
         else:
@@ -73,7 +65,7 @@ class CustomUserInherit(models.Model):
         
     @api.onchange('customer_group')
     def onchange_admin_group(self):
-        # if self.portal_user:
+        # if self.is_customer:
         customer_group = self.customer_group or self._context.get('default_customer_group') or 'group_user_employee'
         self.groups_id = [(5, 0, 0),] + [(4, self.env.ref(f'custom_users.{customer_group}').id)]
         # else:
