@@ -9,7 +9,7 @@ class CustomDepartment(models.Model):
     _name = 'res.department'
     _description = "Res Department"
     
-    name = fields.Char("Name", required="True")
+    name = fields.Char("Name", required=True)
     company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company)
 
 
@@ -38,8 +38,8 @@ class CustomUserInherit(models.Model):
     groups_id = fields.Many2many(default=_default_groups_custom)
     user_department_id = fields.Many2one('res.department', 'Department')
     partner_department_id = fields.Many2one('res.partner.department', string="Contact Department")
-    customer_following_ids = fields.One2many('res.partner', 'user_id', string="Customers")
-    portal_company_id = fields.Many2one('res.partner', string="Company")
+    customer_following_ids = fields.One2many('res.partner.company', 'user_id', string="Customers")
+    portal_company_id = fields.Many2one('res.partner.company', string="Portal Company")
     
     customer_group = fields.Selection([
         ('group_user_sa_manager', 'SA manager'),

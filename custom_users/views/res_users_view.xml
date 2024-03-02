@@ -54,7 +54,7 @@
 									<field name="phone" widget="phone" />
 									<field name="email" widget="email" />
 									<field name="is_customer" invisible="1" />
-									<field name="portal_company_id"
+									<field name="portal_company_id" string="Company"
 										invisible="is_customer == False"
 										required="is_customer == True"
 										domain="[('is_company', '=', True), ('partner_company', '=', True)]"
@@ -162,7 +162,7 @@
 
 		<menuitem name="Admin Management" id="custom_users.menu_user_root"
 			groups="custom_users.super_admin"
-			sequence="100"
+			sequence="10"
 			web_icon="contacts,static/description/icon.png" />
 
 		<!-- menu categories -->

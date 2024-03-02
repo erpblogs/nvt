@@ -9,15 +9,6 @@ from odoo.exceptions import UserError
 DF_TIMEZONE = "Asia/Ho_Chi_Minh"
 
 
-class ParnerDepartment(models.Model):
-    _name = 'res.partner.department'
-    _description = "Partner Department"
-    
-    name = fields.Char("Name", required="True")
-    company_id = fields.Many2one('res.partner', required=True, domain=[('is_company', '=', True), ('partner_company', '=', True)])
-    
-    
-
 class CustomPartnerInherit(models.Model):
     _inherit = 'res.partner'
     
@@ -32,7 +23,29 @@ class CustomPartnerInherit(models.Model):
     @api.constrains('email')
     def check_valid_email(self):
         for r in self:
-            if self.email and not email_normalize(r.email):
+            if r.email and not email_normalize(r.email):
+                raise UserError(_('Invalid email address %r', r.email))
+
+class ParnerDepartment(models.Model):
+    _name = 'res.partner.department'
+    _description = "Partner Department"
+    
+    name = fields.Char("Name", required=True)
+    company_id = fields.Many2one('res.partner', required=True, domain=[('is_company', '=', True), ('partner_company', '=', True)])
+    
+    
+
+class CustomPartnerCompany(models.Model):
+    _inherits = {'res.partner': 'partner_company_id'}
+    _name = 'res.partner.company'
+    
+    partner_company_id = fields.Many2one(comodel_name='res.partner',ondelete='restrict', auto_join=True, index=True)
+    # tz = fields.Selection(default=DF_TIMEZONE)
+    
+    @api.constrains('email')
+    def check_valid_email(self):
+        for r in self:
+            if r.email and not email_normalize(r.email):
                 raise UserError(_('Invalid email address %r', r.email))
             
             

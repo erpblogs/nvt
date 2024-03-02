@@ -59,7 +59,7 @@
 
     <menuitem name="Customers" id="custom_users.menu_customer_root"
         groups="custom_users.account_manager,custom_users.super_admin"
-        sequence="10"
+        sequence="15"
         web_icon="contacts,static/description/icon.png" />
 
 

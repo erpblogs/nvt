@@ -22,6 +22,7 @@ Long description of module's purpose
     # always loaded
     'data': [
         'security/base_group.xml',
+        'security/base_security.xml',
         'security/ir.model.access.csv',
         'data/ir_module_category_data.xml',
         
