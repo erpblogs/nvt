@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Custom Ecommerge",
+    'name': "Custom Sale",
 
-    'summary': "Custom Ecommerge",
+    'summary': "Custom Sale",
 
     'description': """
 Custom Ecommerge
@@ -18,7 +18,7 @@ Custom Ecommerge
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': [ 'sales_team', 'custom_menu',],
+    'depends': [ 'sales_team', 'custom_users',],
 
     # always loaded
     'data': [
