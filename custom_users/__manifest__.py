@@ -17,7 +17,7 @@ Long description of module's purpose
     'category': 'Uncategorized',
     'version': '0.1',
     # any module necessary for this one to work correctly
-    'depends': ['base','auth_signup','contacts'],
+    'depends': ['base','auth_signup', 'contacts'],
 
     # always loaded
     'data': [

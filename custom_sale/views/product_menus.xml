@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem id="product_menu_catalog"
+        name="Product Management"
+        web_icon="sale_management,static/description/icon.png"
+        groups="sales_team.group_sale_salesman"
+        sequence="30">
+
+        <menuitem id="menu_product_template_action"
+            action="sale.product_template_action"
+            sequence="10"/>
+        <menuitem id="menu_products"
+            action="product.product_normal_action_sell"
+            groups="product.group_product_variant"
+            sequence="20"/>
+        <!-- <menuitem id="menu_product_pricelist_main"
+            name="Pricelists"
+            action="product.product_pricelist_action2"
+            groups="product.group_product_pricelist"
+            sequence="30"/> -->
+
+        <menuitem id="menu_product_categories"
+            name="Categories"
+            action="product.product_category_action_form"
+            sequence="50"/>
+        
+        <menuitem id="prod_config_main"
+            name="Products"
+            sequence="100">
+            
+            <menuitem id="menu_product_attribute_action"
+                action="product.attribute_action"
+                groups="product.group_product_variant"
+                sequence="10"/>
+
+            </menuitem>
+    </menuitem>
+
+
+</odoo>

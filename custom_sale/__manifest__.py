@@ -18,14 +18,17 @@ Custom Ecommerge
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': [ 'sales_team', 'custom_users',],
+    'depends': [ 'sale', 'sales_team', 'custom_users', 'sale_management', 'product'],
 
-    # always loaded
+    # always loaded 
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
         
         'views/product_views.xml',
+        'views/product_menus.xml',
+        'views/sale_menus.xml',
+        
         'views/templates.xml',
     ],
     # only loaded in demonstration mode
