@@ -1,6 +1,18 @@
 <odoo>
   <data>
-
+    <record id="view_order_tree" model="ir.ui.view">
+      <field name="name">sale.order.tree (orders)</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale_order_tree"/>
+      <field name="mode">primary</field>
+      <field name="priority">2</field>
+      <field name="arch" type="xml">
+          <!-- Dummy view content since empty views are not supported atm -->
+          <tree position="attributes">
+              <attribute name="string">Sales Orders</attribute>
+          </tree>
+      </field>
+  </record>
 
   </data>
 </odoo>

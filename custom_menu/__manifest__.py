@@ -18,7 +18,7 @@ Custom Menu
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail', 'contacts'],
+    'depends': ['base', 'mail', 'contacts', 'sale', 'spreadsheet_dashboard'],
 
     # always loaded
     'data': [
