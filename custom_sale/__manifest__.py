@@ -18,7 +18,7 @@ Custom Ecommerge
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': [ 'sale', 'sales_team', 'custom_users', 'sale_management', 'product'],
+    'depends': [ 'sale', 'delivery', 'sales_team', 'custom_users', 'sale_management', 'product'],
 
     # always loaded 
     'data': [

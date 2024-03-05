@@ -43,10 +43,10 @@
 						widget="many2many_tags"
 						options="{'color_field': 'color'}"
 						optional="hide" />
-					<field name="approval_state" string="Status" 
-						readonly="state in ['cancel', 'sale']" 
+					<field name="approval_state" string="Status"
+						readonly="state in ['cancel', 'sale']"
 					/>
-					<field name="state" 
+					<field name="state"
 						column_invisible="True"
 						decoration-success="state == 'sale'"
 						decoration-info="state == 'draft'"
@@ -55,6 +55,58 @@
 						optional="hide" />
 					<field name="validity_date" optional="hide" />
 				</tree>
+			</field>
+		</record>
+
+		<record id="view_order_form_with_carrier_inherit" model="ir.ui.view">
+			<field name="name">custom.sale.order.form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="delivery.view_order_form_with_carrier" />
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='action_open_delivery_wizard']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="custom_sale_order_form_inherit" model="ir.ui.view">
+			<field name="name">custom.sale.order.form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<field name="partner_id" position="after">
+					<field name="user_id" widget="many2one_avatar_user" />
+				</field>
+
+				<field name="partner_invoice_id" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+				<field name="partner_shipping_id" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+				<field name="payment_term_id" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+
+				<xpath expr="//page[@name='other_information']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='order_line']/tree/field[@name='qty_delivered']"
+					position="attributes">
+					<attribute name="column_invisible">True</attribute>
+				</xpath>
+				<xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']"
+					position="attributes">
+					<attribute name="column_invisible">True</attribute>
+				</xpath>
+
+				<xpath expr="//header" position="replace">
+					<field name="state" invisible="1" />
+					<field name="locked" invisible="1" />
+					<field name="authorized_transaction_ids" invisible="1" />
+					<field name="approval_state" widget="statusbar" readonly="0" options="{'clickable': '1'}"
+						statusbar_visible="draft,confirm,in_transit,deliver" />
+				</xpath>
 			</field>
 		</record>
 
@@ -80,13 +132,13 @@
 					-->
 					<filter string="My Orders" domain="[('user_id', '=', uid)]"
 						name="my_sale_orders_filter" />
-				
+
 					<filter string="Pending Request" domain="[('approval_state', '=', 'draft')]"
 						name="approval_state_pending_filter" />
-				
+
 					<filter string="Confirmed Request" domain="[('approval_state', '=', 'confirm')]"
 						name="approval_state_confirm_filter" />
-				
+
 					<group expand="0" string="Group By">
 						<filter string="Salesperson" name="salesperson" domain="[]"
 							context="{'group_by': 'user_id'}" />
