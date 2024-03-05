@@ -19,7 +19,7 @@ class SaleOrderInherit(models.Model):
 
     approval_state = fields.Selection(
             selection=APPROVAL_STATE,
-            string="Status",
+            string="Approval Status",
             readonly=False,
             inverse="_inverse_approval_state",
             default='draft')

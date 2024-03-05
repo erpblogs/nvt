@@ -1,18 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data>
-    <record id="view_order_tree" model="ir.ui.view">
-      <field name="name">sale.order.tree (orders)</field>
-      <field name="model">sale.order</field>
-      <field name="inherit_id" ref="sale_order_tree"/>
-      <field name="mode">primary</field>
-      <field name="priority">2</field>
-      <field name="arch" type="xml">
-          <!-- Dummy view content since empty views are not supported atm -->
-          <tree position="attributes">
-              <attribute name="string">Sales Orders</attribute>
-          </tree>
-      </field>
-  </record>
+	<record id="custom_product_template_tree_view" model="ir.ui.view">
+		<field name="name">custom.product.template.product.tree</field>
+		<field name="model">product.template</field>
+		<field name="arch" type="xml">
+			<tree string="Product" multi_edit="1" sample="1">
 
-  </data>
+				<field name="product_variant_count" column_invisible="True" />
+				<field name="sale_ok" column_invisible="True" />
+				<field name="currency_id" column_invisible="True" />
+				<field name="cost_currency_id" column_invisible="True" />
+				<field name="priority" widget="priority" optional="show" nolabel="1" />
+				<field name="name" string="Product Name" />
+				<field name="categ_id" optional="show" />
+				<field name="default_code" optional="show" />
+				<field name="part_number" optional="show" />
+				<field name="cto" optional="show" />
+				<field name="barcode" optional="hide" readonly="product_variant_count != 1" />
+				<field name="company_id" options="{'no_create': True}"
+					groups="base.group_multi_company" optional="hide" />
+				<field name="list_price" string="Sales Price" widget='monetary'
+					options="{'currency_field': 'currency_id'}" optional="show"
+					decoration-muted="not sale_ok" />
+				<field name="standard_price" widget='monetary'
+					options="{'currency_field': 'cost_currency_id'}" optional="hide" readonly="1" />
+
+				<field name="detailed_type" optional="hide" readonly="1" />
+				<field name="type" column_invisible="True" />
+				<field name="uom_id" string="Unit" readonly="1" optional="hide"
+					groups="uom.group_uom" />
+				<field name="active" column_invisible="True" />
+				<field name="activity_exception_decoration" widget="activity_exception" />
+			</tree>
+		</field>
+	</record>
+
+	<!-- base structure of product.template, common with product.product -->
+	<record id="custom_product_template_form_view" model="ir.ui.view">
+		<field name="name">product.template.common.form</field>
+		<field name="model">product.template</field>
+		<field name="mode">primary</field>
+		<field name="arch" type="xml">
+			<form string="Product">
+				<sheet name="product_form">
+					<field name='active' invisible='1' />
+					<field name='product_variant_count' invisible='1' />
+					<field name='is_product_variant' invisible='1' />
+					<field name='attribute_line_ids' invisible='1' />
+					<field name="type" invisible="1" />
+					<field name="company_id" invisible="1" />
+
+					<widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+						invisible="active" />
+					<field name="id" invisible="True" />
+					<field name="image_1920" widget="image" class="oe_avatar"
+						options="{'preview_image': 'image_128'}" />
+					<div class="oe_title">
+						<label for="name" string="Product Name" />
+						<h1>
+							<div class="d-flex">
+								<field name="priority" widget="priority" class="me-3" />
+								<field class="text-break" name="name"
+									options="{'line_breaks': False}" widget="text"
+									placeholder="e.g. Cheese Burger" />
+							</div>
+						</h1>
+					</div>
+					<div name="options">
+						<span class="d-inline-block">
+							<field name="sale_ok" />
+							<label for="sale_ok" />
+						</span>
+					</div>
+					<notebook>
+						<page string="General Information" name="general_information">
+							<group>
+								<group name="group_general">
+									<field name="active" invisible="1" />
+									<field name="detailed_type" />
+									<field name="product_tooltip" string=""
+										class="fst-italic text-muted"
+										invisible="type == 'service' and not sale_ok" />
+									<field name="uom_id" groups="uom.group_uom"
+										options="{'no_create': True}" />
+									<field name="uom_po_id" groups="uom.group_uom"
+										options="{'no_create': True}" />
+								</group>
+								<group name="group_standard_price">
+									<label for="list_price" />
+									<div name="pricing" class="o_row">
+										<field name="list_price" class="oe_inline" widget='monetary'
+											options="{'currency_field': 'currency_id', 'field_digits': True}" />
+									</div>
+									<label for="standard_price"
+										invisible="product_variant_count &gt; 1 and not is_product_variant" />
+									<div name="standard_price_uom"
+										invisible="product_variant_count &gt; 1 and not is_product_variant">
+										<field name="standard_price" class="oe_inline"
+											widget='monetary'
+											options="{'currency_field': 'cost_currency_id', 'field_digits': True}" />
+										<span groups="uom.group_uom">per <field name="uom_name"
+												class="oe_inline" />
+										</span>
+									</div>
+									<field name="categ_id" string="Product Category" />
+									<field name="part_number" />
+									<field name="cto" />
+
+									<field name="company_id" groups="base.group_multi_company"
+										options="{'no_create': True}" />
+									<field name="currency_id" invisible="1" />
+									<field name="product_variant_id" invisible="1" />
+								</group>
+							</group>
+							<group string="Internal Notes">
+								<field colspan="2" name="description" nolabel="1"
+									placeholder="This note is only for internal purposes." />
+							</group>
+						</page>
+						<page name="variants" string="Attributes &amp; Variants"
+							groups="product.group_product_variant">
+							<field name="attribute_line_ids" widget="one2many"
+								context="{'show_attribute': False}">
+								<tree string="Variants" editable="bottom"
+									decoration-info="value_count &lt;= 1">
+									<field name="value_count" column_invisible="True" />
+									<field name="sequence" widget="handle" />
+									<field name="attribute_id" readonly="id" />
+									<field name="value_ids" widget="many2many_tags"
+										options="{'no_create_edit': True, 'color_field': 'color'}"
+										context="{'default_attribute_id': attribute_id, 'show_attribute': False}" />
+									<button string="Configure" class="float-end btn-secondary"
+										type="object" name="action_open_attribute_values"
+										groups="product.group_product_variant" />
+								</tree>
+							</field>
+							<p class="oe_grey oe_edit_only">
+								<strong>Warning</strong>: adding or deleting attributes will delete
+								and recreate existing variants and lead to the loss of their
+								possible customizations. </p>
+						</page>
+						<page string="Sales" name="sales" invisible="1 or not sale_ok">
+							<!-- <group name="sale">
+                                <group string="Upsell &amp; Cross-Sell" name="upsell" invisible="1"/>
+                            </group> -->
+							<group>
+								<group string="Sales Description" name="description">
+									<field colspan="2" name="description_sale" nolabel="1"
+										placeholder="This note is added to sales orders and invoices." />
+								</group>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" />
+					<field name="activity_ids" />
+					<field name="message_ids" />
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="custom_product_template_kanban_view" model="ir.ui.view">
+		<field name="name">Product.template.product.kanban</field>
+		<field name="model">product.template</field>
+		<field name="arch" type="xml">
+			<kanban sample="1">
+				<field name="id" />
+				<field name="product_variant_count" />
+				<field name="currency_id" />
+				<field name="activity_state" />
+				<field name="categ_id" />
+				<progressbar field="activity_state"
+					colors='{"planned": "success", "today": "warning", "overdue": "danger"}' />
+				<templates>
+					<t t-name="kanban-box">
+						<div class="oe_kanban_card oe_kanban_global_click">
+							<div class="o_kanban_image me-1">
+								<img
+									t-att-src="kanban_image('product.template', 'image_128', record.id.raw_value)"
+									alt="Product" class="o_image_64_contain" />
+							</div>
+							<div class="oe_kanban_details">
+								<div class="o_kanban_record_top mb-0">
+									<div class="o_kanban_record_headings">
+										<strong class="o_kanban_record_title">
+											<field name="name" />
+										</strong>
+									</div>
+									<field name="priority" widget="priority" />
+								</div>
+								<t t-if="record.default_code.value">[<field name="default_code" />]</t>
+								<div t-if="record.product_variant_count.value &gt; 1"
+									groups="product.group_product_variant">
+									<strong>
+										<t t-esc="record.product_variant_count.value" /> Variants </strong>
+								</div>
+								<div name="product_lst_price" class="mt-1"> Price: <field
+										name="list_price" widget="monetary"
+										options="{'currency_field': 'currency_id', 'field_digits': True}"></field>
+								</div>
+								<div>
+									<field name="product_properties" widget="properties" />
+								</div>
+							</div>
+						</div>
+					</t>
+				</templates>
+			</kanban>
+		</field>
+	</record>
+
+	<record id="custom_product_template_action" model="ir.actions.act_window">
+		<field name="name">Products</field>
+		<field name="res_model">product.template</field>
+		<field name="view_mode">kanban,tree,form</field>
+		<field name="view_id" ref="product.product_template_kanban_view" />
+		<field name="search_view_id" ref="product.product_template_search_view" />
+		<field name="context">{"search_default_filter_to_sell":1}</field>
+		<field name="help" type="html">
+			<p class="o_view_nocontent_smiling_face">
+				Create a new product
+			</p>
+			<p>
+				You must define a product for everything you sell or purchase,
+				whether it's a storable product, a consumable or a service.
+			</p>
+		</field>
+	</record>
+
+	<record id="custom_product_template_action_kanban" model="ir.actions.act_window.view">
+		<field name="sequence" eval="1" />
+		<field name="view_mode">kanban</field>
+		<field name="view_id" ref="custom_product_template_kanban_view" />
+		<field name="act_window_id" ref="custom_product_template_action" />
+	</record>
+
+	<record id="custom_product_template_action_tree" model="ir.actions.act_window.view">
+		<field name="sequence" eval="2" />
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="custom_product_template_tree_view" />
+		<field name="act_window_id" ref="custom_product_template_action" />
+	</record>
+
+	<record id="custom_product_template_action_form" model="ir.actions.act_window.view">
+		<field name="sequence" eval="3" />
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="custom_product_template_form_view" />
+		<field name="act_window_id" ref="custom_product_template_action" />
+	</record>
 </odoo>

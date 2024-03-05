@@ -25,6 +25,7 @@ Custom Ecommerge
         'security/ir.model.access.csv',
         'security/security.xml',
         
+        'views/product_views.xml',
         'views/sale_order_views.xml',
         'views/product_menus.xml',
         'views/sale_menus.xml',

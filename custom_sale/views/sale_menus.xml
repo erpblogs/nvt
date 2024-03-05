@@ -3,10 +3,10 @@
     <!-- ACTIONS (WINDOW) -->
 
     <record id="custom_action_orders" model="ir.actions.act_window">
-        <field name="name">Orders Request</field>
+        <field name="name">All Request</field>
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="search_view_id" ref="custom_view_sales_order_filter"/>
         <field name="context">{}</field>
         <!-- <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field> -->
         <field name="help" type="html">

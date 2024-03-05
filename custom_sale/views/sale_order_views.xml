@@ -6,68 +6,97 @@
 			<field name="priority">1000</field>
 			<field name="arch" type="xml">
 				<tree class="o_sale_order"
-					  string="Sales Orders"
-					  sample="1"  multi_edit="1"
-					  decoration-muted="state == 'cancel'">
+					string="Sales Orders"
+					sample="1" multi_edit="1"
+					decoration-muted="state == 'cancel'">
 					<!-- <header>
 						<button name="%(sale.action_view_sale_advance_payment_inv)d"
 								type="action"
 								string="Create Invoices"
 								class="btn-secondary"/>
 					</header> -->
-					<field name="message_needaction" column_invisible="True"/>
-					<field name="currency_id" column_invisible="True"/>
-	
-					<field name="name" string="Number" readonly="1" decoration-bf="1"/>
-					<field name="date_order" widget="date" optional="show" readonly="state in ['cancel', 'sale']"/>
-					<field name="commitment_date" optional="hide"/>
-					<field name="expected_date" optional="hide"/>
-					<field name="partner_id" readonly="1"/>
-					<field name="user_id" widget="many2one_avatar_user" optional="show"/>
-					<!-- <field name="activity_ids" widget="list_activity" optional="show"/> -->
-					<!-- <field name="team_id" optional="hide"/> -->
-					<field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+					<field name="currency_id" column_invisible="True" />
+					<field name="name" string="Number" readonly="1" decoration-bf="1" />
+					<field name="date_order" widget="date" optional="show"
+						readonly="state in ['cancel', 'sale']" />
+					<field name="partner_id" readonly="1" />
+					<field name="company_id" groups="!base.group_multi_company"
+						column_invisible="True" />
 					<field name="company_id"
-						   groups="base.group_multi_company"
-						   optional="show"
-						   readonly="1"/>
+						groups="base.group_multi_company"
+						optional="show"
+						readonly="1" />
+					<field name="user_id" widget="many2one_avatar_user" optional="show" />
 					<field name="amount_untaxed"
-						   sum="Total Tax Excluded"
-						   widget="monetary"
-						   optional="hide"/>
+						sum="Total Tax Excluded"
+						widget="monetary"
+						optional="hide" />
 					<field name="amount_tax"
-						   sum="Tax Total"
-						   widget="monetary"
-						   optional="hide"/>
+						sum="Tax Total"
+						widget="monetary"
+						optional="hide" />
 					<field name="amount_total"
-						   sum="Total Tax Included"
-						   widget="monetary"
-						   decoration-bf="1"
-						   decoration-info="invoice_status == 'to invoice'"
-						   optional="show"/>
+						sum="Total Tax Included"
+						widget="monetary"
+						optional="show" />
 					<field name="tag_ids"
-						  widget="many2many_tags"
-						  options="{'color_field': 'color'}"
-						  optional="hide"/>
-					<field name="approval_state"/>
-					<field name="state" invisible="1"
+						widget="many2many_tags"
+						options="{'color_field': 'color'}"
+						optional="hide" />
+					<field name="approval_state" string="Status" 
+						readonly="state in ['cancel', 'sale']" 
+					/>
+					<field name="state" 
+						column_invisible="True"
 						decoration-success="state == 'sale'"
 						decoration-info="state == 'draft'"
 						decoration-primary="state == 'sent'"
 						widget="badge"
-						optional="hide"/>
-					<field name="invoice_status"
-						decoration-success="invoice_status == 'invoiced'"
-						decoration-info="invoice_status == 'to invoice'"
-						decoration-warning="invoice_status == 'upselling'"
-						widget="badge"
-						optional="hide"/>
-					<field name="amount_to_invoice" optional="hide"/>
-					<field name="client_order_ref" optional="hide"/>
-					<field name="validity_date" optional="hide"/>
+						optional="hide" />
+					<field name="validity_date" optional="hide" />
 				</tree>
 			</field>
 		</record>
 
+
+		<record id="custom_view_sales_order_filter" model="ir.ui.view">
+			<field name="name">sale.order.list.select</field>
+			<field name="model">sale.order</field>
+			<field name="priority" eval="15" />
+			<field name="arch" type="xml">
+				<search string="Search Sales Order">
+					<field name="name" string="Order"
+						filter_domain="['|', '|', ('name', 'ilike', self), ('approval_state', 'ilike', self), ('partner_id', 'child_of', self)]" />
+					<field name="partner_id" operator="child_of" />
+					<field name="user_id" />
+					<field name="order_line" string="Product"
+						filter_domain="[('order_line.product_id', 'ilike', self)]" />
+					<!-- We only allow to search on the following sale order line fields (product,
+					name) because the other fields, such as price, quantity, ...
+						will not be searched as often, and if they need to be searched it's usually in the context of
+					products
+						and then they can be searched from the page listing the sale order lines related to a product (from
+					the product itself).
+					-->
+					<filter string="My Orders" domain="[('user_id', '=', uid)]"
+						name="my_sale_orders_filter" />
+				
+					<filter string="Pending Request" domain="[('approval_state', '=', 'draft')]"
+						name="approval_state_pending_filter" />
+				
+					<filter string="Confirmed Request" domain="[('approval_state', '=', 'confirm')]"
+						name="approval_state_confirm_filter" />
+				
+					<group expand="0" string="Group By">
+						<filter string="Salesperson" name="salesperson" domain="[]"
+							context="{'group_by': 'user_id'}" />
+						<filter name="customer" string="Customer" domain="[]"
+							context="{'group_by': 'partner_id'}" />
+						<filter string="Approval Status" name="approval_state" domain="[]"
+							context="{'group_by': 'approval_state'}" />
+					</group>
+				</search>
+			</field>
+		</record>
 	</data>
 </odoo>
