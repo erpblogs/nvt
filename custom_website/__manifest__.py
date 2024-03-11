@@ -27,12 +27,14 @@ Long description of module's purpose
         
         # datas
         'data/company.xml',
-        'data/website_date.xml',
+        'data/website_data.xml',
         
         'views/savvycom_website_view.xml',
         # website
         
         'views/website_templates.xml',
+        'views/website_header.xml',
+        'views/web_layout.xml',
         
         # menu
         'views/hidden_menu.xml',
@@ -41,5 +43,19 @@ Long description of module's purpose
     'demo': [
         # 'demo/demo.xml',
     ],
+    'assets': {
+        'web._assets_primary_variables': [
+            ('after', 'web/static/src/scss/primary_variables.scss', 'custom_website/static/src/**/*.variables.scss'),
+            ('before', 'web/static/src/scss/primary_variables.scss',  'custom_website/static/src/scss/primary_variables.scss',),
+        ],
+        'web._assets_secondary_variables': [
+            ('before', 'web/static/src/scss/secondary_variables.scss', 'custom_website/static/src/scss/secondary_variables.scss'),
+        ],
+        'web._assets_common_styles': [
+            'custom_website/static/src/scss/fonts.scss',
+            # 'vti_theme/static/src/scss/reboot.scss',
+            # 'vti_theme/static/src/scss/navbar.scss',
+        ],
+    }
 }
 

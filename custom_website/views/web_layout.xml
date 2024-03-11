@@ -1,0 +1,35 @@
+<odoo>
+
+    <template id="custom_layout" name="Frontend Layout" inherit_id="web.layout"
+                  primary="True">
+            <xpath expr="//head/meta[last()]" position="after">
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            </xpath>
+            <xpath expr="//head/link[last()]" position="after">
+                <link rel="preload" href="/custom_website/static/src/fonts/SF-Pro.ttf" as="font" crossorigin=""/>
+                <t t-call-assets="web.assets_common" t-js="false"/>
+                <t t-call-assets="web.assets_frontend" t-js="false"/>
+            </xpath>
+            <xpath expr="//head/script[@id='web.layout.odooscript']" position="after">
+                <script type="text/javascript">
+                    odoo.__session_info__ =<t t-out="json.dumps(request.env['ir.http'].get_frontend_session_info())"/>;
+                    if (!/(^|;\s)tz=/.test(document.cookie)) {
+                    const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    document.cookie = `tz=${userTZ}; path=/`;
+                    }
+                </script>
+                <t t-call-assets="web.assets_common_minimal" t-css="false" defer_load="True"/>
+                <t t-call-assets="web.assets_frontend_minimal" t-css="false" defer_load="True"/>
+                <t t-call="web.conditional_assets_tests"/>
+                <t t-call-assets="web.assets_common_lazy" t-css="false" lazy_load="True"/>
+                <t t-call-assets="web.assets_frontend_lazy" t-css="false" lazy_load="True"/>
+            </xpath>
+            <xpath expr="//t[@t-out='0']" position="replace">
+                <div id="wrapwrap" t-attf-class="#{pageName or ''}">
+                    <main>
+                        <t t-out="0"/>
+                    </main>
+                </div>
+            </xpath>
+        </template>
+</odoo>

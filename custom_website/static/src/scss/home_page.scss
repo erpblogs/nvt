@@ -1,0 +1,561 @@
+
+#homepage_index_content {
+    .hoya-conver-image {
+      //height: 210px;
+      background-color: unset;
+  
+      .o_record_cover_image {
+        border-radius: 50%;
+        width: 210px;
+        height: 210px;
+        align-self: center;
+      }
+    }
+  
+    .o_record_cover_container {
+      //box-shadow: inset 0 0 0 1px rgba(white, 0.3);
+  
+      padding: 0;
+      height: 210px !important;
+      // This is mandatory as we do not want the CoverProperties
+      // sizing classes to be applied here
+      //min-height: auto !important;
+  
+      &:hover .o_record_cover_image {
+        opacity: 0.8;
+      }
+  
+      .o_record_cover_component {
+        position: static;
+      }
+    }
+  }
+  
+  #homepage_index_content, .hoya-menu-content {
+    background-color: #F6F6F6;
+    padding-bottom: 32px;
+  
+    #o_wblog_posts_loop {
+      .new-post {
+        padding-bottom: 32px;
+        padding-left: 15px;
+        padding-right: 15px;
+        //&:nth-child(2n+1) {
+        //  padding-left: 0;
+        //
+        //}
+        //
+        //&:nth-child(2n+2) {
+        //  padding-right: 0;
+        //
+        //}
+      }
+  
+      .o_wblog_post {
+  
+        .hoya-post-custom-style {
+          border-bottom: 1px solid #E4E4E4;
+          margin-bottom: 8px;
+          padding-bottom: 8px;
+  
+          div {
+            height: 50px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+          }
+  
+          .o_blog_post_title {
+            font-size: 16px;
+          }
+  
+          .o_blog_post_sub_title {
+            font-size: 14px;
+          }
+        }
+  
+        .hoya-news-info {
+          .hoya-news-info-box {
+            height: 22px;
+            font-weight: normal;
+  
+            .hoya-news-info-items {
+              display: flex;
+  
+              .hoya-news-info-box-text {
+                margin-right: 25px !important;
+                font-size: 14px;
+                line-height: 22px;
+                color: #666666 !important;
+                min-width: 60px;
+                width: fit-content;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                display: block;
+  
+                i {
+                  margin-right: 5px;
+                }
+              }
+            }
+          }
+        }
+      }
+  
+      .o_wblog_normalize_font {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 22px;
+        height: 44px;
+        white-space: pre-wrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+  
+      .hoya_blog_card {
+        margin: 0;
+  
+        //.col-md-6, .col-12 {
+        //  padding-left: unset;
+        //  padding-right: unset;
+        //}
+  
+  
+      }
+  
+      .hoya-custom-tags {
+        padding-bottom: 32px;
+  
+        .align-items-baseline {
+          border: 1px solid #FFFFFF !important;
+          box-sizing: border-box;
+          border-radius: 19px !important;;
+          background-color: #FFFFFF;
+          padding: 2px 16px !important;
+          margin-right: 16px;
+  
+          i.fa {
+            display: none;
+          }
+  
+          a.post_link {
+            //background: #828282;
+          }
+        }
+  
+      }
+    }
+  
+  }
+  
+  .hoya-menu-content {
+    .hoya-conver-image {
+      //height: 210px;
+      background-color: unset;
+  
+      .o_record_cover_image {
+        border-radius: 50%;
+        width: 210px;
+        height: 210px;
+        align-self: center;
+      }
+    }
+  
+    .menu_post_loop {
+      .o_record_cover_container {
+        //box-shadow: inset 0 0 0 1px rgba(white, 0.3);
+  
+        padding: 0;
+        height: 210px !important;
+        // This is mandatory as we do not want the CoverProperties
+        // sizing classes to be applied here
+        //min-height: auto !important;
+  
+        &:hover .o_record_cover_image {
+          opacity: 0.8;
+        }
+  
+        .o_record_cover_component {
+          position: static;
+        }
+      }
+    }
+  }
+  
+  .home-page-content-header {
+    padding-top: 68px;
+  
+    .home-page-page-url {
+  
+    }
+  
+    .home-page-title {
+      /* List News */
+      height: 32px;
+  
+      margin-bottom: 32px;
+  
+      /* Website/Header/H2 */
+  
+      font-family: $o-theme-font;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 32px;
+      /* identical to box height, or 133% */
+  
+  
+      /* Text/Main */
+  
+      color: #2D2A28;
+    }
+  
+  }
+  
+  .hoya-top-menu {
+    .navbar {
+      padding: 0;
+      display: block;
+  
+      #top_menu_container {
+        padding-top: 24px;
+        display: grid;
+  
+        grid-template-columns: auto;
+        @media (min-width: 576px) {
+          grid-template-columns: 120px auto;
+        }
+  
+        .hoya-navbar-header-logo {
+          //padding-right: 104px;
+          max-width: 120px;
+  
+          .img {
+            width: 120px;
+          }
+        }
+  
+  
+        #top_menu_collapse {
+          padding: 0px;
+          padding-left: 14px;
+  
+          .hoya-header-search-box {
+            padding-right: 14px;
+            padding-bottom: 16px;
+          }
+  
+          .hoya-menu-custom-style {
+            flex-direction: column;
+            @media (min-width: 576px) {
+              flex-direction: row;
+            }
+          }
+  
+          #top_menu, .hoya-menu-custom-style {
+            gap: unset;
+            color: #2D2A28;
+            flex-wrap: wrap !important;
+  
+            .nav-item {
+              font-family: $o-theme-font;
+  
+              margin-bottom: 16px;
+              padding-right: 14px;
+              text-align: center;
+  
+              .nav-link {
+                color: #FFFFFF;
+                padding: 0 16px;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 14px;
+                line-height: 38px;
+                background: #0057BC;
+                border: 1px solid #0057BC;
+                box-sizing: border-box;
+                border-radius: 19px;
+  
+                &:hover, &:active {
+                  color: #0057BC;
+                  background: #FFFFFF;
+                }
+  
+              }
+  
+              .nav-link.active {
+                color: #0057BC;
+                background: #FFFFFF;
+              }
+  
+              .font-weight-bold {
+                color: $o-brand-primary;
+              }
+  
+              .dropdown-menu {
+                .dropdown-item.active, .dropdown-item:hover {
+                  color: #0057BC !important;
+                  background: #FFFFFF;
+                  outline: 1px solid #0057BC;
+                  outline-offset: -1px;
+                  box-sizing: border-box;
+                  border-radius: 19px;
+                }
+              }
+  
+            }
+  
+            .dropdown-menu {
+              top: 54px;
+            }
+  
+          }
+  
+          .hoya-custom-navbar {
+            display: grid;
+            grid-template-columns: auto;
+  
+            @media (min-width: 576px) {
+              grid-template-columns: auto  minmax(90px, 200px);
+            }
+  
+            .hoya-user-text-style {
+              background-color: unset !important;
+              color: #0057BC !important;
+              text-overflow: ellipsis;
+              overflow: hidden;
+            }
+          }
+  
+          .hoya-footer-navbar {
+            opacity: unset !important;;
+          }
+        }
+  
+        #top_menu_collapse.hoya-navbar-collapse {
+          display: block !important;
+        }
+  
+        //#top_menu {
+        //  .nav-item {
+        //
+        //    .nav-link {
+        //      line-height: 38px;
+        //    }
+        //
+        //  }
+        //
+        //}
+  
+      }
+    }
+  }
+  
+  .dropdown-menu-right-custom {
+    left: 0 !important;
+    right: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+  .hoya-top-menu.o_header_affixed {
+    position: absolute;
+  }
+  
+  
+  .h_default_snippet_text {
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    font-size: 32px;
+    -webkit-box-orient: vertical;
+  }
+  
+  .hoya-carousel {
+    background-color: #0057BC;
+    background-image: none;
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: top left;
+    color: #FFFFFF;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-image: url("/hoya_portal/static/src/images/carousel_bg.png");
+    //@media (min-width: 992px) {
+    //
+    //}
+  
+    .carousel-inner {
+      .o_wevent_event_title {
+        margin: 3rem 0;
+  
+        .hoya-carousel-content {
+          max-width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          flex-basis: content;
+          flex-grow: unset;
+          flex-flow: wrap;
+  
+          &:hover {
+            max-width: unset;
+          }
+  
+          .hoya_carousel_detail {
+            background: #FFFFFF;
+            border: 1px solid #FFFFFF;
+            color: #0057BC;
+            box-sizing: border-box;
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 48px;
+            text-transform: capitalize;
+            width: 248px;
+            align-items: center;
+            text-align: center;
+            height: 48px;
+          }
+  
+          .o_wevent_event_name {
+            font-weight: bold;
+            font-size: 44px;
+            //line-height: 64px;
+            color: #FFFFFF;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            //height: 128px;
+            height: 200px;
+            min-height: 200px;
+  
+            &:hover {
+              -webkit-line-clamp: unset;
+              display: block;
+              height: unset;
+              width: 100%;
+            }
+          }
+  
+          .o_wevent_event_subtitle {
+            font-style: normal;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 22px;
+            /* or 157% */
+  
+            //text-transform: capitalize;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            height: 44px;
+  
+            /* Text/White */
+  
+            color: #FFFFFF;
+  
+          }
+  
+          .hoya_wevent_event_country {
+            color: #FFFFFF;
+            font-size: 14px;
+            line-height: 22px;
+            //margin-bottom: 118px;
+  
+            .nav-link {
+              color: #FFFFFF;
+            }
+          }
+        }
+      }
+  
+      .hoya-carousel-image {
+        //max-height: 476px;
+        //max-width: 476px;
+        padding: 0;
+        border: 12px solid #1968c3;
+        border-radius: 100%;
+  
+        @media (max-width: 992px) {
+          align-self: center;
+        }
+  
+        .o_record_cover_container {
+          border-radius: 100%;
+          padding-bottom: 100%;
+          height: 0 !important;
+          //border: 12px solid #1968c3;
+  
+          .oe_black {
+            display: none;
+            background-color: unset;
+          }
+  
+          .o_record_cover_image {
+            background-attachment: inherit !important;
+            border-radius: 100%;
+            //margin: 15px;
+          }
+        }
+  
+        .o_half_screen_height, .o_full_screen_height {
+          min-height: unset !important;
+        }
+      }
+    }
+  
+  }
+  
+  .hoya-carousel-indicators {
+    .hoya-carousel-indicators-icon {
+      width: 8px;
+      height: 8px !important;
+      left: 0px;
+      top: 0px;
+    }
+  }
+  
+  
+  #wrapwrap.o_header_overlay {
+    > header:not(.o_header_affixed):not(.o_top_menu_collapse_shown) {
+      //@include o-position-absolute(0, 0, auto, 0);
+      //z-index: 1000;
+  
+      > .navbar {
+        @include o-apply-colors(1); // Reset to default colored components
+        background-color: transparent !important;
+        border-color: transparent;
+        color: inherit;
+  
+        .nav-item {
+          > .nav-link {
+            &, &:hover {
+              background-color: transparent;
+              color: inherit;
+            }
+  
+            &.active {
+              font-weight: bolder;
+            }
+          }
+        }
+      }
+    }
+  }
