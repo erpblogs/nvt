@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+savvycom_website_admin_access,savvycom.website.admin.access,model_savvycom_website,base.group_system,1,1,1,0

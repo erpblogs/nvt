@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'website'),('name', '=', 'main_menu')]" />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'website'),('name', '=', 'menu_home')]" />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'website'),('name', '=', 'default_website')]" />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'website'),('name', '=', 'default_website')]" />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+
+    <data noupdate="0">
+        <!-- Default Website -->
+        <record id="website.default_website" model="website">
+            <field name="name">Noventiq</field>
+            <field name="domain"></field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="user_id" ref="base.public_user" />
+            <field name="logo" type="base64" file="custom_website/static/src/images/logo.png" />
+            <!-- Correct homepage will be set during bootstraping -->
+        </record>
+
+        <!-- Default Menu to store module menus for new website -->
+        <record id="website.main_menu" model="website.menu">
+            <field name="name">Default Main Menu</field>
+            <field name="url">/default-main-menu</field>
+            <field name="website_id" ref="website.default_website" />
+        </record>
+
+        <record id="website.menu_home" model="website.menu">
+            <field name="name">Mac</field>
+            <field name="url">#</field>
+            <field name="page_id" ref="website.homepage_page" />
+            <field name="parent_id" ref="website.main_menu" />
+            <field name="sequence" type="int">1</field>
+            <field name="website_id" ref="website.default_website" />
+        </record>
+
+
+        <!--        Message From Management-->
+        <!-- <record id="website_menu_mac" model="website.menu">
+            <field name="name">Mac</field>
+            <field name="url">#</field>
+
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">10</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record> -->
+
+        <record id="website_menu_ipad" model="website.menu">
+            <field name="name">iPad</field>
+            <field name="url">#</field>
+
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">20</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+
+        <record id="website_menu_iphone" model="website.menu">
+            <field name="name">iPhone</field>
+            <field name="url">#</field>
+
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">30</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+
+        <record id="website_menu_watch" model="website.menu">
+            <field name="name">Watch</field>
+            <field name="url">#</field>
+
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">40</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+
+        <record id="website_menu_airpods" model="website.menu">
+            <field name="name">AirPods</field>
+            <field name="url">#</field>
+
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">50</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+
+
+        <record id="website_menu_entertainment" model="website.menu">
+            <field name="name">Entertainment</field>
+            <field name="url">#</field>
+
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">60</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+
+
+        <record id="website_menu_accessory" model="website.menu">
+            <field name="name">Accessory</field>
+            <field name="url">#</field>
+
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">70</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+
+        <record id="website_menu_support" model="website.menu">
+            <field name="name">Support</field>
+            <field name="url">#</field>
+
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">80</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+
+    </data>
+
+</odoo>
