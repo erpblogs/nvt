@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--        Favicon-->
+
+    <template id="layout_fav_icon" name="Main layout" inherit_id="web.layout">
+        <xpath expr="//head/link[last()]" position="before">
+            <t t-set="x_icon" t-value="'/custom_website/static/src/images/favicon.png'" />
+        </xpath>
+        <xpath expr="//head/link[last()]" position="after">
+            <link type="image/x-icon" rel="shortcut icon"
+                t-att-href="x_icon or '/custom_website/static/src/images/favicon.png'" />
+        </xpath>
+    </template>
+
+    <!-- Footer templates -->
+    <template id="footer_custom" inherit_id="website.footer_custom" name="Default">
+        <xpath expr="//div[@id='footer']" position="replace">
+
+        </xpath>
+    </template>
+
+    <template id="footer_copyright_company_name" inherit_id="website.layout">
+        <xpath expr="//footer//span[hasclass('o_footer_copyright_name')]" position="replace">
+            <span class="o_footer_copyright_name mr-2">&amp;copy;2024 Noventiq. All rights reserved.</span>
+        </xpath>
+    </template>
+
+    <template id="remove_portal_record_sidebar" inherit_id="portal.portal_record_sidebar">
+        <xpath expr="//div[@id='sidebar_content']" position="replace" />
+    </template>
+    
+
+    <template id="remove_brand_promotion_frontend_layout" inherit_id="web.brand_promotion">
+        <xpath expr="//div[hasclass('o_brand_promotion')]" position="replace">
+        </xpath>
+    </template>
+    <!-- <template id="brand_promotion" name="Brand Promotion">
+        <div class="o_brand_promotion">
+            <t t-call="web.brand_promotion_message">
+                <t t-set="_message"></t>
+                <t t-set="_utm_medium" t-valuef="portal"/>
+            </t>
+        </div>
+    </template>
+
+    <template id="brand_promotion_message" name="Brand Promotion Message">
+        <t t-set="odoo_logo">
+            <a target="_blank"
+                t-attf-href="http://www.odoo.com?utm_source=db&amp;utm_medium=#{_utm_medium}"
+                class="badge text-bg-light">
+                <img alt="Odoo"
+                    src="/web/static/img/odoo_logo_tiny.png"
+                    width="62" height="20"
+                    style="width: auto; height: 1em; vertical-align: baseline;"/>
+            </a>
+        </t>
+        <t t-set="final_message">Powered by %s%s</t>
+        <t t-out="final_message % (odoo_logo, _message and ('- ' + _message) or '')"/>
+    </template> -->
+</odoo>

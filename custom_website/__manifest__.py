@@ -29,10 +29,10 @@ Long description of module's purpose
         'data/company.xml',
         'data/website_data.xml',
         
-        'views/savvycom_website_view.xml',
+        # 'views/savvycom_website_view.xml',
         # website
         
-        'views/website_templates.xml',
+        'views/website_layout.xml',
         'views/website_header.xml',
         'views/web_layout.xml',
         
@@ -44,6 +44,9 @@ Long description of module's purpose
         # 'demo/demo.xml',
     ],
     'assets': {
+        'web.assets_frontend': [
+            'custom_website/static/src/scss/style.scss'
+        ],
         'web._assets_primary_variables': [
             ('after', 'web/static/src/scss/primary_variables.scss', 'custom_website/static/src/**/*.variables.scss'),
             ('before', 'web/static/src/scss/primary_variables.scss',  'custom_website/static/src/scss/primary_variables.scss',),

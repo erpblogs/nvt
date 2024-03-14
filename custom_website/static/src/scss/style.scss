@@ -1,0 +1,19 @@
+.no-dropdown-toggle-icon {
+   .dropdown-toggle {
+        width: 2em;
+        height: 2em;
+
+
+        &::after {
+            content: unset !important;
+        }
+
+        img {
+            margin: 0;
+        }
+       
+    }
+
+
+    
+}
