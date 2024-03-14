@@ -1,35 +1,97 @@
 <odoo>
 
-    <!-- <template id="custom_layout" name="Frontend Layout" inherit_id="web.layout"
-                  primary="True">
-            <xpath expr="//head/meta[last()]" position="after">
-                <meta name="viewport" content="width=device-width, initial-scale=1"/>
-            </xpath>
-            <xpath expr="//head/link[last()]" position="after">
-                <link rel="preload" href="/custom_website/static/src/fonts/SF-Pro.ttf" as="font" crossorigin=""/>
-                <t t-call-assets="web.assets_common" t-js="false"/>
-                <t t-call-assets="web.assets_frontend" t-js="false"/>
-            </xpath>
-            <xpath expr="//head/script[@id='web.layout.odooscript']" position="after">
-                <script type="text/javascript">
-                    odoo.__session_info__ =<t t-out="json.dumps(request.env['ir.http'].get_frontend_session_info())"/>;
-                    if (!/(^|;\s)tz=/.test(document.cookie)) {
-                    const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                    document.cookie = `tz=${userTZ}; path=/`;
-                    }
-                </script>
-                <t t-call-assets="web.assets_common_minimal" t-css="false" defer_load="True"/>
-                <t t-call-assets="web.assets_frontend_minimal" t-css="false" defer_load="True"/>
-                <t t-call="web.conditional_assets_tests"/>
-                <t t-call-assets="web.assets_common_lazy" t-css="false" lazy_load="True"/>
-                <t t-call-assets="web.assets_frontend_lazy" t-css="false" lazy_load="True"/>
-            </xpath>
-            <xpath expr="//t[@t-out='0']" position="replace">
-                <div id="wrapwrap" t-attf-class="#{pageName or ''}">
-                    <main>
-                        <t t-out="0"/>
-                    </main>
+    <template id="login" inherit_id="web.login" name="Custom Login Form">
+        <xpath expr="//form" position="replace">
+            <t t-set="disable_footer">1</t>
+            <div class="login-container mx-auto">
+                <div class="login-layout d-flex flex-column gap-4">
+                    <div class="login-header d-flex flex-column login-header gap-2">
+                        <div class="login-logo mb-3">
+                            <!-- <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" 
+                            alt="Logo" /> -->
+                            <img t-attf-src="/custom_website/static/src/images/login_logo.png"  alt="Logo" />
+                        </div>
+                        <span class="login-title">Log in to your account</span>
+                        <span class="login-sub-title">Welcome back! Please enter your details.</span>
+                    </div>
+                    <form class="oe_login_form" role="form" t-attf-action="/web/login" method="post"
+                        onsubmit="this.action = '/web/login' + location.hash">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+
+
+                        <div class="mb-3 field-login">
+                            <!-- <label for="login" class="form-label">Email</label> -->
+                            <input type="text" placeholder="Email/ Phone number" name="login" t-att-value="login"
+                                id="login"
+                                t-attf-class="form-control #{'form-control-sm' if form_small else ''}"
+                                required="required" autocomplete="username" autofocus="autofocus"
+                                autocapitalize="off" />
+                        </div>
+
+                        <div class="mb-3">
+                            <!-- <label for="password" class="form-label">Password</label> -->
+                            <input type="password" placeholder="Password" name="password"
+                                id="password"
+                                t-attf-class="form-control #{'form-control-sm' if form_small else ''}"
+                                required="required" autocomplete="current-password"
+                                t-att-autofocus="'autofocus' if login else None" maxlength="4096" />
+                        </div>
+
+                        <p class="alert alert-danger" t-if="error" role="alert">
+                            <t t-esc="error" />
+                        </p>
+                        <p class="alert alert-success" t-if="message" role="status">
+                            <t t-esc="message" />
+                        </p>
+
+                        <div
+                            t-attf-class="clearfix oe_login_buttons text-center gap-1 d-grid mb-1 {{'pt-2' if form_small else 'pt-3'}}">
+                            <button type="submit" class="btn btn-primary">Log in</button>
+                            <t t-if="debug">
+                                <button type="submit" name="redirect" value="/web/become"
+                                    class="btn btn-link btn-sm">Log in as superuser</button>
+                            </t>
+                            <div class="o_login_auth" />
+                        </div>
+
+                        <input type="hidden" name="redirect" t-att-value="redirect" />
+                    </form>
                 </div>
-            </xpath>
-        </template> -->
+            </div>
+        </xpath>
+    </template>
+
+    <!-- <template id="login_layout" inherit_id="web.login_layout" name="Login Layout Inherit">
+        <xpath expr="//div[@class='container py-5']" position="replace">
+            <div class="card-body hoya-login-layout">
+                <div class="bg">
+                    <div class="hoya-logo-padding-top"></div>
+                    <div class="hoya-logo-content-padding">
+                        <div class="hoya-logo-padding-left"></div>
+                        <div class="hoya-logo-padding-center"></div>
+                        <div class="d-flex flex-column hoya-logo-content">
+                            <div class="logo-languages"></div>
+                            <div class="languages">
+                                <t id="language_selector_call" t-call="portal.language_selector">
+                                    <t t-set="_div_classes"
+                                        t-value="(_div_classes or '') + ' dropdown'" />
+                                    <t t-set="flags" t-value="True" />
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <t t-out="0" />
+                <div class="hidden"></div>
+
+                <div class="form-languages">
+                    <t id="language_selector_call" t-call="portal.language_selector">
+                        <t t-set="_div_classes" t-value="(_div_classes or '') + ' dropdown'" />
+                        <t t-set="flags" t-value="True" />
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template> -->
+
 </odoo>

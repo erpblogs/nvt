@@ -17,7 +17,7 @@ Long description of module's purpose
     'category': 'website',
     'version': '0.1',
     # any module necessary for this one to work correctly
-    'depends': ['base', 'portal', 'website'],
+    'depends': ['base', 'portal', 'website', 'website_sale'],
 
     # always loaded
     'data': [
@@ -45,7 +45,9 @@ Long description of module's purpose
     ],
     'assets': {
         'web.assets_frontend': [
-            'custom_website/static/src/scss/style.scss'
+            'custom_website/static/src/scss/style.scss',
+            'custom_website/static/src/scss/login_layout.scss',
+            'custom_website/static/src/scss/footer_layout.scss',
         ],
         'web._assets_primary_variables': [
             ('after', 'web/static/src/scss/primary_variables.scss', 'custom_website/static/src/**/*.variables.scss'),

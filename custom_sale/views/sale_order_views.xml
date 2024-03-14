@@ -69,7 +69,7 @@
 			</field>
 		</record>
 
-		<record id="custom_sale_order_form_inherit" model="ir.ui.view">
+		<!-- <record id="custom_sale_order_form_inherit" model="ir.ui.view">
 			<field name="name">custom.sale.order.form</field>
 			<field name="model">sale.order</field>
 			<field name="inherit_id" ref="sale.view_order_form" />
@@ -108,7 +108,7 @@
 						statusbar_visible="draft,confirm,in_transit,deliver" />
 				</xpath>
 			</field>
-		</record>
+		</record> -->
 
 
 		<record id="custom_view_sales_order_filter" model="ir.ui.view">

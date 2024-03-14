@@ -1,0 +1,80 @@
+.oe_website_login_container {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: cover;
+    // background-color: #00000033;
+    background-image: url('/custom_website/static/src/images/login_bg.png');
+
+    .login-container {
+        padding-top: 156px;
+        padding-bottom: 156px;
+        max-width: 440px;
+
+        @media (max-width: 440px) {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .login-layout {
+            padding: 40px;
+            border: 1.4px solid;
+            border-radius: 28px;
+            border-image-source: linear-gradient(163.16deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.0001) 40.57%, rgba(255, 255, 255, 0.0001) 57.44%, rgba(255, 255, 255, 0.1) 100%);
+
+
+            background: linear-gradient(138.02deg, #FFFFFF 1.18%, rgba(255, 255, 255, 0.860617) 99.97%);
+            background-blend-mode: luminosity;
+
+            .login-header {
+                .login-logo {
+                    text-align: center;
+
+                    img {
+                        width: 48px;
+                        height: 39px;
+
+                    }
+                }
+
+                .login-title {
+                    //styleName: Display sm/Semibold;
+                    width: 360px;
+                    height: 38px;
+
+
+                    // font-family: SF Pro;
+                    font-size: 30px;
+                    font-weight: 590;
+                    line-height: 38px;
+                    letter-spacing: 0em;
+                    text-align: center;
+                    color: #101828;
+
+
+                }
+
+                .login-sub-title {
+                    width: 360px;
+                    height: 24px;
+                    //styleName: Text md/Regular;
+                    // font-family: SF Pro;
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 24px;
+                    letter-spacing: 0em;
+                    text-align: center;
+                    color: #475467;
+
+
+                }
+            }
+
+            .oe_login_form {
+                max-width: unset;
+                margin: unset;
+            }
+        }
+    }
+
+}

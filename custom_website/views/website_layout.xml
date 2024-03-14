@@ -19,16 +19,131 @@
         </xpath>
     </template>
 
-    <template id="footer_copyright_company_name" inherit_id="website.layout">
+    <!-- <template id="footer_copyright_company_name" inherit_id="website.layout">
         <xpath expr="//footer//span[hasclass('o_footer_copyright_name')]" position="replace">
             <span class="o_footer_copyright_name mr-2">&amp;copy;2024 Noventiq. All rights reserved.</span>
         </xpath>
+    </template> -->
+
+
+    <template id="custom_footer" inherit_id="web.frontend_layout">
+        <xpath expr="//footer[@id='bottom']" position="replace">
+            <div class="footer-container">
+                <div class="container">
+                    <footer id="bottom" data-anchor="true"
+                        class="row row-cols-1 row-cols-sm-2 row-cols-md-2 my-5 justify-content-between">
+
+                        <div class="col mb-3 footer-title">
+                            <a href="/"
+                                class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                                <img t-attf-src="/custom_website/static/src/images/footer_logo.png"
+                                    alt="Footer Logo" />
+
+                            </a>
+                            <p class="footer-title-text text-white opacity-50">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                                rhoncus
+                                eleifend tincidunt. Cras finibus magna nec velit luctus sodales.
+                                Fusce
+                                dignissim sem in felis facilisis aliquam.
+                            </p>
+                        </div>
+
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 footer-link">
+                            <div class="col mb-3 footer-link-card">
+                                <h5>Section</h5>
+                                <ul class="nav flex-column">
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">Home</a>
+                                    </li>
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">
+                                            Features</a>
+                                    </li>
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">Pricing</a>
+                                    </li>
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">FAQs</a>
+                                    </li>
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">About</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col mb-3 footer-link-card">
+                                <h5>Section</h5>
+                                <ul class="nav flex-column">
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">Home</a>
+                                    </li>
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">
+                                            Features</a>
+                                    </li>
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">Pricing</a>
+                                    </li>
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">FAQs</a>
+                                    </li>
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">About</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col mb-3 footer-link-card">
+                                <h5>Section</h5>
+                                <ul class="nav flex-column">
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">Home</a>
+                                    </li>
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">
+                                            Features</a>
+                                    </li>
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">Pricing</a>
+                                    </li>
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">FAQs</a>
+                                    </li>
+                                    <li class="nav-item mb-2">
+                                        <a href="#" class="nav-link p-0 footer-link-card-text">About</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </footer>
+                </div>
+
+                <div class="o_footer_copyright">
+                    <div class="container ">
+                        <div class="row footer_copyright_layout">
+                            <div class="col-sm text-center ">
+                                <span class="o_footer_copyright_name mr-2">&amp;copy;2024 <span
+                                        t-field="res_company.name" itemprop="name"></span>. All
+                                    rights reserved.</span>
+                                <!-- <span class="o_footer_copyright_name me-2">Copyright &amp;copy;
+                            <span t-field="res_company.name" itemprop="name">Company
+                            name</span></span> -->
+                            </div>
+                            <div class="col-sm text-center text-sm-end d-none">
+                                <t t-call="web.brand_promotion" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
     </template>
+
 
     <template id="remove_portal_record_sidebar" inherit_id="portal.portal_record_sidebar">
         <xpath expr="//div[@id='sidebar_content']" position="replace" />
     </template>
-    
+
 
     <template id="remove_brand_promotion_frontend_layout" inherit_id="web.brand_promotion">
         <xpath expr="//div[hasclass('o_brand_promotion')]" position="replace">

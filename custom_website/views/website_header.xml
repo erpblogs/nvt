@@ -60,7 +60,6 @@
                     <t t-call="website.placeholder_header_language_selector">
                         <t t-set="_div_classes" t-valuef="o_navlink_background btn position-relative rounded-circle p-1 text-center text-reset no-dropdown-toggle-icon" />
                         <t t-set="_btn_class" t-valuef="text-center text-reset p-0 rounded-pill" />
-                        <!-- <t t-set="_txt_class" t-valuef="small" /> -->
                         <t t-set="no_text" t-value="True"/>
                         <t t-set="flags" t-value="True"/>
                         <t t-set="_dropdown_menu_class" t-valuef="dropdown-menu-end" />
