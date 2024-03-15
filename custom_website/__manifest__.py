@@ -35,6 +35,7 @@ Long description of module's purpose
         'views/website_layout.xml',
         'views/website_header.xml',
         'views/web_layout.xml',
+        'views/home_page.xml',
         
         # menu
         'views/hidden_menu.xml',
@@ -48,6 +49,7 @@ Long description of module's purpose
             'custom_website/static/src/scss/style.scss',
             'custom_website/static/src/scss/login_layout.scss',
             'custom_website/static/src/scss/footer_layout.scss',
+            'custom_website/static/src/scss/home_page.scss',
         ],
         'web._assets_primary_variables': [
             ('after', 'web/static/src/scss/primary_variables.scss', 'custom_website/static/src/**/*.variables.scss'),

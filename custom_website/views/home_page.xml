@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('model', '=', 'website.page'), ('name', '=', 'homepage_page')]" />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+
+    <data noupdate="0">
+
+
+        <record id="website.homepage_page" model="website.page">
+            <field name="is_published">True</field>
+            <field name="url">/</field>
+            <field name="view_id" ref="website.homepage" />
+            <field name="track">True</field>
+        </record>
+
+        <template id="custom_website_homepage" inherit_id="website.homepage" name="Home">
+            <xpath expr="//div[@id='wrap']" position="replace">
+                <!-- <div id="wrap" class="oe_structure oe_empty"/> -->
+                <div id="wrap">
+                    <div class="container-fluid">
+                        <div class="row custom_home_page">
+                            <div class="col-12 homepage-section homepage-banner bg-primary text-white">
+                                <div class="btn homepage-banner-buy">
+                                    <!-- <a href="#">Buy Now</a> -->
+                                </div>
+                            </div>
+                            <div class="col-12  homepage-section homepage-categ-1 bg-light">
+                                Category 1 Content
+                            </div>
+                            <div class="col-12  homepage-section homepage-categ-2 bg-light">
+                                Category 2 Content
+                            </div>
+                            <div class="col-12  homepage-section homepage-categ-3 bg-light">
+                                Category 3 Content
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </xpath>
+        </template>
+
+    </data> bn </odoo>
