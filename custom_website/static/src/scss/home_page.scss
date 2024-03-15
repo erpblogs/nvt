@@ -3,7 +3,6 @@
     background-image: url('/custom_website/static/src/images/home_page_banner.png');
     background-position: top left;
     background-repeat: no-repeat;
-    background-position: top left;
     height: 540px;
     /* Adjust height as needed */
     display: flex;
@@ -24,4 +23,125 @@
       left: 165px;
     }
   }
+
+
+  .highlight-product {
+    background-color: #f8f9fa; // Light background color
+    min-width: 497px;
+    display: flex;
+    padding: unset !important;
+
+    .highlight-product-shadow {
+      
+      box-shadow: 2px 4px 12px #00000014;
+      transition: box-shadow 0.3s, transform 0.3s;
+      &:hover {
+        box-shadow: 2px 4px 15px #00000025;
+        transform: scale(1.05);
+      }
+    }
+
+    .highlight-product-banner {
+      // Your styles for the banner
+      min-width: 497px;
+      
+      // Adjust other styles as needed
+      .highlight-product-banner-img {
+        background-image: url('/custom_website/static/src/images/highlight_product_banner.png');
+        background-position: top left;
+        background-repeat: no-repeat;
+        height: 506px;
+        width: 497px;
+        padding: 24px 0;
+        margin: 32px 0;
+        
+        
+
+        span {
+          font-size: 40px;
+          font-weight: 590;
+          line-height: 52px;
+          letter-spacing: 0em;
+          text-align: left;
+
+          &.Highlight {
+            color: #0D519B;
+          }
+
+          &.Product {
+            color: #25AADD;
+          }
+        }
+
+      }
+    }
+
+    .highlight-product-carosel {
+      display: flex;
+
+      .highlight-product-carosel-item {
+        // Your styles for each carousel item
+        width: 384px;
+        height: 506px;
+        padding: 24px;
+        margin: 32px 12px;
+        border-radius: 16px;
+        background: #FFFFFF;
+
+        .highlight-product-carosel-item-layout {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+
+          .product-title {
+            width: 336px;
+            height: 64px;
+
+          }
+
+          img {
+            width: 336px;
+            height: 336px;
+            padding: 18 0 18 0;
+            background: #FFFFFF;
+          }
+
+          .highlight-product-carosel-config {
+            height: 26px;
+
+            // Your styles for the content within each carousel item
+            span {
+              line-height: 26px;
+              padding: 4px 8px 4px 8px;
+
+              border-radius: 6px;
+              border: 1px solid #84858C;
+              color: #595961;
+              //styleName: Text xs/Regular;
+              font-size: 12px;
+              font-weight: 400;
+              line-height: 18px;
+              letter-spacing: 0em;
+              text-align: left;
+
+
+            }
+          }
+        }
+
+      }
+    }
+
+    // Carousel Controls
+    .carousel-control-prev,
+    .carousel-control-next {
+      // Your styles for carousel control buttons
+
+      &:hover {
+        // Styles for hover state
+      }
+    }
+  }
+
 }

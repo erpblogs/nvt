@@ -18,26 +18,80 @@
             <field name="track">True</field>
         </record>
 
+
+        <template id="custom_website.homepage_banner" name="Homepage banner">
+            <section class="col-12 homepage-section homepage-banner bg-primary text-white">
+                <div class="btn homepage-banner-buy">
+                    <!-- <a href="#">Buy Now</a> -->
+                </div>
+            </section>
+        </template>
+
+        <template id="custom_website.homepage_highlight_product_carosel"
+            name="Homepage Product Carosel Layout">
+            <div class="highlight-product-shadow highlight-product-carosel-item">
+                <div class="highlight-product-carosel-item-layout">
+                    <div class="product-title">
+                        <span>iMac M1 2021 24 inch (8 Core GPU/8GB/512GB)</span>
+                    </div>
+                    <img src="/custom_website/static/src/images/imac.png" class="d-block"
+                        alt="Product Alt"></img>
+                    <div class="highlight-product-carosel-config">
+                        <span class="col-auto">24 inch</span>
+                        <span class="col-auto">M1</span>
+                        <span class="col-auto">8GB RAM</span>
+                        <span class="col-auto">512GB</span>
+                    </div>
+                </div>
+            </div>
+        </template>
+        
+        <template id="custom_website.homepage_highlight_product" name="Homepage Product Highlight">
+            <section class="homepage-section highlight-product bg-light">
+                <div class="highlight-product-banner">
+                    <div class="highlight-product-shadow text-center highlight-product-banner-img">
+                        <span class="Highlight">Highlight</span> <span class="Product">Product</span>
+                    </div>
+                </div>
+                <div class="highlight-product-carosel">
+                    <t t-set="qty" t-value="4"/>
+                    <t t-foreach="range(qty)" t-as="item">
+                        <t t-call="custom_website.homepage_highlight_product_carosel" />
+
+                    </t>
+                </div>
+            </section>
+        </template>
+
+        <template id="custom_website.homepage_category_line" name="Homepage category_line">
+            <section class="col-12  homepage-section highlight-category-line bg-light">
+                Category 1 Content
+            </section>
+        </template>
+
+        <template id="custom_website.homepage_category_card" name="Homepage category_card">
+            <section class="col-12  homepage-section highlight-category-card bg-light">
+                Category 1 Content
+            </section>
+        </template>
+        <template id="custom_website.homepage_contact" name="Homepage Contact">
+            <section class="col-12  homepage-section highlight-category-card bg-light">
+                Category 1 Content
+            </section>
+        </template>
+
         <template id="custom_website_homepage" inherit_id="website.homepage" name="Home">
             <xpath expr="//div[@id='wrap']" position="replace">
                 <!-- <div id="wrap" class="oe_structure oe_empty"/> -->
                 <div id="wrap">
                     <div class="container-fluid">
                         <div class="row custom_home_page">
-                            <div class="col-12 homepage-section homepage-banner bg-primary text-white">
-                                <div class="btn homepage-banner-buy">
-                                    <!-- <a href="#">Buy Now</a> -->
-                                </div>
-                            </div>
-                            <div class="col-12  homepage-section homepage-categ-1 bg-light">
-                                Category 1 Content
-                            </div>
-                            <div class="col-12  homepage-section homepage-categ-2 bg-light">
-                                Category 2 Content
-                            </div>
-                            <div class="col-12  homepage-section homepage-categ-3 bg-light">
-                                Category 3 Content
-                            </div>
+                            <t t-call="custom_website.homepage_banner" />
+                            <t t-call="custom_website.homepage_highlight_product" />
+                            <t t-call="custom_website.homepage_category_line" />
+                            <t t-call="custom_website.homepage_category_card" />
+                            <t t-call="custom_website.homepage_contact" />
+
                         </div>
                     </div>
 
@@ -45,4 +99,5 @@
             </xpath>
         </template>
 
-    </data> bn </odoo>
+    </data>
+    bn </odoo>
