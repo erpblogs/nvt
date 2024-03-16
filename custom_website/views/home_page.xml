@@ -29,7 +29,7 @@
 
         <template id="custom_website.homepage_highlight_product_carosel"
             name="Homepage Product Carosel Layout">
-            <div class="highlight-product-shadow highlight-product-carosel-item">
+            <div class="highlight-product-shadow highlight-product-carosel-item ">
                 <div class="highlight-product-carosel-item-layout">
                     <div class="product-title">
                         <span>iMac M1 2021 24 inch (8 Core GPU/8GB/512GB)</span>
@@ -45,22 +45,113 @@
                 </div>
             </div>
         </template>
-        
+
         <template id="custom_website.homepage_highlight_product" name="Homepage Product Highlight">
             <section class="homepage-section highlight-product bg-light">
                 <div class="highlight-product-banner">
                     <div class="highlight-product-shadow text-center highlight-product-banner-img">
-                        <span class="Highlight">Highlight</span> <span class="Product">Product</span>
+                        <span class="Highlight">Highlight</span>
+                        <span class="Product">Product</span>
                     </div>
                 </div>
                 <div class="highlight-product-carosel">
-                    <t t-set="qty" t-value="4"/>
+                    <t t-set="qty" t-value="4" />
                     <t t-foreach="range(qty)" t-as="item">
                         <t t-call="custom_website.homepage_highlight_product_carosel" />
 
                     </t>
                 </div>
             </section>
+        </template>
+
+        <template id="custom_website.homepage_highlight_product_carousel"
+            name="Homepage Product Highlight">
+            <div class="container text-center highlight-product-section">
+                <div class="row mx-auto my-auto justify-content-center">
+                    <div id="recipeCarousel" class="carousel slide highlight-product-carousel"
+                        data-bs-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item highlight-product-banner active">
+                                <div class="highlight-product-banne-layout">
+                                    <div class="card highlight-product-banner-card">
+                                        <div class="homepage-banner-text text-center">
+                                            <span style="color: #0D519B;">Highlight</span>
+                                            <span style="color: #25AADD;">Product</span>
+                                        </div>
+                                        <img
+                                            src="/custom_website/static/src/images/highlight_product_banner.png"
+                                            class="img-fluid homepage-banner-img" />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="highlight-product-banne-layout">
+                                    <div class="card">
+                                        <div class="card-img">
+                                            <img src="//via.placeholder.com/500x400/e66?text=2"
+                                                class="img-fluid" />
+                                        </div>
+                                        <div class="card-img-overlay">Slide 2</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="highlight-product-banne-layout">
+                                    <div class="card">
+                                        <div class="card-img">
+                                            <img src="//via.placeholder.com/500x400/7d2?text=3"
+                                                class="img-fluid" />
+                                        </div>
+                                        <div class="card-img-overlay">Slide 3</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="highlight-product-banne-layout">
+                                    <div class="card">
+                                        <div class="card-img">
+                                            <img src="//via.placeholder.com/500x400?text=4"
+                                                class="img-fluid" />
+                                        </div>
+                                        <div class="card-img-overlay">Slide 4</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="highlight-product-banne-layout">
+                                    <div class="card">
+                                        <div class="card-img">
+                                            <img src="//via.placeholder.com/500x400/aba?text=5"
+                                                class="img-fluid" />
+                                        </div>
+                                        <div class="card-img-overlay">Slide 5</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="highlight-product-banne-layout">
+                                    <div class="card">
+                                        <div class="card-img">
+                                            <img src="//via.placeholder.com/500x400/fc0?text=6"
+                                                class="img-fluid" />
+                                        </div>
+                                        <div class="card-img-overlay">Slide 6</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel"
+                            role="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </a>
+                        <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel"
+                            role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </template>
 
         <template id="custom_website.homepage_category_line" name="Homepage category_line">
@@ -87,7 +178,8 @@
                     <div class="container-fluid">
                         <div class="row custom_home_page">
                             <t t-call="custom_website.homepage_banner" />
-                            <t t-call="custom_website.homepage_highlight_product" />
+                            <t t-call="custom_website.homepage_highlight_product_carousel" />
+                            <!-- <t t-call="custom_website.homepage_highlight_product" /> -->
                             <t t-call="custom_website.homepage_category_line" />
                             <t t-call="custom_website.homepage_category_card" />
                             <t t-call="custom_website.homepage_contact" />

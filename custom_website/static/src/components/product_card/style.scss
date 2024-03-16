@@ -1,0 +1,72 @@
+.highlight-product-carosel {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    /* Hide scrollbar for modern browsers */
+    -ms-overflow-style: none;
+
+    /* Hide scrollbar for old Edge */
+    &::-webkit-scrollbar {
+      display: none;
+      /* Hide scrollbar for Chrome, Safari, and Opera */
+    }
+
+    .highlight-product-carosel-item {
+      display: inline-block;
+      // width: 300px; /* Adjust as needed */
+      // margin-right: 20px; /* Adjust margin between items */
+      vertical-align: top;
+
+      // Your styles for each carousel item
+      width: 384px;
+      height: 506px;
+      padding: 24px;
+      margin: 32px 12px;
+      border-radius: 16px;
+      background: #FFFFFF;
+
+      .highlight-product-carosel-item-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+
+        .product-title {
+          width: 336px;
+          height: 64px;
+
+        }
+
+        img {
+          width: 336px;
+          height: 336px;
+          padding: 18 0 18 0;
+          background: #FFFFFF;
+        }
+
+        .highlight-product-carosel-config {
+          height: 26px;
+
+          // Your styles for the content within each carousel item
+          span {
+            line-height: 26px;
+            padding: 4px 8px 4px 8px;
+
+            border-radius: 6px;
+            border: 1px solid #84858C;
+            color: #595961;
+            //styleName: Text xs/Regular;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 18px;
+            letter-spacing: 0em;
+            text-align: left;
+
+
+          }
+        }
+      }
+
+    }
+  }
