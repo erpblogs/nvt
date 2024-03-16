@@ -50,9 +50,10 @@ Long description of module's purpose
             'custom_website/static/src/scss/login_layout.scss',
             'custom_website/static/src/scss/footer_layout.scss',
             'custom_website/static/src/scss/home_page.scss',
+            'custom_website/static/src/js/homepage.js',
         ],
         'web._assets_primary_variables': [
-            ('after', 'web/static/src/scss/primary_variables.scss', 'custom_website/static/src/**/*.variables.scss'),
+            # ('after', 'web/static/src/scss/primary_variables.scss', 'custom_website/static/src/**/*.variables.scss'),
             ('before', 'web/static/src/scss/primary_variables.scss',  'custom_website/static/src/scss/primary_variables.scss',),
         ],
         'web._assets_secondary_variables': [
