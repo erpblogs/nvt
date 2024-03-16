@@ -32,7 +32,8 @@
             <div class="highlight-product-shadow highlight-product-carousel-item">
                 <div class="highlight-product-carousel-item-layout">
                     <div class="product-title">
-                        <span><b>iMac M1 2021 24 inch</b> (8 Core GPU/8GB/512GB) </span> - <span t-esc="item_no + 1"></span>
+                        <span><b>iMac M1 2021 24 inch</b> (8 Core GPU/8GB/512GB) </span> - <span
+                            t-esc="item_no + 1"></span>
                     </div>
                     <img src="/custom_website/static/src/images/imac.png" class="d-block"
                         alt="Product Alt"></img>
@@ -59,7 +60,7 @@
                 <t t-foreach="range(qty)" t-as="item">
                     <div class="cell-item highlight-product-carousel">
                         <t t-call="custom_website.homepage_highlight_product_carousel">
-                            <t t-set="item_no" t-value="item"/>
+                            <t t-set="item_no" t-value="item" />
                         </t>
                     </div>
                 </t>
@@ -80,8 +81,40 @@
         </template>
 
         <template id="custom_website.homepage_category_line" name="Homepage category_line">
-            <section class="col-12  homepage-section highlight-category-line bg-light">
-                Category 1 Content
+            <section class="homepage-section highlight-category-line bg-light">
+                <div class="d-flex justify-content-center gap-4">
+                    <div class="d-flex gap-2 flex-column align-items-center">
+                        <img class="highlight-category-line-img"
+                            src="/custom_website/static/src/images/categ-line-mac.png"
+                        />
+                        <span class="highlight-category-line-title">Mac</span>
+                    </div>
+                    <div class="d-flex  gap-2 flex-column align-items-center">
+                        <img class="highlight-category-line-img"
+                            src="/custom_website/static/src/images/categ-line-phone.png"
+                        />
+                        <span class="highlight-category-line-title">Iphone</span>
+                    </div>
+                    <div class="d-flex  gap-2 flex-column align-items-center">
+                        <img class="highlight-category-line-img"
+                            src="/custom_website/static/src/images/categ-line-ipad.png"
+                        />
+                        <span class="highlight-category-line-title">Ipad</span>
+                    </div>
+                    <div class="d-flex gap-2 flex-column align-items-center">
+                        <img class="highlight-category-line-img"
+                            src="/custom_website/static/src/images/categ-line-watch.png"
+                        />
+                        <span class="highlight-category-line-title">Apple Watch</span>
+                    </div>
+                    <div class="d-flex gap-2 flex-column align-items-center">
+                        <img class="highlight-category-line-img"
+                            src="/custom_website/static/src/images/categ-line-airpods.png"
+                        />
+                        <span class="highlight-category-line-title">Airpods</span>
+                    </div>
+
+                </div>
             </section>
         </template>
 

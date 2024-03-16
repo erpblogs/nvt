@@ -176,9 +176,27 @@
       }
 
 
-      .carousel-control-prev-icon {transform: rotate(180deg); }
+      .carousel-control-prev-icon {
+        transform: rotate(180deg);
+      }
 
     }
+  }
+
+  .highlight-category-line {
+    .highlight-category-line-img {
+      width: 160px;
+      height: 104px;
+      // background-image: url('');
+    }
+  }
+
+  .highlight-category-line-title {
+    //styleName: Text sm/Semibold;
+    font-size: 14px;
+    font-weight: 590;
+    line-height: 20px;
+    letter-spacing: 0em;
   }
 
 }
