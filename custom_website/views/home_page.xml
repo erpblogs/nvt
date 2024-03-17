@@ -48,7 +48,7 @@
         </template>
 
         <template id="custom_website.homepage_highlight_product" name="Homepage Product Highlight">
-            <section class="container homepage-section highlight-product bg-light">
+            <section class="container homepage-section highlight-product bg-light overflow-hidden">
                 <div class="cell-item highlight-product-banner">
                     <div
                         class="highlight-product-shadow text-center highlight-product-banner-img">
@@ -81,7 +81,7 @@
         </template>
 
         <template id="custom_website.homepage_category_line" name="Homepage category_line">
-            <section class="homepage-section highlight-category-line bg-light">
+            <section class="homepage-section highlight-category-line bg-light overflow-hidden">
                 <div class="d-flex justify-content-center gap-4">
                     <div class="d-flex gap-2 flex-column align-items-center">
                         <img class="highlight-category-line-img"
@@ -119,8 +119,92 @@
         </template>
 
         <template id="custom_website.homepage_category_card" name="Homepage category_card">
-            <section class="col-12  homepage-section highlight-category-card bg-light">
-                Category 1 Content
+            <section class="bg-light overflow-hidden homepage-section highlight-category-card">
+                <div class=" d-md-flex flex-md-equal w-100 my-md-3 catg-layout ">
+                    <div
+                        class="bg-white me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-black overflow-hidden catg-card"
+                        style="background-image: url('/custom_website/static/src/images/categ-card-macbook-pro.png');">
+                        <div class="my-3 py-3 text-black">
+                            <span class="catg-title ">MacBook Pro</span>
+                            <p class="catg-sub-title">Mind-blowing. Head-turning</p>
+                        </div>
+
+                    </div>
+                    <div
+                        class="bg-black me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white  overflow-hidden catg-card"
+                        style="background-image: url('/custom_website/static/src/images/categ-card-macbook-air.png');">
+                        <div class="my-3 p-3 text-white">
+                            <span class="catg-title">MacBook Air</span>
+                            <p class="catg-sub-title">The most affordable Mac laptop to get things
+    done on the go</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class=" d-md-flex flex-md-equal w-100 my-md-3 catg-layout ">
+                    <div
+                        class="bg-black me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-black overflow-hidden catg-card"
+                        style="background-image: url('/custom_website/static/src/images/categ-card-iphone.png');">
+                        <div class="my-3 py-3 text-white">
+                            <span class="catg-title ">iPhone</span>
+                            <p class="catg-sub-title">Love the power.
+                                Love the price.</p>
+                        </div>
+
+                    </div>
+                    <div
+                        class="bg-white me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white  overflow-hidden catg-card"
+                        style="background-image: url('/custom_website/static/src/images/categ-card-ipad.png');">
+                        <div class="my-3 p-3 text-black">
+                            <span class="catg-title">iPad</span>
+                            <p class="catg-sub-title">Loveable. Drawable. Magical</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class=" d-md-flex flex-md-equal w-100 my-md-3 catg-layout ">
+                    <div
+                        class="bg-black me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-black overflow-hidden catg-card"
+                        style="background-image: url('/custom_website/static/src/images/categ-card-airpod.png');">
+                        <div class="my-3 py-3 text-white">
+                            <span class="catg-title ">Airpods Pro</span>
+                            <p class="catg-sub-title">Adaptive Audio. Now playing</p>
+                        </div>
+
+                    </div>
+                    <div
+                        class="bg-black me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white  overflow-hidden catg-card"
+                        style="background-image: url('/custom_website/static/src/images/categ-card-watch.png');">
+                        <div class="my-3 p-3 text-white">
+                            <span class="catg-title">Watch</span>
+                            <p class="catg-sub-title">Smarter. Brighter. Mightier</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section
+                class="d-flex gap-2 flex-column homepage-section highlight-category-card bg-light">
+                <div class="row row-cols-1 gap-2">
+                    <div class="row col-md-6 highlight-category-card-item bg-white">
+                    </div>
+                    <div class="row col-md-6 highlight-category-card-item bg-black">
+                    </div>
+
+                    <div class="row col highlight-category-card-item bg-black">
+                    </div>
+                    <div class="row col highlight-category-card-item bg-white">
+                    </div>
+                </div>
+                <div class="row row-cols-1 gap-2">
+                    <div class="row col-md-6 highlight-category-card-item bg-black">
+                    </div>
+                    <div class="row col-md-6 highlight-category-card-item bg-black">
+                    </div>
+
+                </div>
             </section>
         </template>
         <template id="custom_website.homepage_contact" name="Homepage Contact">
@@ -133,13 +217,13 @@
             <xpath expr="//div[@id='wrap']" position="replace">
                 <!-- <div id="wrap" class="oe_structure oe_empty"/> -->
                 <div id="wrap">
-                    <div class="container-fluid">
+                    <div>
                         <div class="row custom_home_page">
                             <t t-call="custom_website.homepage_banner" />
                             <t t-call="custom_website.homepage_highlight_product" />
                             <t t-call="custom_website.homepage_category_line" />
                             <t t-call="custom_website.homepage_category_card" />
-                            <t t-call="custom_website.homepage_contact" />
+                            <!-- <t t-call="custom_website.homepage_contact" /> -->
                         </div>
                     </div>
 

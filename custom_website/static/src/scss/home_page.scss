@@ -28,7 +28,7 @@
   .highlight-product {
     background-color: #f8f9fa; // Light background color
     min-width: 497px;
-    gap: 24px;
+    // gap: 24px;
     padding: unset !important;
     display: flex;
     flex-wrap: nowrap;
@@ -59,7 +59,7 @@
         height: 506px;
         width: 497px;
         padding: 24px 0;
-        margin: 32px 0;
+        margin-top: 32px;
 
 
 
@@ -84,6 +84,7 @@
 
     .highlight-product-carousel {
       display: flex;
+      margin-left: 24px;
 
       .highlight-product-carousel-item {
         // Your styles for each carousel item
@@ -184,19 +185,80 @@
   }
 
   .highlight-category-line {
+    padding-bottom: 32px;
+
     .highlight-category-line-img {
       width: 160px;
       height: 104px;
       // background-image: url('');
     }
+
+    .highlight-category-line-title {
+      //styleName: Text sm/Semibold;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 20px;
+      letter-spacing: 0em;
+    }
   }
 
-  .highlight-category-line-title {
-    //styleName: Text sm/Semibold;
-    font-size: 14px;
-    font-weight: 590;
-    line-height: 20px;
-    letter-spacing: 0em;
+  .highlight-category-card {
+    padding: 32px 0;
+
+    // .row {
+    //   .highlight-category-card-item {
+    //     // width: 718px;
+    //     height: 506px;
+    //     padding: 50px;
+
+    //   }
+    // }
+
+    .catg-layout {
+      .catg-card {
+        height: 506px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: bottom;
+        
+        .catg-title {
+          font-size: 40px;
+          font-weight: 590;
+          line-height: 48px;
+          letter-spacing: -0.4000000059604645px;
+          text-align: center;
+
+        }
+
+        .catg-sub-title {
+          font-size: 17px;
+          font-weight: 400;
+          line-height: 20px;
+          letter-spacing: -0.4000000059604645px;
+          text-align: center;
+        }
+      }
+    }
   }
+
+  @media (min-width: 768px) {
+    .flex-md-equal>* {
+      flex: 1;
+    }
+
+    .me-md-3 {
+      margin-right: 1rem !important;
+    }
+
+    .px-md-5 {
+      padding-right: 3rem !important;
+      padding-left: 3rem !important;
+    }
+
+    .pt-md-5 {
+      padding-top: 3rem !important;
+    }
+  }
+
 
 }

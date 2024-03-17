@@ -1,6 +1,6 @@
 $(function () {
 
-    const $container = $('.container');
+    const $container = $('.highlight-product');
     let $cells = $('.cell-item');
     const numVisibleCells = 5; // Số lượng cell hiển thị trên màn hình
     let currentIndex = 0;
@@ -41,6 +41,6 @@ $(function () {
     });
 
     // Gọi hàm cập nhật hiển thị ban đầu
-    // updateVisibility();
+    updateVisibility();
 
 });
