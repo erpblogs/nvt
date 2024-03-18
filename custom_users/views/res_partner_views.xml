@@ -34,6 +34,7 @@
                     <!-- Invisible fields allows other modules to populate partner (ex.: creation
                     from a
                 lead) -->
+                    <field name="id" invisible="1" />
                     <field name="avatar_128" invisible="1" />
                     <field name="city" invisible="1" />
                     <field name="comment" invisible="1" />
@@ -89,6 +90,27 @@
 
                     </group>
                     <notebook colspan="4">
+                        <page name='users_information' string="Users" groups="custom_users.super_admin,custom_users.account_manager">
+                            <group name="container_row_2">
+                                <group name="sale" priority="1">
+                                    <field name="web_user_ids"
+                                        context="{'default_is_customer': True, 'default_portal_company_id': id}"
+                                        domain="[('is_customer', '=', True)]" >
+                                        <tree string="Users">
+                                            <field name="name" />
+                                            <field name="email" />
+                                            <field name="phone" />
+                                            <field name="user_department_id"  />
+                                            <field name="customer_group"  />
+                                            <field name="active" />
+                                            <field name="portal_company_id" invisible="1" />
+                                            <field name="is_customer" invisible="1" />
+                                            <field name="login_date" readonly="1" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </group>
+                        </page>
                         <page name='sales_information' string="Sales" groups="custom_users.super_admin">
                             <group name="container_row_2">
                                 <group name="sale" priority="1">

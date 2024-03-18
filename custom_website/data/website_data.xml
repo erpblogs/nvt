@@ -56,22 +56,15 @@
             <field name="website_id" ref="website.default_website" />
         </record>
         
-        <record id="website_menu_mac" model="website.menu">
-            <field name="name">Mac</field>
-            <field name="url">#</field>
-            <field name="parent_id" ref="website.main_menu"/>
-            <field name="sequence" type="int">10</field>
-            <field name="website_id" ref="website.default_website"/>
-        </record>
 
-        <record id="website_menu_ipad" model="website.menu">
+        <!-- <record id="website_menu_ipad" model="website.menu">
             <field name="name">iPad</field>
             <field name="url">#</field>
 
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">20</field>
             <field name="website_id" ref="website.default_website"/>
-        </record>
+        </record> -->
 
         <record id="website_menu_iphone" model="website.menu">
             <field name="name">iPhone</field>
@@ -122,7 +115,7 @@
 
         <record id="website_menu_support" model="website.menu">
             <field name="name">Support</field>
-            <field name="url">#</field>
+            <field name="url">/contactus</field>
 
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">80</field>

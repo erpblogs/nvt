@@ -40,6 +40,7 @@ class CustomPartnerCompany(models.Model):
     _name = 'res.partner.company'
     
     partner_company_id = fields.Many2one(comodel_name='res.partner',ondelete='restrict', auto_join=True, index=True)
+    web_user_ids = fields.One2many('res.users', 'portal_company_id', string="Users")
     # tz = fields.Selection(default=DF_TIMEZONE)
     
     @api.constrains('email')

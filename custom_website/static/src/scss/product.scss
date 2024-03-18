@@ -1,0 +1,89 @@
+.js_product_category {
+    .highlight-product {
+        min-width: 280px;
+        // gap: 24px;
+        padding: unset !important;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow: hidden;
+        position: relative; // Add position relative to the container
+
+
+        .product {
+            display: flex;
+
+            .product-item {
+                // Your styles for each carousel item
+                min-width: 280px;
+                height: 386px;
+                padding: 24px;
+                margin: 12px 0;
+                border-radius: 16px;
+                background: #FFFFFF;
+
+                .product-item-layout {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    gap: 10px;
+
+
+                    .product-title {
+                        // width: 336px;
+                        height: 64px;
+
+                    }
+
+                    img {
+                        width: 232px;
+                        height: 232px;
+                        padding: 12px 0;
+                        background: #FFFFFF;
+                    }
+
+                    .product-config {
+                        height: 26px;
+
+                        // Your styles for the content within each carousel item
+                        span {
+                            padding: 4px 8px;
+                            border-radius: 6px;
+                            border: 1px solid #84858C;
+                            color: #595961;
+                            //styleName: Text xs/Regular;
+                            //styleName: Text xs/Regular;
+                            font-size: 12px;
+                            font-weight: 400;
+                            line-height: 18px;
+                            letter-spacing: 0em;
+                            text-align: left;
+                            color: #595961;
+
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+
+
+    .loadmore-btn {
+        .btn-primary {
+            //             width: Hug (216px)
+            // height: Hug (48px)
+            padding: 12px 20px;
+            border-radius: 10000px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            letter-spacing: 0em;
+            text-align: left;
+
+
+
+        }
+    }
+
+}
