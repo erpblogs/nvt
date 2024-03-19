@@ -22,7 +22,8 @@
         <template id="custom_website.homepage_banner" name="Homepage banner">
             <div class="homepage-div homepage-banner">
                 <a href="#" class="d-flex flex-grow-1 justify-content-center align-items-center">
-                    <img src="/custom_website/static/src/images/home_bg.png" alt="Macbook" class="img-fluid w-100"/>
+                    <img src="/custom_website/static/src/images/home_bg.png" alt="Macbook"
+                        class="img-fluid w-100" />
                 </a>
             </div>
         </template>
@@ -119,8 +120,21 @@
         </template>
 
         <template id="custom_website.homepage_category_card" name="Homepage category_card">
-            <div class="bg-light overflow-hidden homepage-div highlight-category-card">
-                <div class=" d-md-flex flex-md-equal w-100 my-md-3 catg-layout ">
+            <div
+                class="row row-cols-1 row-cols-sm-2 row-cols-md-4 justify-content-center highlight-category-card-layout">
+                <t t-set="qty" t-value="6" />
+                <t t-foreach="range(qty)" t-as="item">
+                    <div t-attf-class="col col-md-6 highlight-category-card">
+                        <img
+                         t-attf-src="/custom_website/static/src/images/home_banner_{{ item + 1  }}.png">
+
+                        </img>
+                    </div>
+                </t>
+
+            </div>
+            <!-- <div class="bg-light overflow-hidden homepage-div highlight-category-card"> -->
+            <!-- <div class=" d-md-flex flex-md-equal w-100 my-md-3 catg-layout ">
                     <div
                         class="bg-white me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-black overflow-hidden catg-card"
                         style="background-image: url('/custom_website/static/src/images/categ-card-macbook-pro.png');">
@@ -182,10 +196,10 @@
                         </div>
 
                     </div>
-                </div>
-            </div>
+                </div> -->
+            <!-- </div> -->
 
-          
+
         </template>
         <template id="custom_website.homepage_contact" name="Homepage Contact">
             <div class="col-12  homepage-div highlight-category-card bg-light">
@@ -201,7 +215,7 @@
                     <t t-call="custom_website.homepage_highlight_product" />
                     <t t-call="custom_website.homepage_category_line" />
                     <t t-call="custom_website.homepage_category_card" />
-                        <!-- <t t-call="custom_website.homepage_contact" /> -->
+                    <!-- <t t-call="custom_website.homepage_contact" /> -->
                 </div>
             </xpath>
         </template>
