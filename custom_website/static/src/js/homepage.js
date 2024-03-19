@@ -1,7 +1,7 @@
 $(function () {
 
-    const $container = $('.custom_home_page .highlight-product');
-    let $cells = $('.custom_home_page .cell-item');
+    const $container = $('.highlight-product-layout');
+    let $cells = $('.cell-item');
     const numVisibleCells = 5; // Số lượng cell hiển thị trên màn hình
     let currentIndex = 0;
 

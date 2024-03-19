@@ -20,11 +20,11 @@
 
 
         <template id="custom_website.homepage_banner" name="Homepage banner">
-            <section class="col-12 homepage-section homepage-banner bg-black text-white">
-                <div class="btn homepage-banner-buy">
-                    <!-- <a href="#">Buy Now</a> -->
-                </div>
-            </section>
+            <div class="homepage-div homepage-banner">
+                <a href="#" class="d-flex flex-grow-1 justify-content-center align-items-center">
+                    <img src="/custom_website/static/src/images/home_bg.png" alt="Macbook" class="img-fluid w-100"/>
+                </a>
+            </div>
         </template>
 
         <template id="custom_website.homepage_highlight_product_carousel"
@@ -48,17 +48,17 @@
         </template>
 
         <template id="custom_website.homepage_highlight_product" name="Homepage Product Highlight">
-            <section class="container homepage-section highlight-product bg-light overflow-hidden">
+            <div class="homepage-div highlight-product-layout bg-light overflow-hidden">
                 <div class="cell-item highlight-product-banner">
                     <div
-                        class="highlight-product-shadow text-center highlight-product-banner-img">
+                        class="col highlight-product-shadow text-center highlight-product-banner-img">
                         <span class="Highlight">Highlight</span>
                         <span class="Product">Product</span>
                     </div>
                 </div>
                 <t t-set="qty" t-value="10" />
                 <t t-foreach="range(qty)" t-as="item">
-                    <div class="cell-item highlight-product-carousel">
+                    <div class="col cell-item highlight-product-carousel">
                         <t t-call="custom_website.homepage_highlight_product_carousel">
                             <t t-set="item_no" t-value="item" />
                         </t>
@@ -77,11 +77,11 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-            </section>
+            </div>
         </template>
 
         <template id="custom_website.homepage_category_line" name="Homepage category_line">
-            <section class="homepage-section highlight-category-line bg-light overflow-hidden">
+            <div class="homepage-div highlight-category-line bg-light overflow-hidden">
                 <div class="d-flex justify-content-center gap-4">
                     <div class="d-flex gap-2 flex-column align-items-center">
                         <img class="highlight-category-line-img"
@@ -115,11 +115,11 @@
                     </div>
 
                 </div>
-            </section>
+            </div>
         </template>
 
         <template id="custom_website.homepage_category_card" name="Homepage category_card">
-            <section class="bg-light overflow-hidden homepage-section highlight-category-card">
+            <div class="bg-light overflow-hidden homepage-div highlight-category-card">
                 <div class=" d-md-flex flex-md-equal w-100 my-md-3 catg-layout ">
                     <div
                         class="bg-white me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-black overflow-hidden catg-card"
@@ -183,50 +183,25 @@
 
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <section
-                class="d-flex gap-2 flex-column homepage-section highlight-category-card bg-light">
-                <div class="row row-cols-1 gap-2">
-                    <div class="row col-md-6 highlight-category-card-item bg-white">
-                    </div>
-                    <div class="row col-md-6 highlight-category-card-item bg-black">
-                    </div>
-
-                    <div class="row col highlight-category-card-item bg-black">
-                    </div>
-                    <div class="row col highlight-category-card-item bg-white">
-                    </div>
-                </div>
-                <div class="row row-cols-1 gap-2">
-                    <div class="row col-md-6 highlight-category-card-item bg-black">
-                    </div>
-                    <div class="row col-md-6 highlight-category-card-item bg-black">
-                    </div>
-
-                </div>
-            </section>
+          
         </template>
         <template id="custom_website.homepage_contact" name="Homepage Contact">
-            <section class="col-12  homepage-section highlight-category-card bg-light">
+            <div class="col-12  homepage-div highlight-category-card bg-light">
                 Category 1 Content
-            </section>
+            </div>
         </template>
 
         <template id="custom_website_homepage" inherit_id="website.homepage" name="Home">
             <xpath expr="//div[@id='wrap']" position="replace">
                 <!-- <div id="wrap" class="oe_structure oe_empty"/> -->
                 <div id="wrap">
-                    <div>
-                        <div class="row custom_home_page">
-                            <t t-call="custom_website.homepage_banner" />
-                            <t t-call="custom_website.homepage_highlight_product" />
-                            <t t-call="custom_website.homepage_category_line" />
-                            <t t-call="custom_website.homepage_category_card" />
-                            <!-- <t t-call="custom_website.homepage_contact" /> -->
-                        </div>
-                    </div>
-
+                    <t t-call="custom_website.homepage_banner" />
+                    <t t-call="custom_website.homepage_highlight_product" />
+                    <t t-call="custom_website.homepage_category_line" />
+                    <t t-call="custom_website.homepage_category_card" />
+                        <!-- <t t-call="custom_website.homepage_contact" /> -->
                 </div>
             </xpath>
         </template>
