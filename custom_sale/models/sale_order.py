@@ -50,9 +50,7 @@ class SaleOrderInherit(models.Model):
             else:
                 r.state = 'sale'
             template = self.env.ref('custom_sale.mail_template_change_stage_sale')
-            values = {
 
-            }
             template.send_mail(r.id)
             r.old_state = r.approval_state
 
@@ -61,6 +59,6 @@ class SaleOrderInherit(models.Model):
              return dict(self._fields['old_state']._description_selection(self.env)).get(self.old_state)
 
     def get_new_state(self):
-         if self.old_state:
+         if self.approval_state:
              return dict(self._fields['old_state']._description_selection(self.env)).get(self.approval_state)
     
