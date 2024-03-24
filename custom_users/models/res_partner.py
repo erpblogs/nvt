@@ -41,6 +41,7 @@ class CustomPartnerCompany(models.Model):
     
     partner_company_id = fields.Many2one(comodel_name='res.partner',ondelete='restrict', auto_join=True, index=True)
     web_user_ids = fields.One2many('res.users', 'portal_company_id', string="Users")
+    address_ids = fields.One2many('res.partner.company.address', 'customer_id', string="Address")
     # tz = fields.Selection(default=DF_TIMEZONE)
     
     @api.constrains('email')
@@ -48,7 +49,16 @@ class CustomPartnerCompany(models.Model):
         for r in self:
             if r.email and not email_normalize(r.email):
                 raise UserError(_('Invalid email address %r', r.email))
-            
+
+class AddressPartnerCompany(models.Model):
+    _name = 'res.partner.company.address'
+    _description = 'Company Address'
+
+    street = fields.Char(string="Street")
+    city = fields.Char(string="City")
+    country_id = fields.Many2one(comodel_name="res.country", string="Country", default=lambda self: self.env.ref("base.vn"))
+    state_id = fields.Many2one(comodel_name="res.country.state", domain="[('country_id', '=', country_id)]", string="State")
+    customer_id = fields.Many2one(comodel_name="res.partner.company", string="Customer", ondelete='restrict')
             
 # class CustomUsersInherit(models.Model):
 #     _inherit = 'res.users'

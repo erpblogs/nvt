@@ -19,7 +19,7 @@
 					<field name="name" string="Number" readonly="1" decoration-bf="1" />
 					<field name="date_order" widget="date" optional="show"
 						readonly="state in ['cancel', 'sale']" />
-					<field name="partner_id" readonly="1" />
+					<field name="partner_id" readonly="1" string="Manager"/>
 					<field name="company_id" groups="!base.group_multi_company"
 						column_invisible="True" />
 					<field name="company_id"
@@ -43,9 +43,7 @@
 						widget="many2many_tags"
 						options="{'color_field': 'color'}"
 						optional="hide" />
-					<field name="approval_state" string="Status"
-						readonly="state in ['cancel', 'sale']"
-					/>
+					<field name="approval_state" string="Status"/>
 					<field name="state"
 						column_invisible="True"
 						decoration-success="state == 'sale'"
@@ -54,6 +52,7 @@
 						widget="badge"
 						optional="hide" />
 					<field name="validity_date" optional="hide" />
+					<field name="old_state" invisible="1"/>
 				</tree>
 			</field>
 		</record>
@@ -69,46 +68,49 @@
 			</field>
 		</record>
 
-		<!-- <record id="custom_sale_order_form_inherit" model="ir.ui.view">
+		<record id="custom_sale_order_form_inherit" model="ir.ui.view">
 			<field name="name">custom.sale.order.form</field>
 			<field name="model">sale.order</field>
 			<field name="inherit_id" ref="sale.view_order_form" />
 			<field name="arch" type="xml">
-				<field name="partner_id" position="after">
-					<field name="user_id" widget="many2one_avatar_user" />
-				</field>
+				<xpath expr="//div[hasclass('oe_chatter')]" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+<!--				<field name="partner_id" position="after">-->
+<!--					<field name="user_id" widget="many2one_avatar_user" />-->
+<!--				</field>-->
 
-				<field name="partner_invoice_id" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</field>
-				<field name="partner_shipping_id" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</field>
-				<field name="payment_term_id" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</field>
+<!--				<field name="partner_invoice_id" position="attributes">-->
+<!--					<attribute name="invisible">1</attribute>-->
+<!--				</field>-->
+<!--				<field name="partner_shipping_id" position="attributes">-->
+<!--					<attribute name="invisible">1</attribute>-->
+<!--				</field>-->
+<!--				<field name="payment_term_id" position="attributes">-->
+<!--					<attribute name="invisible">1</attribute>-->
+<!--				</field>-->
 
-				<xpath expr="//page[@name='other_information']" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</xpath>
-				<xpath expr="//field[@name='order_line']/tree/field[@name='qty_delivered']"
-					position="attributes">
-					<attribute name="column_invisible">True</attribute>
-				</xpath>
-				<xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']"
-					position="attributes">
-					<attribute name="column_invisible">True</attribute>
-				</xpath>
+<!--				<xpath expr="//page[@name='other_information']" position="attributes">-->
+<!--					<attribute name="invisible">1</attribute>-->
+<!--				</xpath>-->
+<!--				<xpath expr="//field[@name='order_line']/tree/field[@name='qty_delivered']"-->
+<!--					position="attributes">-->
+<!--					<attribute name="column_invisible">True</attribute>-->
+<!--				</xpath>-->
+<!--				<xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']"-->
+<!--					position="attributes">-->
+<!--					<attribute name="column_invisible">True</attribute>-->
+<!--				</xpath>-->
 
-				<xpath expr="//header" position="replace">
-					<field name="state" invisible="1" />
-					<field name="locked" invisible="1" />
-					<field name="authorized_transaction_ids" invisible="1" />
-					<field name="approval_state" widget="statusbar" readonly="0" options="{'clickable': '1'}"
-						statusbar_visible="draft,confirm,in_transit,deliver" />
-				</xpath>
+<!--				<xpath expr="//header" position="replace">-->
+<!--					<field name="state" invisible="1" />-->
+<!--					<field name="locked" invisible="1" />-->
+<!--					<field name="authorized_transaction_ids" invisible="1" />-->
+<!--					<field name="approval_state" widget="statusbar" readonly="0" options="{'clickable': '1'}"-->
+<!--						statusbar_visible="draft,confirm,in_transit,deliver" />-->
+<!--				</xpath>-->
 			</field>
-		</record> -->
+		</record>
 
 
 		<record id="custom_view_sales_order_filter" model="ir.ui.view">

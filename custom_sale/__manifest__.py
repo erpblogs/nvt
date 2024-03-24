@@ -24,13 +24,14 @@ Custom Ecommerge
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
-        
+
         'views/product_views.xml',
         'views/sale_order_views.xml',
         'views/product_menus.xml',
         'views/sale_menus.xml',
         
         'views/templates.xml',
+        'data/mail_template.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
