@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="res_partner_company_address_tree_view" model="ir.ui.view">
+        <field name="name">res.partner.company.address.tree</field>
+        <field name="model">res.partner.company.address</field>
+        <field name="arch" type="xml">
+            <tree string="Addresses" editable="top" multi_edit="1">
+                <field name="street"/>
+                <field name="city"/>
+                <field name="country_id"/>
+                <field name="state_id"/>
+                <field name="customer_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_res_partner_company_address" model="ir.actions.act_window">
+        <field name="name">Addresses</field>
+        <field name="res_model">res.partner.company.address</field>
+        <field name="view_mode">tree</field>
+    </record>
+
     <record id="res_partner_company_tree_view" model="ir.ui.view">
         <field name="name">res.partner.company.simplified.tree</field>
         <field name="model">res.partner.company</field>
@@ -121,6 +141,16 @@
                                         domain="[('account_manager', '=', True)]" />
                                 </group>
                             </group>
+                        </page>
+                        <page string="Addresses" name="addresses">
+                            <field name="address_ids" string="Addresses">
+                                <tree editable="bottom">
+                                    <field name="street"/>
+                                    <field name="city"/>
+                                    <field name="state_id"/>
+                                    <field name="country_id"/>
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
