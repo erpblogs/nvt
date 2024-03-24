@@ -26,7 +26,7 @@
     <template id="custom_website.macbook_template" name="Mac">
         <t t-call="website.layout">
             <div id="wrap" class="js_product_category">
-                <nav class="navbar navbar-expand-lg navbar">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
                         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                             <ul class="navbar-nav">
@@ -59,7 +59,7 @@
                         <div class="row">
                             <t t-set="qty" t-value="20" />
                             <t t-foreach="range(qty)" t-as="item">
-                                <div class="col-12 col-md-6 col-lg-4 col-xl-3 justify-content-center cell-item product">
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-3 cell-item product">
                                     <t t-call="custom_website.product_layout">
                                         <t t-set="item_no" t-value="item" />
                                     </t>
