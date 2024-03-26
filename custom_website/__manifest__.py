@@ -26,18 +26,19 @@ Long description of module's purpose
         'security/ir.model.access.csv',
         
         # datas
-        'data/company.xml',
+        'data/company.xml', 
         'data/website_data.xml',
         
-        # 'views/savvycom_website_view.xml',
-        # website
+        # view
+        'views/product_view.xml',
         
+        # layout
         'views/website_layout.xml',
         'views/website_header.xml',
         'views/web_layout.xml',
+        # 'views/contactus_layout.xml',
         'views/home_page.xml',
-        'views/mac_layout.xml',
-        'views/ipad_layout.xml',
+        'views/product_layout.xml',
         
         # menu
         'views/hidden_menu.xml',

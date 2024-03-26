@@ -56,20 +56,25 @@
             <field name="website_id" ref="website.default_website" />
         </record>
         
+        <record id="website_menu_mac" model="website.menu">
+            <field name="name">Mac</field>
+            <field name="url">/shop/categ/mac</field>
+            <field name="parent_id" ref="website.main_menu" />
+            <field name="sequence" type="int">1</field>
+            <field name="website_id" ref="website.default_website" />
+        </record>
 
-        <!-- <record id="website_menu_ipad" model="website.menu">
+        <record id="website_menu_ipad" model="website.menu">
             <field name="name">iPad</field>
-            <field name="url">#</field>
-
+            <field name="url">/shop/categ/ipad</field>
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">20</field>
             <field name="website_id" ref="website.default_website"/>
-        </record> -->
+        </record>
 
         <record id="website_menu_iphone" model="website.menu">
             <field name="name">iPhone</field>
-            <field name="url">#</field>
-
+            <field name="url">/shop/categ/iphone</field>
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">30</field>
             <field name="website_id" ref="website.default_website"/>
@@ -77,8 +82,7 @@
 
         <record id="website_menu_watch" model="website.menu">
             <field name="name">Watch</field>
-            <field name="url">#</field>
-
+            <field name="url">/shop/categ/watch</field>
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">40</field>
             <field name="website_id" ref="website.default_website"/>
@@ -86,8 +90,7 @@
 
         <record id="website_menu_airpods" model="website.menu">
             <field name="name">AirPods</field>
-            <field name="url">#</field>
-
+            <field name="url">/shop/categ/airpods</field>
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">50</field>
             <field name="website_id" ref="website.default_website"/>
@@ -96,7 +99,7 @@
 
         <record id="website_menu_entertainment" model="website.menu">
             <field name="name">Entertainment</field>
-            <field name="url">#</field>
+            <field name="url">/shop/categ/entertainment</field>
 
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">60</field>
@@ -106,7 +109,7 @@
 
         <record id="website_menu_accessory" model="website.menu">
             <field name="name">Accessory</field>
-            <field name="url">#</field>
+            <field name="url">/shop/categ/accessories</field>
 
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">70</field>

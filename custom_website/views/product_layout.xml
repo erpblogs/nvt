@@ -26,7 +26,19 @@
     <template id="custom_website.macbook_template" name="Mac">
         <t t-call="website.layout">
             <div id="wrap" class="js_product_category">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <div class="o_wsale_products_grid_before_rail vh-100 ms-n2 mt-n2 pt-2 pe-lg-2 pb-lg-5 ps-2 overflow-y-scroll">
+                        <div t-if="opt_wsale_categories" class="products_categories mb-3">
+                            <t t-call="website_sale.products_categories_list"/>
+                        </div>
+                        <div class="products_attributes_filters"/>
+                        <t t-if="opt_wsale_filter_price and opt_wsale_attributes"
+                           t-call="website_sale.filter_products_price"/>
+                    </div>
+
+                </div>
+
+                <nav class="navbar navbar-expand-lg navbar">
                     <div class="container-fluid">
                         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                             <ul class="navbar-nav">
@@ -53,13 +65,66 @@
                         </div>
                     </div>
                 </nav>
+                <section>
+                    <div id="products_grid"
+                        t-attf-class="{{'col-lg-9' if hasLeftColumn else 'col-12'}}">
+                        <t t-call="website_sale.products_breadcrumb">
+                            <t t-set="_classes" t-valuef="d-none d-lg-flex w-100 p-0 small" />
+                        </t>
+                        <div
+                            class="products_header btn-toolbar flex-nowrap align-items-center justify-content-between gap-3 mb-3">
+                            <t t-if="is_view_active('website_sale.search')"
+                                t-call="website_sale.search">
+                                <t t-set="search" t-value="original_search or search" />
+                                <t t-set="_form_classes"
+                                    t-valuef="d-lg-inline {{'d-inline' if not category else 'd-none'}}" />
+                            </t>
 
+                            <t t-call="website_sale.pricelist_list" t-cache="pricelist">
+                                <t t-set="_classes" t-valuef="d-none d-lg-inline" />
+                            </t>
+
+                            <t t-if="is_view_active('website_sale.sort')" t-call="website_sale.sort">
+                                <t t-set="_classes" t-valuef="d-none d-lg-inline-block" />
+                            </t>
+
+                            <div t-if="category" class="d-flex align-items-center d-lg-none me-auto">
+                                <t t-if="not category.parent_id" t-set="backUrl" t-valuef="/shop" />
+                                <t t-else="" t-set="backUrl"
+                                    t-value="keep('/shop/category/' + slug(category.parent_id), category=0)" />
+
+                                <a t-attf-class="btn btn-{{navClass}} me-2"
+                                    t-att-href="category.parent_id and keep('/shop/category/' + slug(category.parent_id), category=0) or '/shop'">
+                                    <i class="fa fa-angle-left" />
+                                </a>
+                                <h4 t-out="category.name" class="mb-0 me-auto" />
+                            </div>
+
+                            <t t-if="is_view_active('website_sale.add_grid_or_list_option')"
+                                t-call="website_sale.add_grid_or_list_option">
+                                <t t-set="_classes" t-valuef="d-flex" />
+                            </t>
+
+                            <button
+                                t-if="is_view_active('website_sale.sort') or opt_wsale_categories or opt_wsale_attributes or opt_wsale_attributes_top"
+                                t-attf-class="btn btn-{{navClass}} position-relative {{not opt_wsale_attributes_top and 'd-lg-none'}}"
+                                data-bs-toggle="offcanvas"
+                                data-bs-target="#o_wsale_offcanvas">
+                                <i class="fa fa-sliders" />
+                                <span t-if="isFilteringByPrice or attrib_set or tags"
+                                    t-attf-class="position-absolute top-0 start-100 translate-middle border border-{{navClass}} rounded-circle bg-danger p-1">
+                                    <span class="visually-hidden">filters active</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
                 <section class="bg-light">
                     <div class="container highlight-product">
                         <div class="row">
                             <t t-set="qty" t-value="20" />
                             <t t-foreach="range(qty)" t-as="item">
-                                <div class="col-12 col-md-6 col-lg-4 col-xl-3 cell-item product">
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-3 justify-content-center cell-item product">
                                     <t t-call="custom_website.product_layout">
                                         <t t-set="item_no" t-value="item" />
                                     </t>
@@ -84,21 +149,12 @@
     </template>
 
 
-    <record id="custom_website.macbook_page" model="website.page">
+    <!-- <record id="custom_website.macbook_page" model="website.page">
         <field name="is_published">True</field>
-        <field name="url">/macbook</field>
+        <field name="url">/shop/category/mac</field>
         <field name="view_id" ref="custom_website.macbook_template" />
         <field name="track">True</field>
-    </record>
-
-    <record id="website_menu_mac" model="website.menu">
-        <field name="name">Mac</field>
-        <field name="url">/macbook</field>
-        <field name="page_id" ref="custom_website.macbook_page" />
-        <field name="parent_id" ref="website.main_menu" />
-        <field name="sequence" type="int">1</field>
-        <field name="website_id" ref="website.default_website" />
-    </record>
+    </record> -->
 
 
 </odoo>
