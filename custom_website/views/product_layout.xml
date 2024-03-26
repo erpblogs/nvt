@@ -55,7 +55,7 @@
 
     <template id="product_category_tags" name="Product category tags">
         <div id="wsale_products_attributes_collapse" t-attf-class="{{tagsClass}}">
-            <form t-if="all_tags" class="js_attributes d-flex " method="get">
+            <form t-if="all_tags" class="js_attributes d-flex align-items-center" method="get">
                 <input t-if="category" type="hidden" name="category" t-att-value="category.id" />
 
                 <!-- <a t-if="tags" t-att-href="keep('/shop'+ ('/category/'+slug(category)) if
@@ -65,7 +65,7 @@
                         <i class="oi oi-close"/>
                     </a> -->
                 <t t-foreach="all_tags" t-as="tag" class="list-group-item border-0 ps-0 pb-0">
-                    <div class="form-check mb-0">
+                    <div class="oc_tags_form mb-0">
                         <input type="checkbox"
                             name="tags"
                             class="btn-check"
@@ -74,7 +74,7 @@
                             t-att-checked="'checked' if tag.id in tags else None"
                         />
                         <label
-                            class="btn btn-outline-secondary rounded-pill form-check-label fw-normal"
+                            class="btn btn-outline-secondary rounded-pill oc_tags_form_label bg-white"
                             t-att-for="tag.id" t-field="tag.name" />
                     </div>
                 </t>
@@ -144,9 +144,9 @@
                             <!-- <t t-call="website_sale.products_breadcrumb">
                                 <t t-set="_classes" t-valuef="d-none d-lg-flex w-100 p-0 small"/>
                             </t> -->
-                            <div>
+                            <div class="oc_categ">
                                 <div t-if="category"
-                                    class="d-flex align-items-center me-auto oc_categ">
+                                    class="d-flex align-items-center me-auto">
                                     <t t-if="not category.parent_id" t-set="backUrl"
                                         t-valuef="/shop" />
                                     <t t-else="" t-set="backUrl"
@@ -171,7 +171,7 @@
                                 </div>
                             </div>
 
-                            <div class="row flex-nowrap justify-content-between">
+                            <div class="row flex-nowrap justify-content-between oc_tags">
                                 <!-- Filter by tags -->
                                 <t t-call="custom_website.product_category_tags">
                                     <t t-set="tagsClass" t-valuef="col col-md-6 d-none d-md-flex" />
