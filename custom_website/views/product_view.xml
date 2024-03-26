@@ -1,0 +1,40 @@
+<odoo>
+
+    <!-- Product Public Categories -->
+    <record id="product_public_category_custom_form_view" model="ir.ui.view">
+        <field name="name">product.public.category.custom.form</field>
+        <field name="model">product.public.category</field>
+        <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="website_url" readonly="0"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product Public Categories -->
+    <record id="custom_public_product_template_tree_view" model="ir.ui.view">
+        <field name="name">product.public.category.custom.tree</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="custom_sale.custom_product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='activity_exception_decoration']" position="after">
+				<field name="public_categ_ids" widget="many2many_tags"/>
+				<field name="website_published" />
+            </xpath>
+        </field>
+    </record>
+    <record id="custom_public_product_template_form_view" model="ir.ui.view">
+        <field name="name">product.public.category.custom.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="custom_sale.custom_product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']" position="inside">
+                <group name="sale">
+                    <field name="public_categ_ids" widget="many2many_tags"/>
+                    <field name="website_published" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

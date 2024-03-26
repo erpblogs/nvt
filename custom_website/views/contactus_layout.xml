@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="custom_website.contactus" inherit_id="website.contactus" name="Contactus">
+        <xpath expr="//t[@t-call='website.layout']" position="replace">
+            <t t-call="website.layout">
+                <t t-set="logged_partner"
+                    t-value="request.env['website.visitor']._get_visitor_from_request().partner_id" />
+                <t t-set="contactus_form_values"
+                    t-value="{
+                'email_to': res_company.email,
+                'name': request.params.get('name', ''),
+                'phone': request.params.get('phone', ''),
+                'email_from': request.params.get('email_from', ''),
+                'company': request.params.get('company', ''),
+                'subject': request.params.get('subject', ''),
+            }" />
+                <span class="hidden" data-for="contactus_form"
+                    t-att-data-values="contactus_form_values" />
+                <div id="wrap" class="oe_structure oe_empty" />
+                <section
+                    class="s_cover o_cc o_cc4 o_colored_level pt192 pb256 s_parallax_no_overflow_hidden oe_img_bg o_bg_img_center"
+                    data-scroll-background-ratio="0" data-snippet="s_cover" data-name="Ảnh bìa"
+                    style="background-color: #121842;background-image: url(&quot;/web/image/1504-2d6ba5a0/register_bg.webp&quot;); position: relative;"
+                    data-mimetype="image/webp" data-original-id="1503"
+                    data-original-src="/web/image/1503-7a562497/register_bg.png"
+                    data-mimetype-before-conversion="image/png" data-resize-width="1440">
+
+                    <div class="container s_allow_columns">
+
+
+                        <div class="row">
+                            <div class="col-lg-12 o_colored_level">
+                                <h1 class="display-3 o_default_snippet_text"
+                                    style="text-align: left; font-weight: bold;"> Tác phẩm nghệ
+                                    thuật<br />Đi tìm tên tác giả<br /></h1>
+                                <p>
+                                    <br />
+                                </p>
+                                <p class="lead o_default_snippet_text" style="text-align: left;">
+                                    Đăng ký bản quyền tác phẩm nghệ thuật của bạn ngay hôm nay
+                                    &amp;nbsp;<br /></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_website_form pt16 pb16 o_colored_level text-white" data-vcss="001"
+                    data-snippet="s_website_form" data-name="Biểu mẫu"
+                    style="background-image: none; background-color: #121842;">
+
+                    <div class="container">
+                        <h1 class="p-5 text-white text-center">Đăng ký tác phẩm</h1>
+
+                        <form action="/website/form/" method="post" enctype="multipart/form-data"
+                            class="o_mark_required" data-mark="*" data-pre-fill="true"
+                            data-model_name="mail.mail" data-success-mode="message"
+                            data-success-page="/contactus-thank-you">
+                            <div class="s_website_form_rows row s_col_no_bgcolor">
+
+                                <h3 class="col-12 py-4">Thông tin tác giả</h3>
+
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom s_website_form_required"
+                                    data-type="char">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="oxfsdl1us0df">
+                                        <span class="s_website_form_label_content">Họ tên tác giả </span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <input
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;" type="text"
+                                        name="Họ tên tác giả" required="1" placeholder=""
+                                        id="oxfsdl1us0df"
+                                        data-fill-with="name" />
+                                    <div class="invalid-feedback" style="padding:0 20px;">Đây là
+                                        trường bắt buộc</div>
+                                </div>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom"
+                                >
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="oc7415sdeui">
+                                        <span class="s_website_form_label_content">Giới tính</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <select
+                                        class="form-select s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;"
+                                        name="Giới tính"
+                                        id="ojllu9bkxu0p">
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                        <option value="Khác">Khác</option>
+                                    </select>
+                                </div>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom s_website_form_required"
+                                    data-type="tel">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="omg04l9yivhk">
+                                        <span class="s_website_form_label_content">Số điện thoại</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <input
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;" type="tel"
+                                        name="Số điện thoại" required="1" placeholder=""
+                                        id="omg04l9yivhk"
+                                        data-fill-with="phone" />
+                                    <div class="invalid-feedback" style="padding:0 20px;">Đây là
+                                        trường bắt buộc</div>
+                                </div>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_model_required"
+                                    data-type="email">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="oxrfhue3q03">
+                                        <span class="s_website_form_label_content">Email</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <input
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;" type="email"
+                                        name="email_from" required="1" placeholder=""
+                                        id="oxrfhue3q03"
+                                        data-fill-with="email" />
+                                    <div class="invalid-feedback" style="padding:0 20px;">Đây là
+                                        trường bắt buộc</div>
+                                </div>
+
+
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom"
+                                    data-type="char">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="ok8ffhtumlaa">
+                                        <span class="s_website_form_label_content">Thành phố/tỉnh </span>
+                                    </label>
+                                    <input
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;" type="text"
+                                        name="Thành phố/tỉnh " placeholder="" id="ok8ffhtumlaa"
+                                        data-fill-with="undefined" />
+                                </div>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom"
+                                    data-type="char">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="ozt5x7lwrwgs">
+                                        <span class="s_website_form_label_content">Quận/huyện</span>
+                                    </label>
+                                    <input
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;" type="text"
+                                        name="Quận/huyện" placeholder="" id="ozt5x7lwrwgs"
+                                        data-fill-with="undefined" />
+                                </div>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom"
+                                    data-type="char">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="oy20dfjpdgm8">
+                                        <span class="s_website_form_label_content">Phường/xã</span>
+                                    </label>
+                                    <input
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;" type="text"
+                                        name="Phường/xã" placeholder="" id="oy20dfjpdgm8"
+                                        data-fill-with="undefined" />
+                                </div>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom"
+                                    data-type="char">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="o9sr8535yvqv">
+                                        <span class="s_website_form_label_content">Đường</span>
+                                    </label>
+                                    <input
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;" type="text"
+                                        name="Đường"
+                                        placeholder="" id="o9sr8535yvqv" data-fill-with="undefined" />
+                                </div>
+
+                                <h3 class="col-12 py-4">Thông tin tác phẩm</h3>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_model_required"
+                                    data-type="char">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="o3kjy25112an">
+                                        <span class="s_website_form_label_content">Tên tác phẩm</span>
+                                        <span class="s_website_form_mark"> *</span>
+
+                                    </label>
+                                    <input
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;" type="text"
+                                        name="subject"
+                                        required="1" placeholder="" id="o3kjy25112an"
+                                        data-fill-with="undefined" />
+                                    <div class="invalid-feedback" style="padding:0 20px;">Đây là
+                                        trường bắt buộc</div>
+                                </div>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom s_website_form_required"
+                                    data-type="char">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="ou91nzuel0ab">
+                                        <span class="s_website_form_label_content">Thể loại</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <input
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;" type="text"
+                                        name="request_type"
+                                        required="1" placeholder="" id="ou91nzuel0ab"
+                                        data-fill-with="request_type" />
+                                    <div class="invalid-feedback" style="padding:0 20px;">Đây là
+                                        trường bắt buộc</div>
+                                </div>
+
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom s_website_form_required"
+                                    data-type="date">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="ozy6825b8cee">
+                                        <span class="s_website_form_label_content">Thời điểm sáng
+                                            tác</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <div
+                                        class="s_website_form_date input-group date position-relative">
+                                        <input type="text"
+                                            class="form-control datetimepicker-input s_website_form_input border bg-transparent border-light text-white"
+                                            style="border-radius: 20px;padding: 13px 20px;"
+                                            name="Thời điểm sáng tác" required="1" placeholder=""
+                                            id="ozy6825b8cee"
+                                            data-fill-with="undefined" />
+                                        <div
+                                            class="input-group-text pe-none bg-transparent text-white h-100  border-0 position-absolute end-0">
+                                            <i class="fa fa-calendar" />
+                                        </div>
+
+                                        <div class="invalid-feedback position-absolute top-100"
+                                            style="padding:0 20px;">Đây là trường bắt buộc</div>
+                                    </div>
+                                </div>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom s_website_form_required"
+                                    data-type="char">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="o0e1j526vnsi">
+                                        <span class="s_website_form_label_content">Phương thức sáng
+                                            tác</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <input
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;" type="text"
+                                        name="Phương thức sáng tác" required="1" placeholder=""
+                                        id="o0e1j526vnsi"
+                                        data-fill-with="undefined" />
+                                    <div class="invalid-feedback" style="padding:0 20px;">Đây là
+                                        trường bắt buộc</div>
+                                </div>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 s_website_form_custom s_website_form_required"
+                                    data-type="text">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="onlhuknrp51">
+                                        <span class="s_website_form_label_content">Mô tả tác phẩm</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                        <div class="invalid-feedback" style="padding:0 20px;">Đây là
+                                            trường bắt buộc</div>
+                                    </label>
+                                    <textarea
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;"
+                                        name="Mô tả tác phẩm"
+                                        required="1" placeholder="" id="onlhuknrp51" />
+                                    <div class="invalid-feedback" style="padding:0 20px;">Đây là
+                                        trường bắt buộc</div>
+                                </div>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 s_website_form_custom s_website_form_required"
+                                    data-type="binary">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="oyvll7k1liu">
+                                        <span class="s_website_form_label_content">Tải lên tác phẩm</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <input type="file"
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;"
+                                        name="Chọn tác phẩm" required="1" id="oyvll7k1liu"
+                                        data-max-files-number="1" data-max-file-size="10"
+                                        data-fill-with="undefined" />
+                                    <div
+                                        class="s_website_form_field_description small form-text text-light">Tối
+                                        đa 10 MB trên một tệp</div>
+                                    <div class="invalid-feedback" style="padding:0 20px;">Đây là
+                                        trường bắt buộc</div>
+                                </div>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom s_website_form_required"
+                                    data-type="boolean">
+                                    <div class="form-check d-flex justify-content-start">
+                                        <input type="checkbox" value=""
+                                            class="s_website_form_input border bg-transparent border-light text-white form-check-input"
+                                            name="" required="1"
+                                            style="height: 20px; width: 20px; min-width: 20px;"
+                                            id="onsypfx64zer" data-fill-with="undefined" />
+                                        <label class="form-check-label" 
+                                        style="margin-left: 8px; font-size: 20px; font-weight: 300; line-height: 28px;"
+                                        for="onsypfx64zer">
+                                            Đây là câu cam đoan các thông tin trên là thật
+                                        </label>
+                                        <div class="invalid-feedback" style="padding:0 20px;">Đây là
+                                            trường bắt buộc</div>
+                                    </div>
+                                </div>
+
+
+                                <h3 class="col-12 py-4">Nhận thông báo quá trình xử lý yêu cầu</h3>
+
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom s_website_form_required"
+                                    data-type="many2one">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="ol2fc283icyl">
+                                        <span class="s_website_form_label_content">Hình thức nhận
+                                            thông báo</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <select
+                                        class="form-select s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;"
+                                        name="Hình thức nhận thông báo" required="1"
+                                        id="oictjanjxxvm">
+                                        <option value="Qua email">Qua email</option>
+                                        <option value="Qua Số điện thoại">Qua Số điện thoại</option>
+                                    </select>
+                                    <div class="invalid-feedback" style="padding:0 20px;">Đây là
+                                        trường bắt buộc</div>
+                                </div>
+                                <div class="col-12 col-md-6 " style="display: hidden;"></div>
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_custom"
+                                    data-type="email">
+                                    <label class="s_website_form_label" style="padding:0 20px;"
+                                        for="o51rqbhyv3mk">
+                                        <span class="s_website_form_label_content">Email / SĐT nhận
+                                            thông báo</span>
+                                    </label>
+                                    <input
+                                        class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                        style="border-radius: 20px;padding: 13px 20px;" type="text"
+                                        name="Email / SĐT nhận thông báo" placeholder=""
+                                        id="o51rqbhyv3mk" required="1"
+                                        data-fill-with="undefined" />
+                                    <div class="invalid-feedback" style="padding:0 20px;">Đây là
+                                        trường bắt buộc</div>
+                                </div>
+                                <div class="col-12 col-md-6 " style="display: hidden;"></div>
+
+                                <div data-name="Field"
+                                    class="s_website_form_field mb-3 col-12 col-md-6 s_website_form_dnone">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            style="width: 200px">
+                                            <span class="s_website_form_label_content" />
+                                        </label>
+                                        <div class="col-sm">
+                                            <input type="hidden"
+                                                class="form-control s_website_form_input border bg-transparent border-light text-white"
+                                                style="border-radius: 20px;padding: 13px 20px;"
+                                                name="email_to" value="Contact@dangkybanquyenso.vn" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-0 pt-3 pb-5 col-12 s_website_form_submit text-center d-flex justify-content-center"
+                                    data-name="Submit Button">
+                                    <div class="s_website_form_label" />
+                                    <a href="#" role="button"
+                                        style="height: 73px; padding: 4px 15px ; "
+                                        class="btn bg-white text-primary s_website_form_send o_default_snippet_text rounded-0 d-flex justify-content-center align-items-center"
+                                        data-bs-original-title="" title="">
+                                        <span style=" font-size: 20px;
+                                        font-weight: 600;
+                                        line-height: 28px;
+                                        text-align: center;
+                                        color: #293593;
+                                        ">Đăng ký bản quyền</span></a>
+                                    <span id="s_website_form_result" />
+                                </div>
+                            </div>
+                        </form>
+                        <div class="s_website_form_end_message d-none">
+                            <div class="oe_structure">
+                                <section class="s_text_block pt64 pb64 o_colored_level o_cc o_cc1"
+                                    data-snippet="s_text_block" data-name="Footer">
+                                    <div class="container">
+                                        <h2 class="text-center"><span class="fa fa-check-circle" />
+                                            &amp;nbsp; <strong>Gửi yêu cầu thành công!</strong>
+
+                                        </h2>
+                                        <p class="text-center">
+                                            <span class="h6-fs">&amp;nbsp;
+                                                Yêu cầu đăng ký bản quyền tác phẩm của bạn đã được
+                                                gửi đi thành công!</span>
+                                            <br />
+                                            <span class="h6-fs">Chúng tôi sẽ xét duyệt yêu cầu trong
+                                                thời gian sớm nhất!</span>
+                                            <br />
+                                        </p>
+                                    </div>
+                                    <div class="mb-0 pt-3 col-12 d-flex justify-content-center" >
+                                        <a href="/contactus" role="button"
+                                            style="height: 60px; padding: 4px 15px; 
+                                            padding: 16px 15px 16px 15px;
+                                            gap: 8px;
+                                            opacity: 0px;
+                                            background: #293593;
+                                            "
+                                            class="btn s_website_form_send o_default_snippet_text rounded-0 d-flex justify-content-center align-items-center text-white"
+                                            data-bs-original-title="" title="">
+                                            <span
+                                                style=" font-size: 20px;
+                                                font-weight: 600;
+                                                line-height: 28px;
+                                                text-align: center;
+                                                ">Đăng ký tác phẩm khác</span>
+                                        </a>
+                                        <span id="s_website_form_result" />
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="s_hr text-start" data-snippet="s_hr" data-name="Phân cách"
+                    style="background-color: #121842;">
+                    <div class="container">
+                        <hr class="w-75 mx-auto  bg-white"
+                            style="border-top-width: 1px; border-top-style: solid;"
+                            contenteditable="false" />
+                    </div>
+                </div>
+
+                <section class="s_text_block o_colored_level pt0 pb40" data-snippet="s_text_block"
+                    style="background-color: rgb(18, 24, 66); background-image: none;"
+                    data-name="Footer">
+                    <div class="s_allow_columns container">
+                        <div class="row o_grid_mode" data-row-count="7">
+                            <div
+                                class="o_colored_level o_grid_item g-col-lg-6 g-height-7 col-lg-6 o_draggable"
+                                style="grid-area: 1 / 1 / 8 / 7; z-index: 1;">
+                                <p>
+                                    <br />
+                                </p>
+                                <img
+                                    src="/web/image/1069-1552db11/803143f5dfff2c3e22ef366c2b247e60.webp"
+                                    alt="" class="img img-fluid o_we_custom_image"
+                                    data-mimetype="image/webp" data-original-id="1066"
+                                    data-original-src="/web/image/1066-bfaae478/803143f5dfff2c3e22ef366c2b247e60.png"
+                                    data-mimetype-before-conversion="image/png"
+                                    data-resize-width="369" style="width: 25% !important;"
+                                    loading="lazy" />
+                                <p class="o_default_snippet_text">
+                                    <font class="text-o-color-4 o_default_snippet_text">Lorem Ipsum
+                                        is simply dummy text of the printing and typesetting
+                                        industry. Lorem Ipsum has been the industry's standard dummy
+                                        text ever since the 1500s, when an unknown printer too​k a
+                                        galley of type and scrambled it to make a type specimen book</font>
+                                </p>
+                                <p class="o_default_snippet_text">
+                                    <font class="text-o-color-4">
+                                        <strong>
+                                            <span class="h6-fs o_default_snippet_text">Trụ sở chính</span>
+                                        </strong>
+                                    </font>
+                                </p>
+                                <p class="o_default_snippet_text">
+                                    <font class="text-o-color-4 o_default_snippet_text">Lorem Ipsum
+                                        is simply dummy text of the printing and typesetting
+                                        industry​</font>
+                                    <br />
+                                </p>
+                            </div>
+                            <div
+                                class="o_colored_level o_grid_item g-col-lg-4 g-height-6 col-lg-4 o_draggable"
+                                style="z-index: 2; grid-area: 2 / 8 / 8 / 12;">
+                                <p class="o_default_snippet_text">
+                                    <font class="text-o-color-4">
+                                        <span class="small">
+                                            <strong class="o_default_snippet_text">LIÊN HỆ</strong>
+                                        </span>
+                                    </font>
+                                </p>
+                                <p class="o_default_snippet_text">
+                                    <font class="text-o-color-4">
+                                        <span class="fa fa-phone" />
+                                        <span class="small o_default_snippet_text"><span
+                                                class="oe-tabs" style="width: 30.8359px;"> </span>​098
+                                            0987 654 321</span>
+                                    </font>
+                                </p>
+                                <p class="o_default_snippet_text">
+                                    <font class="text-o-color-4">
+                                        <span class="fa fa-envelope-open" />
+                                        <span class="small o_default_snippet_text"><span
+                                                class="oe-tabs" style="width: 28.2812px;"> </span>
+                                            ​email@gmail.com</span>
+                                    </font>
+                                </p>
+                                <p class="o_default_snippet_text">
+                                    <font class="text-o-color-4">
+                                        <span class="fa fa-linkedin-square" />
+                                        <span class="small o_default_snippet_text"><span
+                                                class="oe-tabs" style="width: 29.9922px;"> </span>
+                                            ​https://www.linkedin.com/in/pltq</span>
+                                    </font>
+                                </p>
+                                <p class="o_default_snippet_text">
+                                    <font class="text-o-color-4">
+                                        <span class="small o_default_snippet_text"><span
+                                                class="fa fa-facebook-square" /><span
+                                                class="oe-tabs" style="width: 28.2812px;"> </span>
+                                            ​https://www.facebook.com/pltq</span>
+                                    </font>
+                                </p>
+                                <p class="o_default_snippet_text">
+                                    <font class="text-o-color-4">
+                                        <span class="small o_default_snippet_text">​<span
+                                                class="fa fa-tiktok" />&amp;nbsp;<span
+                                                class="oe-tabs" style="width: 24.0859px;"> </span>
+                                            ​https://www.tiktok.com/pltq</span>
+                                    </font>
+                                    <br />
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- 
+    <record id="custom_website.macbook_page" model="website.page">
+        <field name="is_published">True</field>
+        <field name="url">/contactus</field>
+        <field name="view_id" ref="custom_website.macbook_template" />
+        <field name="track">True</field>
+    </record>
+
+    <record id="website_menu_mac" model="website.menu">
+        <field name="name">Mac</field>
+        <field name="url">/macbook</field>
+        <field name="page_id" ref="custom_website.contactus" />
+        <field name="parent_id" ref="website.main_menu" />
+        <field name="sequence" type="int">1</field>
+        <field name="website_id" ref="website.default_website" />
+    </record> -->
+
+
+</odoo>

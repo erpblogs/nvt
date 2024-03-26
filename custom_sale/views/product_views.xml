@@ -144,6 +144,7 @@
 							<!-- <group name="sale">
                                 <group string="Upsell &amp; Cross-Sell" name="upsell" invisible="1"/>
                             </group> -->
+							
 							<group>
 								<group string="Sales Description" name="description">
 									<field colspan="2" name="description_sale" nolabel="1"

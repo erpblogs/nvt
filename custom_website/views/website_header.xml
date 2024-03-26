@@ -1,95 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="placeholder_header_brand" name="Placeholder Header Brand">
-        <a href="/" t-attf-class="navbar-brand logo #{_link_classes}">
-            <span t-field="website.logo" t-options="{'widget': 'image'}" role="img"
-                t-att-aria-label="'Logo of %s' % website.name" t-att-title="website.name" />
-        </a>
-    </template>
+	<template id="placeholder_header_brand" name="Placeholder Header Brand">
+		<a href="/" t-attf-class="navbar-brand logo #{_link_classes}">
+			<span t-field="website.logo" t-options="{'widget': 'image'}" role="img"
+				t-att-aria-label="'Logo of %s' % website.name" t-att-title="website.name" />
+		</a>
+	</template>
 
-    <template id="custom_template_header_navbar_nav" inherit_id="website.navbar_nav"
-        name="Off-Canvas Header" active="False">
-        <xpath expr="//ul[@id='top_menu']" position="attributes">
-            <attribute name="t-attf-class" add="o_no_autohide_menu" separator=" " />
-        </xpath>
-    </template>
+	<template id="custom_template_header_navbar_nav" inherit_id="website.navbar_nav"
+		name="Off-Canvas Header" active="False">
+		<xpath expr="//ul[@id='top_menu']" position="attributes">
+			<attribute name="t-attf-class" add="o_no_autohide_menu" separator=" " />
+		</xpath>
+	</template>
 
-    <template id="custom_template_header" inherit_id="website.template_header_default"
-        name="Template Header Custom" active="True">
-        <xpath expr="//header" position="attributes">
-            <attribute name="t-attf-class" add="o_no_autohide_menu custom-top-menu" separator=" " />
-        </xpath>
-        <xpath expr="//div[@id='o_main_nav']" position="replace">
-            <div id="o_main_nav" class="o_main_nav container">
-                <!-- Brand -->
-                <t t-call="website.placeholder_header_brand">
-                    <t t-set="_link_class" t-valuef="me-4" />
-                </t>
-                <!-- Navbar -->
-                <t t-call="website.navbar_nav">
-                    <t t-set="_nav_class" t-valuef="mx-auto" />
 
-                    <!-- Menu -->
-                    <t t-foreach="website.menu_id.child_id" t-as="submenu">
-                        <t t-call="website.submenu">
-                            <t t-set="item_class" t-valuef="nav-item" />
-                            <t t-set="link_class" t-valuef="nav-link" />
-                        </t>
-                    </t>
-                </t>
+	<template id="custom_header_menu" name="Submenu">
+		<!-- <template id="submenu" name="Submenu"> -->
+		<t t-set="show_dropdown"
+			t-value="(submenu.is_mega_menu and submenu.is_visible) or submenu.child_id.filtered(lambda menu: menu.is_visible)" />
+		<li t-if="submenu.is_visible and not (submenu.child_id or submenu.is_mega_menu)"
+			t-attf-class="#{item_class or ''}" role="presentation">
+			<a t-att-href="submenu._clean_url()"
+				t-attf-class="#{link_class or ''} #{submenu._is_active() and 'active'}"
+				role="menuitem"
+				t-ignore="true"
+				t-att-target="'_blank' if submenu.new_window else None">
+				<span t-field="submenu.name" />
+			</a>
+		</li>
+		<li t-elif="show_dropdown"
+			t-attf-class="#{item_class or ''} dropdown #{submenu.is_mega_menu and 'position-static'}"
+			role="presentation">
+			<a
+				t-attf-class="#{link_class or ''} dropdown-toggle #{submenu.is_mega_menu and 'o_mega_menu_toggle'} #{submenu._is_active() and 'active'} #{dropdown_toggler_classes}"
+				data-bs-toggle="dropdown" href="#"
+				t-att-data-bs-display="'static' if submenu.is_mega_menu else None"
+				role="menuitem">
+				<span t-field="submenu.name" />
+			</a>
+			<div t-if="submenu.is_mega_menu and not is_mobile"
+				t-attf-class="dropdown-menu o_mega_menu #{submenu.mega_menu_classes}"
+				data-name="Mega Menu"
+				t-field="submenu.mega_menu_content" />
+			<!--
+            TODO remove the next two if elements in master, this was made to not
+            have to change the "else" element in stable and prevent xpath fails
+            on the existing elements.
+            -> The first one render nothing (case submenu.is_mega_menu and is_mobile) 
+            -> The second one is never considered (t-elif evaluated first)
+        -->
+			<t t-elif="submenu.is_mega_menu" />
+			<div t-if="submenu.is_mega_menu" t-elif="False"
+				t-attf-class="dropdown-menu o_mega_menu #{submenu.mega_menu_classes}"
+				data-name="Mega Menu"
+				t-field="submenu.mega_menu_content"
+				role="menuitem" />
+			<ul t-else="" t-attf-class="dropdown-menu #{dropdown_menu_classes}" role="menu">
+				<t t-foreach="submenu.child_id" t-as="submenu">
+					<t t-call="website.submenu">
+						<t t-set="item_class" t-value="None" />
+						<t t-set="link_class" t-valuef="dropdown-item" />
+					</t>
+				</t>
+			</ul>
 
-                <!-- Extra elements -->
-                <ul
-                    class="navbar-nav align-items-center gap-2 flex-shrink-0 justify-content-end ps-3">
-                    <!-- Search Bar -->
-                    <t t-call="website.placeholder_header_search_box">
-                        <t t-set="_layout" t-valuef="modal" />
-                        <t t-set="_input_classes" t-valuef="border border-end-0 p-3" />
-                        <t t-set="_submit_classes"
-                            t-valuef="border border-start-0 px-4 bg-o-color-4" />
-                        <t t-set="_button_classes" t-valuef="o_navlink_background text-reset" />
-                    </t>
-                    <!-- Shop cart -->
-                    <t t-call="website_sale.header_cart_link">
-                        <t t-set="_icon" t-value="True"/>
-                        <t t-set="_link_class" t-value="'o_navlink_background btn position-relative rounded-circle p-1 text-center text-reset'"/>
-                        <t t-set="_badge_class" t-value="'position-absolute top-0 end-0 mt-n1 me-n1 rounded-pill'"/>
-                    </t>
 
-                    <!-- Language Selector  -->
-                    <t t-call="website.placeholder_header_language_selector">
-                        <t t-set="_div_classes" t-valuef="o_navlink_background btn position-relative rounded-circle p-1 text-center text-reset no-dropdown-toggle-icon" />
-                        <t t-set="_btn_class" t-valuef="text-center text-reset p-0 rounded-pill" />
-                        <t t-set="no_text" t-value="True"/>
-                        <t t-set="flags" t-value="True"/>
-                        <t t-set="_dropdown_menu_class" t-valuef="dropdown-menu-end" />
-                    </t>
-                    <!-- Sign In -->
-                    <t t-call="portal.placeholder_user_sign_in">
-                        <t t-set="_link_class" t-valuef="btn btn-primary" />
-                    </t>
-                    <!-- User Dropdown -->
-                    <t t-call="portal.user_dropdown">
-                        <t t-set="_user_name" t-value="True" />
-                        <t t-set="_item_class" t-valuef="dropdown" />
-                        <t t-set="_link_class" t-valuef="btn-outline-secondary border-0 fw-bold" />
-                        <t t-set="_user_name_class" t-valuef="small" />
-                        <t t-set="_dropdown_menu_class" t-valuef="dropdown-menu-end" />
-                    </t>
-                    <!-- Call To Action -->
-                    
-                    <!-- <t t-call="website.placeholder_header_call_to_action" /> -->
-                </ul>
+		</li>
+	</template>
 
-            </div>
-        </xpath>
-    </template>
 
-    <!-- <template id="template_header_default" inherit_id="website.template_header_default">
+	<template id="custom_template_header" inherit_id="website.template_header_default"
+		name="Template Header Custom" active="True">
+		<xpath expr="//header" position="attributes">
+			<attribute name="t-attf-class" add="o_no_autohide_menu custom-top-menu" separator=" " />
+		</xpath>
+
+		<xpath expr="//t[@t-call='website.navbar']" position="replace">
+			<!-- <xpath expr="//div[@id='o_main_nav']" position="replace"> -->
+
+			<t t-call="website.navbar">
+				<t t-set="_navbar_classes" t-valuef="d-none d-lg-block" />
+
+				<div id="o_main_nav" class="o_main_nav container">
+					<!-- Brand -->
+					<t t-call="website.placeholder_header_brand">
+						<t t-set="_link_class" t-valuef="me-4" />
+					</t>
+					<!-- Navbar -->
+					<t t-call="website.navbar_nav">
+						<t t-set="_nav_class" t-valuef="mx-auto" />
+
+						<!-- Menu -->
+						<t t-foreach="website.menu_id.child_id" t-as="submenu">
+							<t t-call="custom_website.custom_header_menu">
+								<t t-set="item_class" t-valuef="nav-item" />
+								<t t-set="link_class" t-valuef="nav-link" />
+							</t>
+						</t>
+					</t>
+
+					<!-- Extra elements -->
+					<ul
+						class="navbar-nav align-items-center gap-2 flex-shrink-0 justify-content-end ps-3">
+						<!-- Search Bar -->
+						<t t-call="website.placeholder_header_search_box">
+							<t t-set="_layout" t-valuef="modal" />
+							<t t-set="_input_classes" t-valuef="border border-end-0 p-3" />
+							<t t-set="_submit_classes"
+								t-valuef="border border-start-0 px-4 bg-o-color-4" />
+							<t t-set="_button_classes" t-valuef="o_navlink_background text-reset" />
+						</t>
+						<!-- Shop cart -->
+						<t t-call="website_sale.header_cart_link">
+							<t t-set="_icon" t-value="True" />
+							<t t-set="_link_class"
+								t-value="'o_navlink_background btn position-relative rounded-circle p-1 text-center text-reset'" />
+							<t t-set="_badge_class"
+								t-value="'position-absolute top-0 end-0 mt-n1 me-n1 rounded-pill'" />
+						</t>
+
+						<!-- Language Selector  -->
+						<t t-call="website.placeholder_header_language_selector">
+							<t t-set="_div_classes"
+								t-valuef="o_navlink_background btn position-relative rounded-circle p-1 text-center text-reset no-dropdown-toggle-icon" />
+							<t t-set="_btn_class" t-valuef="text-center text-reset p-0 rounded-pill" />
+							<t t-set="no_text" t-value="True" />
+							<t t-set="flags" t-value="True" />
+							<t t-set="_dropdown_menu_class" t-valuef="dropdown-menu-end" />
+						</t>
+						<!-- Sign In -->
+						<t t-call="portal.placeholder_user_sign_in">
+							<t t-set="_link_class" t-valuef="btn btn-primary" />
+						</t>
+						<!-- User Dropdown -->
+						<t t-call="portal.user_dropdown">
+							<t t-set="_user_name" t-value="True" />
+							<t t-set="_item_class" t-valuef="dropdown" />
+							<t t-set="_link_class" t-valuef="btn-outline-secondary border-0 fw-bold" />
+							<t t-set="_user_name_class" t-valuef="small" />
+							<t t-set="_dropdown_menu_class" t-valuef="dropdown-menu-end" />
+						</t>
+						<!-- Call To Action -->
+
+						<!-- <t t-call="website.placeholder_header_call_to_action" /> -->
+					</ul>
+
+				</div>
+			</t>
+		</xpath>
+	</template>
+
+	<!-- <template id="template_header_default" inherit_id="website.template_header_default">
         <xpath expr="//t[@t-call='website.placeholder_header_search_box']" position="before">
             <t t-call="website_sale.header_cart_link">
                 <t t-set="_icon" t-value="True"/>
-                <t t-set="_link_class" t-value="'o_navlink_background btn position-relative rounded-circle p-1 text-center text-reset'"/>
+                <t t-set="_link_class" t-value="'o_navlink_background btn position-relative rounded-circle p-1
+	text-center text-reset'"/>
                 <t t-set="_badge_class" t-value="'position-absolute top-0 end-0 mt-n1 me-n1 rounded-pill'"/>
             </t>
         </xpath>
