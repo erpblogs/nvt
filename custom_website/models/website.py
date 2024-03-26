@@ -32,5 +32,3 @@ class ProductPublicCategory(models.Model):
             if r.id and not r.website_url:
                 r.website_url = r.convert_to_website_url(r.name)
         
-    
-    

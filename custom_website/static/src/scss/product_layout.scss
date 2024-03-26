@@ -1,0 +1,35 @@
+.o_wsale_products_page {
+    .o_wsale_filmstip_container {
+        height: 102px;
+
+        .o_wsale_filmstip_wrapper {
+            margin: 0;
+            padding: 0;
+            margin-bottom: 20px;
+            height: 102px;
+
+            .o_wsale_filmstip {
+                .product-category-button {
+                    height: 82px;
+                    padding: 0px 20px;
+
+                    span {
+                        font-size: 12px;
+                        font-weight: 274;
+                        line-height: 20px;
+                        text-align: left;
+                        color: #1D1D1F;
+                    }
+                }
+            }
+        }
+    }
+
+    .oe_website_sale {
+        .o_wsale_products_main_row {
+            margin-top: 0px;
+
+            #products_grid {}
+        }
+    }
+}

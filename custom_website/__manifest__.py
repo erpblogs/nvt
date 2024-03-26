@@ -54,7 +54,8 @@ Long description of module's purpose
             'custom_website/static/src/scss/footer_layout.scss',
             'custom_website/static/src/scss/home_page.scss',
             'custom_website/static/src/js/homepage.js',
-            'custom_website/static/src/scss/product.scss',
+            'custom_website/static/src/scss/product_layout.scss',
+            # 'custom_website/static/src/scss/product.scss',
             # 'custom_website/static/src/js/homepage.js',
         ],
         'web._assets_primary_variables': [
