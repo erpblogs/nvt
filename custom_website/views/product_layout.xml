@@ -146,17 +146,28 @@
                             </t> -->
                             <div>
                                 <div t-if="category"
-                                    class="d-flex align-items-center me-auto">
+                                    class="d-flex align-items-center me-auto oc_categ">
                                     <t t-if="not category.parent_id" t-set="backUrl"
                                         t-valuef="/shop" />
                                     <t t-else="" t-set="backUrl"
                                         t-value="keep('/shop/category/' + slug(category.parent_id), category=0)" />
-
-                                    <a t-attf-class="btn btn-{{navClass}} me-2"
+                                    <a t-attf-class="btn btn-{{navClass}} me-2 d-none"
                                         t-att-href="category.parent_id and keep('/shop/category/' + slug(category.parent_id), category=0) or '/shop'">
                                         <i class="fa fa-angle-left" />
                                     </a>
-                                    <h4 class="mb-0 me-auto">All <t t-out="category.name" /></h4>
+
+                                    <t t-if="category.image_128" t-set="bgUrl"
+                                        t-valuef="background-image:url('data:image/png;base64,#{category.image_128}')" />
+                                    <t t-else="" t-set="bgUrl"
+                                        t-valuef="background-image:url('/custom_website/static/src/images/prd_category_icon.png')" />
+                                    <div class="oc_categ_img">
+                                        <div
+                                            t-attf-style="#{bgUrl}"
+                                            class="oc_image_68_contain o_bg_img_center rounded-3"
+                                            t-att-alt="category.name " />
+                                    </div>
+
+                                    <h4 class="me-auto oc_categ_title">All <t t-out="category.name" /></h4>
                                 </div>
                             </div>
 

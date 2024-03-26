@@ -26,10 +26,37 @@
     }
 
     .oe_website_sale {
+        margin-top: 48px;
+
         .o_wsale_products_main_row {
             margin-top: 0px;
 
-            #products_grid {}
+            #products_grid {
+                .oc_categ {
+                    .oc_categ_img {
+                        .oc_image_68_contain {
+                            margin: 10px 0;
+                            width: 64px;
+                            height: 44px;
+                            object-fit: contain;
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                        }
+                    }
+
+                    .oc_categ_title {
+                        margin: 10px 16px;
+                        font-size: 40px;
+                        font-weight: 600;
+                        line-height: 44px;
+                        letter-spacing: -0.02em;
+                        text-align: left;
+                        color: #0D519B;
+
+
+                    }
+                }
+            }
         }
     }
 }
