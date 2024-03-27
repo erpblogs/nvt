@@ -84,6 +84,33 @@
                         }
                     }
                 }
+
+                .os_form_classes {
+                    .os_input_classes {
+                        &:hover {
+                            color: #667085;
+                        }
+
+                        &::placeholder {
+                            padding-left: 42px;
+                            margin: 10px 0;
+                        }
+
+                        &:not(:placeholder-shown) {
+                            +.os_button_classes {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    .os_button_classes {
+                        color: #667085;
+
+                        .oe_search_found {
+                            display: none;
+                        }
+                    }
+                }
             }
         }
     }

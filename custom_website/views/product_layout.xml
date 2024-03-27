@@ -45,7 +45,7 @@
                                 class="o_image_40_cover oe_img_bg o_bg_img_center rounded-3 me-3"
                                 t-att-alt="c.name " /> -->
                             <span t-field="c.name"
-                                t-attf-class="{{ 'btn border-primary' if c.id == category.id else '' }}" />
+                                t-attf-class="text-nowrap {{ 'btn border-primary' if c.id == category.id else '' }}" />
                         </div>
                     </li>
                 </ul>
@@ -74,13 +74,60 @@
                             t-att-checked="'checked' if tag.id in tags else None"
                         />
                         <label
-                            class="btn btn-outline-secondary rounded-pill oc_tags_form_label bg-white"
+                            class="btn btn-outline-secondary rounded-pill oc_tags_form_label bg-white text-center text-nowrap"
                             t-att-for="tag.id" t-field="tag.name" />
                     </div>
                 </t>
             </form>
         </div>
 
+    </template>
+
+    <template id="custom_website.sort" name="Sort-by Template">
+        <div t-attf-class="o_sortby_dropdown dropdown dropdown_sorty_by {{_classes}}">
+            <!-- <small class="d-none d-lg-inline text-muted">Sort By:</small> -->
+            <a role="button" href="#" t-attf-class="dropdown-toggle btn btn-{{navClass}}"
+                data-bs-toggle="dropdown">
+                <!-- <span class="d-none d-lg-inline"> -->
+                <span class="d-none ">
+                    <t t-if="isSortingBy" t-out="isSortingBy[0][1]" />
+                    <span t-else="1" t-field="website.shop_default_sort" />
+                </span>
+                <i class="fa fa-sort-amount-asc d-lg-none" />
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" role="menu">
+                <t t-foreach="website_sale_sortable" t-as="sortby">
+                    <a role="menuitem" rel="noindex,nofollow"
+                        t-att-href="keep('/shop', order=sortby[0])" class="dropdown-item">
+                        <span t-out="sortby[1]"
+                            t-attf-class="#{'active text-primary' if isSortingBy and sortby[1] == isSortingBy[0][1] else '' }" />
+                    </a>
+                </t>
+            </div>
+        </div>
+    </template>
+
+
+    <!-- Search Bar input-group template -->
+    <template id="custom_website.search" name="Search Box" active="True">
+        <t t-call="website.website_search_box_input">
+            <t t-set="_form_classes"
+                t-valuef="o_wsale_products_searchbar_form me-auto flex-grow-1 {{_form_classes}}" />
+            <t t-set="_submit_classes" t-valuef="btn btn-{{navClass}} {{_submit_classes}}" />
+            <t t-set="_input_classes" t-valuef="text-bg-{{navClass}} {{_input_classes}}" />
+            <t t-set="search_type" t-valuef="products" />
+            <t t-set="action"
+                t-value="keep('/shop'+ ('/category/'+slug(category)) if category else None, search=0) or '/shop'" />
+            <t t-set="display_image" t-valuef="true" />
+            <t t-set="display_description" t-valuef="true" />
+            <t t-set="display_extra_link" t-valuef="true" />
+            <t t-set="display_detail" t-valuef="true" />
+            <t t-if="attrib_values">
+                <t t-foreach="attrib_values" t-as="a">
+                    <input type="hidden" name="attrib" t-att-value="'%s-%s' % (a[0], a[1])" />
+                </t>
+            </t>
+        </t>
     </template>
 
     <!-- /shop product listing -->
@@ -179,10 +226,13 @@
 
                                 <div
                                     class="col col-md-6 products_header btn-toolbar flex-nowrap align-items-center gap-3 mb-3">
-                                    <t t-if="is_view_active('website_sale.search')"
-                                        t-call="website_sale.search">
+                                    <!-- <t t-if="is_view_active('website_sale.search')" -->
+                                    <!-- Alway active search -->
+                                    <t t-call="custom_website.search">
                                         <t t-set="search" t-value="original_search or search" />
-                                        <t t-set="_form_classes" t-valuef="d-inline" />
+                                        <t t-set="_form_classes" t-valuef="btn-outline-secondary rounded-pill bg-white position-relative os_form_classes" />
+                                        <t t-set="_input_classes" t-valuef="btn-outline-secondary rounded-pill bg-white os_input_classes" />
+                                        <t t-set="_submit_classes" t-valuef="position-absolute rounded-pill os_button_classes" />
                                     </t>
                                     <!-- <t t-set="_form_classes"
                                             t-valuef="d-lg-inline {{'d-inline' if not category else 'd-none'}}" />
@@ -234,9 +284,10 @@
                                     </span> -->
                                     </button>
 
-                                    <!-- Sort layout -->
-                                    <t t-if="is_view_active('website_sale.sort')"
-                                        t-call="website_sale.sort">
+                                    <!-- Sort layout: alway active -->
+                                    <!-- <t t-if="is_view_active('website_sale.sort')" -->
+                                    <t
+                                        t-call="custom_website.sort">
                                         <t t-set="_classes" t-valuef="d-inline-block" />
                                     </t>
                                 </div>
@@ -312,7 +363,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <t t-call="website_sale.o_wsale_offcanvas" />
                 </div>
                 <div class="oe_structure oe_empty oe_structure_not_nearest"
                     id="oe_structure_website_sale_products_2" />
