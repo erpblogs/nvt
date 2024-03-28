@@ -266,3 +266,4 @@ class WebsiteSaleCustom(WebsiteSale):
         
         # return request.render("website_sale.products", values)
         return request.render("custom_website.products", values)
+    

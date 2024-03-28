@@ -85,7 +85,7 @@
             <div class="homepage-div highlight-category-line bg-light overflow-hidden">
                 <div class="d-flex justify-content-center gap-4">
                     <div class="d-flex gap-2 flex-column align-items-center">
-                        <a herf="#" class="card image-link">
+                        <a herf="/shop/categ/mac" class="card image-link">
                             <img class="card-img-center highlight-category-line-img"
                                 src="/custom_website/static/src/images/categ-line-mac.png"
                             />
@@ -93,14 +93,15 @@
                         <span class="highlight-category-line-title">Mac</span>
                     </div>
                     <div class="d-flex  gap-2 flex-column align-items-center">
-                        <a herf="#" class="card image-link">
+                        <a herf="/shop/categ/iphone" class="card image-link">
                             <img class="card-img-center highlight-category-line-img"
                                 src="/custom_website/static/src/images/categ-line-phone.png"
                             />
                         </a>
+                        <span class="highlight-category-line-title">iPhone</span>
                     </div>
                     <div class="d-flex  gap-2 flex-column align-items-center">
-                        <a herf="#" class="card image-link">
+                        <a herf="/shop/categ/ipad" class="card image-link">
                             <img class="card-img-center highlight-category-line-img"
                                 src="/custom_website/static/src/images/categ-line-ipad.png"
                             />
@@ -108,7 +109,7 @@
                         <span class="highlight-category-line-title">Ipad</span>
                     </div>
                     <div class="d-flex gap-2 flex-column align-items-center">
-                        <a herf="#" class="card image-link">
+                        <a herf="/shop/categ/watch" class="card image-link">
                             <img class="card-img-center highlight-category-line-img"
                                 src="/custom_website/static/src/images/categ-line-watch.png"
                             />
@@ -116,7 +117,7 @@
                         <span class="highlight-category-line-title">Apple Watch</span>
                     </div>
                     <div class="d-flex gap-2 flex-column align-items-center">
-                        <a herf="#" class="card image-link">
+                        <a herf="/shop/categ/airpods" class="card image-link">
                             <img class="card-img-center highlight-category-line-img"
                                 src="/custom_website/static/src/images/categ-line-airpods.png"
                             />
@@ -131,12 +132,12 @@
         <template id="custom_website.homepage_category_card" name="Homepage category_card">
             <div
                 class="row row-cols-1 row-cols-sm-2 row-cols-md-4 justify-content-center highlight-category-card-layout bg-light">
-                <t t-set="qty" t-value="6" />
-                <t t-foreach="range(qty)" t-as="item">
+                <t t-set="categories" t-value="categories" />
+                <t t-foreach="categories" t-as="category">
                     <div t-attf-class="col col-md-6 highlight-category-card">
-                        <a herf="#" class="card image-link">
+                        <a t-attf-href="/shop/categ/#{category}" class="card image-link">
                             <img class="card-img-center"
-                                t-attf-src="/custom_website/static/src/images/home_banner_{{ item + 1  }}.png">
+                                t-attf-src="/custom_website/static/src/images/home_banner_{{ category }}.png">
 
                             </img>
                         </a>
@@ -246,7 +247,7 @@
         <template id="custom_website_homepage" inherit_id="website.homepage" name="Home">
             <xpath expr="//div[@id='wrap']" position="replace">
                 <!-- <div id="wrap" class="oe_structure oe_empty"/> -->
-                <div id="wrap" class="oe_structure oe_empty custom-homepage">
+                <div id="wrap" class="oe_structure oe_empty custom-homepage">7
                     <t t-call="custom_website.homepage_banner" />
                     <t t-call="custom_website.homepage_highlight_product" />
                     <t t-call="custom_website.homepage_category_line" />

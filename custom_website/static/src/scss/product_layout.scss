@@ -86,7 +86,13 @@
                 }
 
                 .os_form_classes {
+                    
                     .os_input_classes {
+                        min-width: 155px;
+                        padding: 10px 14px;
+                        border: 1px solid !important;
+                        box-shadow: 0px 1px 2px 0px #1018280D;
+
                         &:hover {
                             color: #667085;
                         }
@@ -104,11 +110,59 @@
                     }
 
                     .os_button_classes {
-                        color: #667085;
+                        background-repeat: no-repeat;
+                        background-position: 14px 12px;
+                        background-image: url('/custom_website/static/src/images/product_search_item.png');
+
+                        .oi-search {
+                            color: #667085;
+                            width: 20px;
+                            height: 20px;
+
+                            &::before {
+                                content: none;
+                            }
+                        }
+
 
                         .oe_search_found {
                             display: none;
                         }
+                    }
+                }
+
+                .filter_layout_btn {
+                    padding: 10px 18px;
+                    box-shadow: 0px 1px 2px 0px #1018280D;
+
+                    &::after {
+                        content: none !important;
+                        display: none !important;
+                    }
+
+                    .filter_layout_label {
+                        font-size: 16px;
+                        font-weight: 400;
+                        line-height: 24px;
+                        padding-left: 28px;
+                        text-align: left;
+                        color: #667085;
+                    }
+
+                    .filter_layout_icon {
+                        width: 20px;
+                        height: 20px;
+
+
+                    }
+
+
+                    .filter_layout_f_icon {
+                        background-image: url('/custom_website/static/src/images/product_filter_item.png');
+                    }
+
+                    .filter_layout_s_icon {
+                        background-image: url('/custom_website/static/src/images/product_sort_item.png');
                     }
                 }
 
@@ -154,10 +208,11 @@
                                             line-height: 28px;
                                             text-align: left;
                                             color: #111927;
+
                                             .text-primary {
                                                 color: #111927 !important;
                                             }
-                                            
+
 
                                         }
                                     }
