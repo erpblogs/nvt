@@ -58,12 +58,12 @@
             <form t-if="all_tags" class="js_attributes d-flex align-items-center" method="get">
                 <input t-if="category" type="hidden" name="category" t-att-value="category.id" />
 
-                <!-- <a t-if="tags" t-att-href="keep('/shop'+ ('/category/'+slug(category)) if
+                <a t-if="tags" t-att-href="keep('/shop'+ ('/category/'+slug(category)) if
                 category else None, attrib=0, tags=0)" t-attf-class="btn btn-{{navClass}} d-flex
                 align-items-center py-1 mb-2">
                         <small class="mx-auto"><b>Clear Filters</b></small>
                         <i class="oi oi-close"/>
-                    </a> -->
+                    </a>
                 <t t-foreach="all_tags" t-as="tag" class="list-group-item border-0 ps-0 pb-0">
                     <div class="oc_tags_form mb-0">
                         <input type="checkbox"
@@ -129,6 +129,92 @@
             </t>
         </t>
     </template>
+
+    <template id="custom_website.product_layout"
+        name="Homepage Product carousel Layout">
+        <div class="highlight-product-shadow product-item">
+            <div class="product-item-layout">
+                <a href="#">
+                    <img src="/custom_website/static/src/images/imac.png" class="d-block"
+                        alt="Product Alt"></img>
+                </a>
+                <div class="product-title">
+                    <span><b>iMac M1 2021 24 inch</b> (8 Core GPU/8GB/512GB) </span> - <span
+                        t-esc="item_no + 1"></span>
+                </div>
+                <div class="product-config">
+                    <span class="col-auto">24 inch</span>
+                    <span class="col-auto">M1</span>
+                    <span class="col-auto">8GB RAM</span>
+                    <span class="col-auto">512GB</span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Product item  -->
+    <template id="products_item" name="Products item">
+        <form action="/shop/cart/update" method="post" class="oe_product_cart h-100 d-flex o_wsale_products_item_form"
+            t-att-data-publish="product.website_published and 'on' or 'off'"
+            itemscope="itemscope" itemtype="http://schema.org/Product">
+
+            <t t-set="product_href" t-value="keep(product.website_url, page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))" />
+            <t t-set="image_type" t-value="product._get_suitable_image_size(ppr, td_product['x'], td_product['y'])"/>
+
+            <div class="oe_product_image position-relative h-100 flex-grow-0 overflow-hidden">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" t-nocache="The csrf token must always be up to date."/>
+                <a t-att-href="product_href" class="oe_product_image_link d-block h-100 position-relative" itemprop="url" contenteditable="false">
+                    <t t-set="image_holder" t-value="product._get_image_holder()"/>
+                    <span t-field="image_holder.image_1920"
+                        t-options="{'widget': 'image', 'preview_image': image_type, 'itemprop': 'image', 'class': 'h-100 w-100 position-absolute'}"
+                        class="oe_product_image_img_wrapper d-flex h-100 justify-content-center align-items-center position-absolute"/>
+
+                    <t t-set="bg_color" t-value="td_product['ribbon']['bg_color'] or ''"/>
+                    <t t-set="text_color" t-value="td_product['ribbon']['text_color']"/>
+                    <t t-set="bg_class" t-value="td_product['ribbon']['html_class']"/>
+                    <span t-attf-class="o_ribbon o_not_editable #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-out="td_product['ribbon']['html'] or ''"/>
+                </a>
+            </div>
+
+            <div class="o_wsale_product_information position-relative d-flex flex-column flex-grow-1 flex-shrink-1">
+                <div class="o_wsale_product_information_text flex-grow-1">
+                    <h6 class="o_wsale_products_item_title">
+                        <a class="text-primary text-decoration-none" itemprop="name" t-att-href="product_href" t-att-content="product.name" t-field="product.name" />
+                        <!-- <a t-if="not product.website_published" role="button" t-att-href="product_href" class="btn btn-sm btn-danger" title="This product is unpublished.">
+                            Unpublished
+                        </a> -->
+                    </h6>
+                </div>
+                <!-- <div class="o_wsale_product_sub d-flex justify-content-between align-items-end pb-1"> -->
+                <div class="o_wsale_product_sub d-flex justify-content-between align-items-end pb-1 d-none">
+                    <t t-set="template_price_vals" t-value="get_product_prices(product)"/>
+                    <div class="o_wsale_product_btn"/>
+                    <div class="product_price" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
+                        <t t-if="'base_price' in template_price_vals and (template_price_vals['base_price'] &gt; template_price_vals['price_reduce']) and (template_price_vals['price_reduce'] or not website.prevent_zero_price_sale)">
+                            <del t-attf-class="text-muted me-1 h6 mb-0" style="white-space: nowrap;">
+                                <em class="small" t-esc="template_price_vals['base_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
+                            </del>
+                        </t>
+                        <span class="h6 mb-0" t-if="template_price_vals['price_reduce'] or not website.prevent_zero_price_sale" t-esc="template_price_vals['price_reduce']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                        <span class="h6 mb-0" t-else="" t-field="website.prevent_zero_price_sale_text"/>
+                        <span itemprop="price" style="display:none;" t-esc="template_price_vals['price_reduce']" />
+                        <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="o_wsale_product_attribute">
+                <div class="o_wsale_product_attribute_item">
+                    <span class="col-auto">24 inch</span>
+                    <span class="col-auto">M1</span>
+                    <span class="col-auto">8GB RAM</span>
+                    <span class="col-auto">512GB</span>
+                </div>
+            </div>
+            
+        </form>
+    </template>
+
 
     <!-- /shop product listing -->
     <template id="custom_website.products" name="Products">
@@ -326,12 +412,12 @@
                                                     <td
                                                         t-att-colspan="td_product['x'] != 1 and td_product['x']"
                                                         t-att-rowspan="td_product['y'] != 1 and td_product['y']"
-                                                        t-attf-class="oe_product"
+                                                        t-attf-class="oe_product oe_product_custom"
                                                         t-att-data-ribbon-id="td_product['ribbon'].id"
                                                         t-att-data-name="product_block_name">
                                                         <div
                                                             t-attf-class="o_wsale_product_grid_wrapper position-relative h-100 o_wsale_product_grid_wrapper_#{td_product['x']}_#{td_product['y']}">
-                                                            <t t-call="website_sale.products_item">
+                                                            <t t-call="custom_website.products_item">
                                                                 <t t-set="product"
                                                                     t-value="td_product['product']" />
                                                             </t>

@@ -88,9 +88,9 @@ class WebsiteSaleCustom(WebsiteSale):
         attributes_ids = {v[0] for v in attrib_values}
         attrib_set = {v[1] for v in attrib_values}
 
-        # filter_by_tags_enabled = website.is_view_active('website_sale.filter_products_tags')
+        filter_by_tags_enabled = website.is_view_active('website_sale.filter_products_tags')
         # alway active 
-        filter_by_tags_enabled = True
+        # filter_by_tags_enabled = True
         
         if filter_by_tags_enabled:
             tags = request_args.getlist('tags')
@@ -259,11 +259,10 @@ class WebsiteSaleCustom(WebsiteSale):
             values['available_max_price'] = tools.float_round(available_max_price, 2)
         if filter_by_tags_enabled:
             values.update({'all_tags': all_tags, 'tags': tags})
-        # alway allow tags filter
-        # values.update({'all_tags': all_tags, 'tags': tags})
+
         if category:
             values['main_object'] = category
         values.update(self._get_additional_shop_values(values))
         
-        # return request.render("custom_website.products_base", values)
+        # return request.render("website_sale.products", values)
         return request.render("custom_website.products", values)

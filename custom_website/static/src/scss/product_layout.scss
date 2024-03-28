@@ -111,6 +111,85 @@
                         }
                     }
                 }
+
+                .o_wsale_products_grid_table_wrapper {
+                    .oe_product_custom {
+                        padding: 16px;
+
+                        .o_wsale_product_grid_wrapper {
+                            box-shadow: 0px 10px 16px -4px #10182814;
+                            background: #FFFFFF;
+                            padding: 24px 0px 0px 0px;
+                            /* gap: 12px; */
+                            border-radius: 16px;
+
+                            .o_wsale_products_item_form {
+
+                                .oe_product_image {
+                                    max-height: 232px;
+
+                                    .oe_product_image_link {
+                                        .oe_product_image_img_wrapper {
+                                            padding: 24px 24px 6px;
+
+                                            img {
+                                                width: 232px !important;
+                                                height: 207.14px !important;
+                                                top: 12px;
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                                .o_wsale_product_information {
+                                    .o_wsale_product_information_text {
+                                        padding: 6px 24px 12px;
+
+                                        .o_wsale_products_item_title {
+                                            margin: 0;
+
+                                            font-size: 18px;
+                                            font-weight: 510;
+                                            line-height: 28px;
+                                            text-align: left;
+                                            color: #111927;
+                                            .text-primary {
+                                                color: #111927 !important;
+                                            }
+                                            
+
+                                        }
+                                    }
+                                }
+
+                                .o_wsale_product_attribute {
+                                    .o_wsale_product_attribute_item {
+                                        padding: 6px 24px 24px;
+
+                                        span {
+                                            padding: 4px 8px;
+                                            border-radius: 6px;
+                                            border: 1px solid #84858C;
+
+                                            //styleName: Text xs/Regular;
+                                            font-size: 12px;
+                                            font-weight: 400;
+                                            line-height: 18px;
+                                            text-align: left;
+                                            color: #595961;
+
+
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+
             }
         }
     }
