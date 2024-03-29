@@ -101,6 +101,23 @@
           width: 336px;
           height: 64px;
 
+          span {
+            color: #4C4D52;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            //styleName: Display xs/Semibold;
+            font-size: 24px;
+            font-weight: 590;
+            line-height: 32px;
+            text-align: left;
+            
+          }
+
         }
 
         img {
@@ -185,8 +202,8 @@
 }
 
 .highlight-category-line {
-  padding-bottom: 64px;
-  padding-top: 32px;
+  padding-bottom: 120px;
+  padding-top: 98px;
 
   .highlight-category-line-img {
     width: 160px;
@@ -200,6 +217,9 @@
     font-weight: 590;
     line-height: 20px;
     letter-spacing: 0em;
+    color: #1D1D1F;
+    padding-top: 16px;
+
   }
 }
 

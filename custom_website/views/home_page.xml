@@ -30,14 +30,18 @@
 
         <template id="custom_website.homepage_highlight_product_carousel"
             name="Homepage Product carousel Layout">
-            <div class="highlight-product-shadow highlight-product-carousel-item">
+            <t t-set="image_holder" t-value="product._get_image_holder()"/>
+            
+            <t t-set="website_url" t-value="product.website_url" />
+            <a class="text-decoration-none  highlight-product-shadow highlight-product-carousel-item" t-att-href="website_url">
                 <div class="highlight-product-carousel-item-layout">
                     <div class="product-title">
-                        <span><b>iMac M1 2021 24 inch</b> (8 Core GPU/8GB/512GB) </span> - <span
-                            t-esc="item_no + 1"></span>
+                        <span t-out="product.name" />
                     </div>
-                    <img src="/custom_website/static/src/images/imac.png" class="d-block"
-                        alt="Product Alt"></img>
+                    <span t-field="image_holder.image_1920"
+                        t-options="{'widget': 'image', 'preview_image': 'image_512', 'itemprop': 'image', 'class': 'h-100 w-100'}"
+                        class="d-block" alt="Product"/>
+
                     <div class="highlight-product-carousel-config">
                         <span class="col-auto">24 inch</span>
                         <span class="col-auto">M1</span>
@@ -45,7 +49,7 @@
                         <span class="col-auto">512GB</span>
                     </div>
                 </div>
-            </div>
+            </a>
         </template>
 
         <template id="custom_website.homepage_highlight_product" name="Homepage Product Highlight">
@@ -57,11 +61,11 @@
                         <span class="Product">Product</span>
                     </div>
                 </div>
-                <t t-set="qty" t-value="10" />
-                <t t-foreach="range(qty)" t-as="item">
+                <!-- <t t-set="qty" t-value="10" /> -->
+                <t t-foreach="highlight_product_ids" t-as="product">
                     <div class="col cell-item highlight-product-carousel">
                         <t t-call="custom_website.homepage_highlight_product_carousel">
-                            <t t-set="item_no" t-value="item" />
+                            <t t-set="product" t-value="product" />
                         </t>
                     </div>
                 </t>
@@ -84,47 +88,17 @@
         <template id="custom_website.homepage_category_line" name="Homepage category_line">
             <div class="homepage-div highlight-category-line bg-light overflow-hidden">
                 <div class="d-flex justify-content-center gap-4">
-                    <div class="d-flex gap-2 flex-column align-items-center">
-                        <a herf="/shop/categ/mac" class="card image-link">
-                            <img class="card-img-center highlight-category-line-img"
-                                src="/custom_website/static/src/images/categ-line-mac.png"
-                            />
+                    <t t-foreach="category_lines" t-as="category">
+                        <a t-attf-href="{{category['url']}}" class="text-decoration-none d-flex flex-column align-items-center">
+                            <div  class="card image-link">
+                                <img class="card-img-center highlight-category-line-img"
+                                    t-attf-src="/custom_website/static/src/images/{{category['img']}}"
+                                />
+                            </div>
+                            <span class="highlight-category-line-title"><t t-out="category['title']" /></span>
                         </a>
-                        <span class="highlight-category-line-title">Mac</span>
-                    </div>
-                    <div class="d-flex  gap-2 flex-column align-items-center">
-                        <a herf="/shop/categ/iphone" class="card image-link">
-                            <img class="card-img-center highlight-category-line-img"
-                                src="/custom_website/static/src/images/categ-line-phone.png"
-                            />
-                        </a>
-                        <span class="highlight-category-line-title">iPhone</span>
-                    </div>
-                    <div class="d-flex  gap-2 flex-column align-items-center">
-                        <a herf="/shop/categ/ipad" class="card image-link">
-                            <img class="card-img-center highlight-category-line-img"
-                                src="/custom_website/static/src/images/categ-line-ipad.png"
-                            />
-                        </a>
-                        <span class="highlight-category-line-title">Ipad</span>
-                    </div>
-                    <div class="d-flex gap-2 flex-column align-items-center">
-                        <a herf="/shop/categ/watch" class="card image-link">
-                            <img class="card-img-center highlight-category-line-img"
-                                src="/custom_website/static/src/images/categ-line-watch.png"
-                            />
-                        </a>
-                        <span class="highlight-category-line-title">Apple Watch</span>
-                    </div>
-                    <div class="d-flex gap-2 flex-column align-items-center">
-                        <a herf="/shop/categ/airpods" class="card image-link">
-                            <img class="card-img-center highlight-category-line-img"
-                                src="/custom_website/static/src/images/categ-line-airpods.png"
-                            />
-                        </a>
-                        <span class="highlight-category-line-title">Airpods</span>
-                    </div>
-
+                    </t>
+                
                 </div>
             </div>
         </template>
@@ -222,19 +196,19 @@
                     </div>
                     <div class="row homepage-contact-box">
                         <div class="col homepage-contact-box-img">
-                            <a herf="#" class="card image-link">
+                            <a href="#" class="card image-link">
                                 <img class="card-img-center"
                                     src="/custom_website/static/src/images/home_connect_1.png" />
                             </a>
                         </div>
                         <div class="col homepage-contact-box-img">
-                            <a herf="#" class="card image-link">
+                            <a href="#" class="card image-link">
                                 <img class="card-img-center"
                                     src="/custom_website/static/src/images/home_connect_2.png" />
                             </a>
                         </div>
                         <div class="col homepage-contact-box-img">
-                            <a herf="#" class="card image-link">
+                            <a href="#" class="card image-link">
                                 <img class="card-img-center"
                                     src="/custom_website/static/src/images/home_connect_3.png" />
                             </a>
@@ -247,7 +221,7 @@
         <template id="custom_website_homepage" inherit_id="website.homepage" name="Home">
             <xpath expr="//div[@id='wrap']" position="replace">
                 <!-- <div id="wrap" class="oe_structure oe_empty"/> -->
-                <div id="wrap" class="oe_structure oe_empty custom-homepage">7
+                <div id="wrap" class="oe_structure oe_empty custom-homepage">
                     <t t-call="custom_website.homepage_banner" />
                     <t t-call="custom_website.homepage_highlight_product" />
                     <t t-call="custom_website.homepage_category_line" />

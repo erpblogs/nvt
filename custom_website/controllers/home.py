@@ -27,9 +27,37 @@ class Home(Website):
             'airpods-airpods-pro',
             'watch',
         ]
+        category_lines = [
+            {
+                'title': 'Mac',   
+                'url': '/shop/categ/mac',   
+                'img':  'categ-line-mac.png'
+            },
+            {
+                'title': 'iPhone',   
+                'url': '/shop/categ/iphone',   
+                'img':  'categ-line-phone.png'
+            },
+            {
+                'title': 'iPad',   
+                'url': '/shop/categ/ipad',   
+                'img':  'categ-line-ipad.png'
+            },
+            {
+                'title': 'Apple Watch',   
+                'url': '/shop/categ/watch',   
+                'img':  'categ-line-watch.png'
+            },
+            {
+                'title': 'Airpods',   
+                'url': '/shop/categ/airpods',   
+                'img':  'categ-line-airpods.png'
+            },
+        ]
         
         values = {
             'highlight_product_ids': highlight_product_ids,
-            'categories': categories
+            'category_lines': category_lines,
+            'categories': categories,
         }
         return request.render("website.homepage", values)
