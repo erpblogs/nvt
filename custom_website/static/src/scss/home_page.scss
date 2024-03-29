@@ -25,7 +25,7 @@
   background-color: #f8f9fa; // Light background color
   min-width: 497px;
   // gap: 24px;
-  padding: unset !important;
+  padding: 64px 0 0 0 !important;
   display: flex;
   flex-wrap: nowrap;
   overflow: hidden;
@@ -55,9 +55,6 @@
       height: 506px;
       width: 497px;
       padding: 24px 0;
-      margin-top: 32px;
-
-
 
       span {
         font-size: 40px;
@@ -87,7 +84,6 @@
       width: 384px;
       height: 506px;
       padding: 24px;
-      margin: 32px 0;
       border-radius: 16px;
       background: #FFFFFF;
 
@@ -200,8 +196,7 @@
 }
 
 .highlight-category-line {
-  padding-bottom: 120px;
-  padding-top: 98px;
+  padding: 120px 0;
 
   .highlight-category-line-img {
     width: 160px;

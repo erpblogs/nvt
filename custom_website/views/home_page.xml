@@ -39,7 +39,7 @@
                         <span t-out="product.name" />
                     </div>
                     <span t-field="image_holder.image_1920"
-                        t-options="{'widget': 'image', 'preview_image': 'image_512', 'itemprop': 'image', 'class': 'h-100 w-100'}"
+                        t-options="{'widget': 'image', 'preview_image': 'image_512', 'itemprop': 'image', 'class': ''}"
                         class="d-block" alt="Product"/>
 
                     <div class="highlight-product-carousel-config">
