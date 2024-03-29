@@ -28,7 +28,7 @@
                                 autocapitalize="off" />
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-3 field-password">
                             <!-- <label for="password" class="form-label">Password</label> -->
                             <input type="password" placeholder="Password" name="password"
                                 id="password"
@@ -43,6 +43,15 @@
                         <p class="alert alert-success" t-if="message" role="status">
                             <t t-esc="message" />
                         </p>
+
+                        <div class="justify-content-between mb-2 d-flex small field-remember">
+                            <div class="login-checkbox d-flex justify-content-center align-items-center">
+                                <input type="checkbox" name="remember" id="switch-remember" value="1"/>
+                                <label for="switch-remember">Remember me</label>
+                            </div>
+                            <a t-if="reset_password_enabled" class="reset-password"
+                                t-attf-href="/web/reset_password?{{ keep_query() }}">Reset Password</a>
+                        </div>
 
                         <div
                             t-attf-class="clearfix oe_login_buttons text-center gap-1 d-grid mb-1 {{'pt-2' if form_small else 'pt-3'}}">

@@ -39,8 +39,8 @@
 
                 .login-title {
                     //styleName: Display sm/Semibold;
-                    width: 360px;
-                    height: 38px;
+                    // width: 360px;
+                    // height: 38px;
 
 
                     // font-family: SF Pro;
@@ -55,8 +55,8 @@
                 }
 
                 .login-sub-title {
-                    width: 360px;
-                    height: 24px;
+                    // width: 360px;
+                    // height: 24px;
                     //styleName: Text md/Regular;
                     // font-family: SF Pro;
                     font-size: 16px;
@@ -73,6 +73,42 @@
             .oe_login_form {
                 max-width: unset;
                 margin: unset;
+
+                .field-login {}
+
+                .field-password {}
+
+                .field-remember {
+                    .login-checkbox {
+                        input {
+                            width: 16px;
+                            gap: 0px;
+                            border-radius: 4px;
+                            border: 1px solid #D0D5DD;
+                            opacity: 0px;
+                            color: #FFFFFF;
+                        }
+
+                        label {
+                            //styleName: Text sm/Medium;
+                            font-size: 14px;
+                            font-weight: 510;
+                            line-height: 20px;
+                            text-align: left;
+                            color: #344054;
+                            margin-left: 8px;
+                        }
+                    }
+
+                    .reset-password {
+                        // font-family: SF Pro;
+                        font-size: 14px;
+                        font-weight: 400;
+                        line-height: 20px;
+                        text-align: left;
+                        color: #007AFF;
+                    }
+                }
             }
         }
     }
