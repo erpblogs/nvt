@@ -134,7 +134,7 @@
                                 context="{'default_is_customer': True, 'default_portal_company_id': id}"
                                 domain="[('is_customer', '=', True)]">
                                 <tree string="Users" editable="top">
-                                    <field name="name" />
+                                    <field name="partner_id" />
                                     <field name="email" />
                                     <field name="phone" />
                                     <field name="user_department_id"  />
