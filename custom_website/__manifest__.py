@@ -39,7 +39,7 @@ Long description of module's purpose
         # 'views/contactus_layout.xml',
         'views/home_page.xml',
         'views/product_layout.xml',
-        
+        'views/website_portal.xml',
         # menu
         'views/hidden_menu.xml',
     ],
