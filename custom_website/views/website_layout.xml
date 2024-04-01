@@ -28,7 +28,7 @@
 
     <template id="custom_footer" inherit_id="web.frontend_layout">
         <xpath expr="//footer[@id='bottom']" position="replace">
-            <div class="footer-container">
+            <div t-if="not disable_footer" class="footer-container" >
                 <div class="container">
                     <footer id="bottom" data-anchor="true"
                         class="row row-cols-1 row-cols-sm-2 row-cols-md-2 my-5 justify-content-between">
