@@ -1,0 +1,101 @@
+#support_layout {
+
+.main {
+  min-height: calc(100vh - 56px);
+}
+
+.help {
+  padding: 32px 36px 12px;
+  border-radius: 16px;
+  margin-bottom: 28px;
+}
+
+.help-body {
+  padding: 0;
+}
+
+.help-title {
+  font-size: 36px;
+  font-weight: 590;
+  line-height: 44px;
+  color: #1D1D1F;
+  margin-bottom: 8px;
+}
+
+.help-value {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  color: #1D1D1F;
+  margin-bottom: 24px;
+}
+
+.help-action {
+  margin: 0 -24px -24px;
+  padding: 0 16px;
+  border-radius: 0 0 16px 16px;
+  display: flex;
+}
+
+.help-action .btn {
+  width: fit-content;
+  height: 34px;
+  border-radius: 10000px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+
+.help-action .btn-chat {
+  background: rgba(0, 122, 255, 0.15);
+  color: #007AFF;
+  border: none;
+}
+
+.help-action .btn i {
+  margin-right: 4px;
+}
+
+.help-option a {
+  color: #007AFF;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  margin-bottom: 12px;
+}
+
+.help-start-group {
+  margin-bottom: 40px;
+}
+
+.help-start-group .help-value {
+  margin-bottom: 0px;
+}
+
+.help-start-option {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #101828;
+  border: 1px solid #9AA4B2;
+  height: 76px;
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: all ease-out .3s;
+}
+
+.help-start-option:hover {
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, .7);
+  color: white;
+}
+}

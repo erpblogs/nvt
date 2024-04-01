@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="support_page" name="Support">
+
+        <t t-call="website.layout">
+            <div id="support_layout" class="main" style="background-color: #F5F5F7;">
+                <div class="container">
+                    <nav style="--breadcrumb-divider: '>'" aria-label="breadcrumb">
+                        <ol class="breadcrumb ps-0">
+                            <li class="breadcrumb-item">
+                                <a href="#"><i class="fa-solid fa-house" style="color: #475467"></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Hỗ Trợ
+                            </li>
+                        </ol>
+                    </nav>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card help border-0 pos-sitcky">
+                                <div class="card-body row help-body align-items-start ps-0 pt-0">
+                                    <div class="col-8 d-flex flex-column">
+                                        <span class="help-title">Get Support</span>
+                                        <span class="help-value">Need more support? Here's a list of common IT
+                                            troubleshooting tips.</span>
+                                        <div class="help-action">
+                                            <button type="button" class="btn btn-primary">
+                                                <i class="bi bi-telephone-fill"></i>
+                                                Call us
+                                            </button>
+                                            <button type="button" class="btn btn-primary btn-chat">
+                                                <i class="bi bi-chat-fill"></i>
+                                                Chat on Slack
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 d-flex flex-column align-items-start help-option">
+                                        <a href="">Set up essential ABC Apps</a>
+                                        <a href="">Reset your ABC Password</a>
+                                        <a href="">Connect to ABC Wifi and VPN</a>
+                                        <a href="">Adding a Printer</a>
+                                        <a href="">How to return an old device</a>
+                                        <a href="">Resetting your Mac</a>
+                                        <a href="">Format and partition an external hard drive or USB</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card help border-0 pos-sitcky">
+                                <div class="card-body help-body align-items-center ps-0 py-0">
+                                    <div class="card-body row help-body align-items-start ps-0 pt-0">
+                                        <div class="col d-flex help-start-group flex-column">
+                                            <span class="help-title">Getting Started</span>
+                                            <span class="help-value">Welcome to your new Mac. Here's everything you need to
+                                                know to get up and running, and get the most out of your new Mac.</span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <a class="help-start-option">
+                                                            Move content to your new Mac
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <a class="help-start-option">
+                                                            Set up Video
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <a class="help-start-option">
+                                                            Connect to ABC wifi and VPN
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <a class="help-start-option">
+                                                            Using External Displays
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <a class="help-start-option">
+                                                            Upgrade to MacOS Monterey
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <a class="help-start-option">
+                                                            Set up Mail, Calendar and Slack
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <a class="help-start-option">
+                                                            Mac Starter Guides
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <a class="help-start-option">
+                                                            Tips and Tricks Support Videos
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+
+    </template>
+
+
+</odoo>

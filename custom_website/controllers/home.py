@@ -61,3 +61,8 @@ class Home(Website):
             'categories': categories,
         }
         return request.render("website.homepage", values)
+
+    @http.route('/support', auth="public", website=True, sitemap=True)
+    def support_page(self, **kw):
+        
+        return request.render("custom_website.support_page", {})
