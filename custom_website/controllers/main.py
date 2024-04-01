@@ -267,3 +267,8 @@ class WebsiteSaleCustom(WebsiteSale):
         # return request.render("website_sale.products", values)
         return request.render("custom_website.products", values)
     
+    
+    @http.route(['/shop/<model("product.template"):product>'], type='http', auth="public", website=True, sitemap=True)
+    def product(self, product, category='', search='', **kwargs):
+        return request.render("custom_website.custom_products_item", self._prepare_product_values(product, category, search, **kwargs))
+        # return request.render("website_sale.product", self._prepare_product_values(product, category, search, **kwargs))

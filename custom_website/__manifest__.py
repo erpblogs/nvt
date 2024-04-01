@@ -39,6 +39,7 @@ Long description of module's purpose
         # 'views/contactus_layout.xml',
         'views/home_page.xml',
         'views/product_layout.xml',
+        'views/product_detail.xml',
         
         # menu
         'views/hidden_menu.xml',
@@ -55,6 +56,8 @@ Long description of module's purpose
             'custom_website/static/src/scss/home_page.scss',
             'custom_website/static/src/js/homepage.js',
             'custom_website/static/src/scss/product_layout.scss',
+            'custom_website/static/src/scss/product_detail.scss',
+            'custom_website/static/src/js/product.js',
             # 'custom_website/static/src/scss/product.scss',
             # 'custom_website/static/src/js/homepage.js',
         ],

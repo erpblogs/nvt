@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="custom_products_item" name="Products item">
+        <!-- <t t-set="disable_footer">1</t> -->
+        <t t-cache="pricelist,product,fiscal_position">
+            <!-- TODO drop _get_first_possible_combination here -->
+            <t t-set="combination" t-value="product._get_first_possible_combination()" />
+            <t t-set="combination_info"
+                t-value="product._get_combination_info(combination, add_qty=add_qty)" />
+            <t t-set="product_variant"
+                t-value="product.env['product.product'].browse(combination_info['product_id'])" />
+
+            <t t-call="website.layout">
+                <t t-set="additional_title" t-value="product.name" />
+                <div id="product_detail" class="main">
+                    <div class="container">
+                        <nav style="--breadcrumb-divider: '>'" aria-label="breadcrumb">
+                            <ol class="breadcrumb ps-0">
+                                <li class="breadcrumb-item">
+                                    <a href="#">
+                                        <i class="fa-solid fa-house" style="color: #475467"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">MacBook</li>
+                                <li class="breadcrumb-item" aria-current="page">MacBook Air</li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    13-inch MacBook Air - Midnight
+                                </li>
+                            </ol>
+                        </nav>
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="card border-0 pos-sitcky">
+                                    <img src="/custom_website/static/src/images/macbook.png"
+                                        class="card-img-top" alt="..." />
+                                    <div class="card-body ps-0 pt-0">
+                                        <div class="d-flex justify-content-center my-2">
+                                            <button type="button" class="btn"
+                                                style="font-size: 14px; color: #007aff">
+                                                View gallery
+                                            </button>
+                                        </div>
+                                        <ul style="font-size: 14px; color: #1d1d1f">
+                                            <li>
+                                                Apple M2 chip with 8‑core CPU, 8‑core GPU, 16‑core
+                                                Neural
+                                                Engine
+                                            </li>
+                                            <li>8GB unified memory</li>
+                                            <li>256GB SSD storage</li>
+                                            <li>13.6-inch Liquid Retina display with True Tone³</li>
+                                            <li>1080p FaceTime HD camera</li>
+                                            <li>MagSafe 3 charging port</li>
+                                            <li>Two Thunderbolt / USB 4 ports</li>
+                                            <li>30W USB-C Power Adapter</li>
+                                            <li>Backlit Magic Keyboard with Touch ID - US English</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <form id="productForm" class="col d-flex flex-column">
+                                <div style="margin-bottom: 28px">
+                                    <h3 class="col pb-4 px-0 border-bottom mb-0">
+                                        13-inch MacBook Air - Midnight
+                                    </h3>
+                                </div>
+                                <div style="margin-bottom: 28px">
+                                    <p class="mb-2"
+                                        style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                        Color <span>- Pink</span>
+                                    </p>
+                                    <div class="d-flex">
+                                        <div class="position-relative">
+                                            <input class="option-check-input" type="radio"
+                                                name="color" id="silver"
+                                                value="silver" />
+                                            <label class="option-check-color-label" for="silver">
+                                                <div style="background: #D5DDE0;"
+                                                    class="color-value"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 28px">
+                                    <p class="mb-2"
+                                        style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                        System on a Chip (Processor)
+                                    </p>
+                                    <div class="row">
+                                        <div class="col position-relative">
+                                            <input class="option-check-input" type="radio" value="1"
+                                                name="processor"
+                                                id="processor" />
+                                            <label class="option-check-label " for="processor">
+                                                <span class="option-header">Apple M2 chip with
+                                                    8‑core CPU, 8‑core GPU, 16‑core
+                                                    Neural
+                                                    Engine</span>
+                                                <span class="option-title">selected</span>
+                                            </label>
+                                        </div>
+                                        <div class="col position-relative">
+                                            <input class="option-check-input" type="radio" value="2"
+                                                name="processor"
+                                                id="processor2" />
+                                            <label class="option-check-label" for="processor2">
+                                                <span class="option-header">Apple M2 chip with
+                                                    8‑core CPU, 8‑core GPU, 16‑core
+                                                    Neural
+                                                    Engine</span>
+                                                <span class="option-title">+ 2,400,000₫</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 28px">
+                                    <p class="mb-2"
+                                        style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                        Memory
+                                    </p>
+                                    <div class="row">
+                                        <div class="col position-relative">
+                                            <input class="option-check-input" type="radio"
+                                                name="memory" value="8"
+                                                id="memory1" />
+                                            <label class="option-check-label" for="memory1">
+                                                <span class="option-header">8GB unified memory</span>
+                                                <span class="option-title">- 2,400,000₫</span>
+                                            </label>
+                                        </div>
+                                        <div class="col position-relative">
+                                            <input class="option-check-input" type="radio"
+                                                name="memory" value="16"
+                                                id="memory2" />
+                                            <label class="option-check-label " for="memory2">
+                                                <span class="option-header">16GB unified memory</span>
+                                                <span class="option-title">selected</span>
+                                            </label>
+                                        </div>
+                                        <div class="col position-relative">
+                                            <input class="option-check-input" type="radio"
+                                                name="memory" value="24"
+                                                id="memory3" />
+                                            <label class="option-check-label" for="memory3">
+                                                <span class="option-header">24GB unified memory</span>
+                                                <span class="option-title">+ 2,400,000₫</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 28px">
+                                    <p class="mb-2"
+                                        style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                        Storage
+                                    </p>
+                                    <div class="row">
+                                        <div class="col position-relative">
+                                            <input class="option-check-input" type="radio"
+                                                name="storage" value="256gb"
+                                                id="storage" />
+                                            <label class="option-check-label" for="storage">
+                                                <span class="option-header">256GB SSD storage</span>
+                                                <span class="option-title">selected</span>
+                                            </label>
+                                        </div>
+                                        <div class="col position-relative">
+                                            <input class="option-check-input" type="radio"
+                                                name="storage" value="512gb"
+                                                id="storage2" />
+                                            <label class="option-check-label " for="storage2">
+                                                <span class="option-header">512GB SSD storage</span>
+                                                <span class="option-title">selected</span>
+                                            </label>
+                                        </div>
+                                        <div class="col position-relative">
+                                            <input class="option-check-input" type="radio"
+                                                name="storage" value="1tb"
+                                                id="storage3" />
+                                            <label class="option-check-label" for="storage3">
+                                                <span class="option-header">1TB SSD storage</span>
+                                                <span class="option-title">+ 2,400,000₫</span>
+                                            </label>
+                                        </div>
+                                        <div class="col position-relative">
+                                            <input class="option-check-input" type="radio"
+                                                name="storage" value="2tb"
+                                                id="storage4" />
+                                            <label class="option-check-label" for="storage4">
+                                                <span class="option-header">2TB SSD storage</span>
+                                                <span class="option-title">+ 4,800,000₫</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 28px">
+                                    <p class="mb-0"
+                                        style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                        Power Adapter
+                                    </p>
+                                    <div class="option-hint">
+                                        35W Dual USB‑C Port Compact Power Adapter or 70W USB‑C Power
+                                        Adapter included as free upgrade with selection of M2 chip
+                                        with
+                                        10-core GPU and 512GB SSD storage or higher.
+                                    </div>
+                                    <div class="row">
+                                        <div class="col position-relative">
+                                            <input class="option-check-input" type="radio"
+                                                name="powerAdapter" value="30w_usb-c"
+                                                id="powerAdapter1" />
+                                            <label class="option-check-label" for="powerAdapter1">
+                                                <span class="option-header">30W USB-C Power Adapter</span>
+                                                <span class="option-title">- 2,400,000₫</span>
+                                            </label>
+                                        </div>
+                                        <div class="col position-relative">
+                                            <input class="option-check-input" type="radio"
+                                                name="powerAdapter"
+                                                value="35w_dual_usb-c" id="powerAdapter2" />
+                                            <label class="option-check-label " for="powerAdapter2">
+                                                <span class="option-header">35W Dual USB-C Port
+                                                    Compact Power Adapter</span>
+                                                <span class="option-title">selected</span>
+                                            </label>
+                                        </div>
+                                        <div class="col position-relative">
+                                            <input class="option-check-input" type="radio"
+                                                name="powerAdapter" value="70w_usb-c"
+                                                id="powerAdapter3" />
+                                            <label class="option-check-label" for="powerAdapter3">
+                                                <span class="option-header">70W USB-C Power Adapter</span>
+                                                <span class="option-title">+ 2,400,000₫</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 28px">
+                                    <p class="mb-2"
+                                        style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                        Keyboard Language
+                                    </p>
+                                    <select class="form-check option-select" name="keyBoard">
+                                        <option value="0" selected="selected">
+                                            Backlit Magic Keyboard with Touch ID - US English
+                                        </option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div style="margin-bottom: 28px">
+                                    <p class="mb-2"
+                                        style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                        Pre-Installed Software
+                                    </p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="finalCutPro" class="toggle-container">
+                                                <div class="toggle-info">
+                                                    <span class="toggle-header">Final Cut Pro</span>
+                                                    <span class="toggle-title">--</span>
+                                                </div>
+                                                <div class="toggleWrapper">
+                                                    <input type="checkbox" id="finalCutPro"
+                                                        name="finalCutPro" />
+                                                    <label
+                                                        for="finalCutPro">Toggle</label>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="col">
+                                            <label for="logicPro" class="toggle-container">
+                                                <div class="toggle-info">
+                                                    <span class="toggle-header">Logic Pro</span>
+                                                    <span class="toggle-title">+ 2,400,000₫</span>
+                                                </div>
+                                                <div class="toggleWrapper">
+                                                    <input type="checkbox" name="logicPro"
+                                                        id="logicPro" />
+                                                    <label
+                                                        for="logicPro">Toggle</label>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="add-to-cart">
+                    <div class="container">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex">
+                                <div class="bag-icon">
+                                    <img src="/custom_website/static/src/images/apple-bag.svg"
+                                        width="25" height="25" />
+                                </div>
+                                <div class="pickup">
+                                    <span class="d-flex pickup-header">Pickup:</span>
+                                    <span class="d-flex pickup-title">Check availability</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="total">22,890,000₫</span>
+                                <button type="button" id="btnSubmit" name="submit"
+                                    class="btn btn-primary btn-add">Add to
+                                    Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+        </t>
+
+    </template>
+
+
+</odoo>
