@@ -12,6 +12,8 @@
         </xpath>
     </template>
 
+    
+
     <!-- Footer templates -->
     <template id="footer_custom" inherit_id="website.footer_custom" name="Default">
         <xpath expr="//div[@id='footer']" position="replace">

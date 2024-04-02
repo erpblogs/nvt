@@ -51,6 +51,7 @@ Long description of module's purpose
     ],
     'assets': {
         'web.assets_frontend': [
+            'custom_website/static/src/scss/lib/custom_bootstrap.scss',
             'custom_website/static/src/scss/style.scss',
             'custom_website/static/src/scss/login_layout.scss',
             'custom_website/static/src/scss/footer_layout.scss',
