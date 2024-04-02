@@ -2,7 +2,10 @@
 <odoo>
 
     <template id="support_page" name="Support">
-
+        <xpath expr="//head" position="last">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+        </xpath>
+        
         <t t-call="website.layout">
             <div id="support_layout" class="main" style="background-color: #F5F5F7;">
                 <div class="container">
