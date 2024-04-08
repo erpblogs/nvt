@@ -1,7 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <template id="product_breadcrumb" name="Product breadcrumb">
+        <nav style="--breadcrumb-divider: '>'" aria-label="breadcrumb">
+            <ol class="breadcrumb ps-0">
+                <li class="breadcrumb-item o_not_editable ms-1">
+                    <a t-att-href="keep(category=0)" aria-label="All Products" title="All Products">
+                        <img src="/custom_website/static/src/images/home-line.png"
+                            alt="breadcrumb icon"></img>
+                    </a>
+                </li>
+                <li
+                    t-nocache="The category does not have to be cached, as the product can be accessed via different paths."
+                    t-if="category" class="breadcrumb-item">
+                    <a t-att-href="keep('/shop/category/%s' % slug(category), category=0)"
+                        t-field="category.name" />
+                </li>
+                <li class="breadcrumb-item active">
+                    <span t-field="product.name" />
+                </li>
+            </ol>
+        </nav>
+    </template>
 
-    <template id="custom_products_item" name="Products item">
+    <template id="custom_products_item" inherit_id="website_sale.product" name="Products item">
+        <xpath expr="//t[@t-call='website.layout']" position="replace">
+            <t t-call="website.layout">
+                <t t-set="base_url" t-value="product.get_base_url()" />
+                <t t-set="additional_title" t-value="product.name" />
+                <div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap"
+                    class="js_sale o_wsale_product_page">
+                    <div class="oe_structure oe_empty oe_structure_not_nearest"
+                        id="oe_structure_website_sale_product_1"
+                        data-editor-message="DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL PRODUCTS" />
+                    <section id="product_detail" class="main">
+                        <div class="container">
+                            <t t-call="custom_website.product_breadcrumb">
+                                <t t-set="product" t-value="product" />
+                                <t t-set="category" t-value="category" />
+                            </t>
+
+                            <div class="row" id="product_detail_main" data-name="Product Page"
+                                t-att-data-image_width="website.product_page_image_width"
+                                t-att-data-image_layout="website.product_page_image_layout">
+
+                                <div class="col-12 col-md-5">
+                                    <div class="card border-0 pos-sitcky">
+                                        <!-- <t t-call="website_sale.shop_product_images" /> -->
+                                        <!-- <t t-set="image_cols"
+                                            t-value="website._get_product_page_proportions()" /> -->
+                                        <div
+                                            t-attf-class="col-lg-12 mt-lg-4 o_wsale_product_images position-relative"
+                                            t-if="website.product_page_image_width != 'none'">
+                                            <t t-call="website_sale.shop_product_images" />
+                                        </div>
+                                        <div class="card-body ps-0 pt-0">
+                                            <div class="d-flex justify-content-center my-2">
+                                                <button type="button" class="btn"
+                                                    style="font-size: 14px; color: #007aff">
+                                                    View gallery
+                                                </button>
+                                            </div>
+                                            <span itemprop="url" style="display:none;"
+                                                t-esc="base_url + product.website_url" />
+                                            <span itemprop="image" style="display:none;"
+                                                t-esc="base_url + website.image_url(product, 'image_1920')" />
+                                            <t t-if="is_view_active('website_sale.product_comment')">
+                                                <a href="#o_product_page_reviews"
+                                                    class="o_product_page_reviews_link text-decoration-none">
+                                                    <t
+                                                        t-call="portal_rating.rating_widget_stars_static">
+                                                        <t t-set="rating_avg"
+                                                            t-value="product.rating_avg" />
+                                                        <t t-set="trans_text_plural">%s reviews</t>
+                                                        <t t-set="trans_text_singular">%s review</t>
+                                                        <t t-set="rating_count"
+                                                            t-value="(trans_text_plural if product.rating_count > 1 else trans_text_singular) % product.rating_count" />
+                                                    </t>
+                                                </a>
+                                            </t>
+                                            <p t-field="product.description_sale"
+                                                class="text-muted my-2"
+                                                placeholder="A short description that will also appear on documents." />
+                                        </div>
+                                    </div>
+                                </div>
+                                <form id="productForm" class="col-12 col-md-7 d-flex flex-column"
+                                    t-if="product._is_add_to_cart_possible()"
+                                    action="/shop/cart/update" method="POST">
+                                    <input type="hidden" name="csrf_token"
+                                        t-att-value="request.csrf_token()"
+                                        t-nocache="The csrf token must always be up to date." />
+
+
+                                    <div style="margin-bottom: 28px">
+                                        <h3 itemprop="name" t-field="product.name"
+                                            class="col pb-4 px-0 border-bottom mb-0">
+                                            Product Name
+                                        </h3>
+                                    </div>
+                                    <div class="js_product js_main_product mb-3">
+                                        <t t-placeholder="select">
+                                            <input type="hidden" class="product_id"
+                                                name="product_id" t-att-value="product_variant.id" />
+                                            <input type="hidden" class="product_template_id"
+                                                name="product_template_id" t-att-value="product.id" />
+                                            <input t-if="product.public_categ_ids.ids" type="hidden"
+                                                class="product_category_id"
+                                                name="product_category_id"
+                                                t-att-value="product.public_categ_ids.ids[0]" />
+                                            <t t-call="website_sale.variants">
+                                                <t t-set="ul_class" t-valuef="flex-column" />
+                                                <t t-set="parent_combination" t-value="None" />
+                                            </t>
+                                        </t>
+
+                                        <p t-if="True"
+                                            class="css_not_available_msg alert alert-warning">This
+                                            combination does not exist.</p>
+
+                                    </div>
+
+                                    <div style="margin-bottom: 28px">
+                                        <p class="mb-2"
+                                            style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                            Color <span>- Pink</span>
+                                        </p>
+                                        <div class="d-flex">
+                                            <div class="position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    name="color" id="silver"
+                                                    value="silver" />
+                                                <label class="option-check-color-label" for="silver">
+                                                    <div style="background: #D5DDE0;"
+                                                        class="color-value"></div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 28px">
+                                        <p class="mb-2"
+                                            style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                            System on a Chip (Processor)
+                                        </p>
+                                        <div class="row">
+                                            <div class="col position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    value="1"
+                                                    name="processor"
+                                                    id="processor" />
+                                                <label class="option-check-label " for="processor">
+                                                    <span class="option-header">Apple M2 chip with
+                                                        8‑core CPU, 8‑core GPU, 16‑core
+                                                        Neural
+                                                        Engine</span>
+                                                    <span class="option-title">selected</span>
+                                                </label>
+                                            </div>
+                                            <div class="col position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    value="2"
+                                                    name="processor"
+                                                    id="processor2" />
+                                                <label class="option-check-label" for="processor2">
+                                                    <span class="option-header">Apple M2 chip with
+                                                        8‑core CPU, 8‑core GPU, 16‑core
+                                                        Neural
+                                                        Engine</span>
+                                                    <span class="option-title">+ 2,400,000₫</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 28px">
+                                        <p class="mb-2"
+                                            style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                            Memory
+                                        </p>
+                                        <div class="row">
+                                            <div class="col position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    name="memory" value="8"
+                                                    id="memory1" />
+                                                <label class="option-check-label" for="memory1">
+                                                    <span class="option-header">8GB unified memory</span>
+                                                    <span class="option-title">- 2,400,000₫</span>
+                                                </label>
+                                            </div>
+                                            <div class="col position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    name="memory" value="16"
+                                                    id="memory2" />
+                                                <label class="option-check-label " for="memory2">
+                                                    <span class="option-header">16GB unified memory</span>
+                                                    <span class="option-title">selected</span>
+                                                </label>
+                                            </div>
+                                            <div class="col position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    name="memory" value="24"
+                                                    id="memory3" />
+                                                <label class="option-check-label" for="memory3">
+                                                    <span class="option-header">24GB unified memory</span>
+                                                    <span class="option-title">+ 2,400,000₫</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 28px">
+                                        <p class="mb-2"
+                                            style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                            Storage
+                                        </p>
+                                        <div class="row">
+                                            <div class="col position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    name="storage" value="256gb"
+                                                    id="storage" />
+                                                <label class="option-check-label" for="storage">
+                                                    <span class="option-header">256GB SSD storage</span>
+                                                    <span class="option-title">selected</span>
+                                                </label>
+                                            </div>
+                                            <div class="col position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    name="storage" value="512gb"
+                                                    id="storage2" />
+                                                <label class="option-check-label " for="storage2">
+                                                    <span class="option-header">512GB SSD storage</span>
+                                                    <span class="option-title">selected</span>
+                                                </label>
+                                            </div>
+                                            <div class="col position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    name="storage" value="1tb"
+                                                    id="storage3" />
+                                                <label class="option-check-label" for="storage3">
+                                                    <span class="option-header">1TB SSD storage</span>
+                                                    <span class="option-title">+ 2,400,000₫</span>
+                                                </label>
+                                            </div>
+                                            <div class="col position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    name="storage" value="2tb"
+                                                    id="storage4" />
+                                                <label class="option-check-label" for="storage4">
+                                                    <span class="option-header">2TB SSD storage</span>
+                                                    <span class="option-title">+ 4,800,000₫</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 28px">
+                                        <p class="mb-0"
+                                            style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                            Power Adapter
+                                        </p>
+                                        <div class="option-hint">
+                                            35W Dual USB‑C Port Compact Power Adapter or 70W USB‑C
+                                            Power
+                                            Adapter included as free upgrade with selection of
+                                            M2 chip
+                                            with
+                                            10-core GPU and 512GB SSD storage or higher.
+                                        </div>
+                                        <div class="row">
+                                            <div class="col position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    name="powerAdapter" value="30w_usb-c"
+                                                    id="powerAdapter1" />
+                                                <label class="option-check-label"
+                                                    for="powerAdapter1">
+                                                    <span class="option-header">30W USB-C Power
+                                                        Adapter</span>
+                                                    <span class="option-title">- 2,400,000₫</span>
+                                                </label>
+                                            </div>
+                                            <div class="col position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    name="powerAdapter"
+                                                    value="35w_dual_usb-c" id="powerAdapter2" />
+                                                <label class="option-check-label "
+                                                    for="powerAdapter2">
+                                                    <span class="option-header">35W Dual USB-C Port
+                                                        Compact Power Adapter</span>
+                                                    <span class="option-title">selected</span>
+                                                </label>
+                                            </div>
+                                            <div class="col position-relative">
+                                                <input class="option-check-input" type="radio"
+                                                    name="powerAdapter" value="70w_usb-c"
+                                                    id="powerAdapter3" />
+                                                <label class="option-check-label"
+                                                    for="powerAdapter3">
+                                                    <span class="option-header">70W USB-C Power
+                                                        Adapter</span>
+                                                    <span class="option-title">+ 2,400,000₫</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 28px">
+                                        <p class="mb-2"
+                                            style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                            Keyboard Language
+                                        </p>
+                                        <select class="form-check option-select" name="keyBoard">
+                                            <option value="0" selected="selected">
+                                                Backlit Magic Keyboard with Touch ID - US English
+                                            </option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                    <div style="margin-bottom: 28px">
+                                        <p class="mb-2"
+                                            style="color: #1d1d1f; font-size: 18px; font-weight: 600">
+                                            Pre-Installed Software
+                                        </p>
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="finalCutPro" class="toggle-container">
+                                                    <div class="toggle-info">
+                                                        <span class="toggle-header">Final Cut Pro</span>
+                                                        <span class="toggle-title">--</span>
+                                                    </div>
+                                                    <div class="toggleWrapper">
+                                                        <input type="checkbox" id="finalCutPro"
+                                                            name="finalCutPro" />
+                                                        <label
+                                                            for="finalCutPro">Toggle</label>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            <div class="col">
+                                                <label for="logicPro" class="toggle-container">
+                                                    <div class="toggle-info">
+                                                        <span class="toggle-header">Logic Pro</span>
+                                                        <span class="toggle-title">+ 2,400,000₫</span>
+                                                    </div>
+                                                    <div class="toggleWrapper">
+                                                        <input type="checkbox" name="logicPro"
+                                                            id="logicPro" />
+                                                        <label
+                                                            for="logicPro">Toggle</label>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </section>
+
+                </div>
+
+                <div itemprop="description" t-field="product.website_description"
+                    class="oe_structure oe_empty mt16" id="product_full_description" />
+                <div class="oe_structure oe_empty oe_structure_not_nearest mt16"
+                    id="oe_structure_website_sale_product_2"
+                    data-editor-message="DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL PRODUCTS" />
+                <!-- Invisible old element -->
+                <div id="o_product_terms_and_share" class="d-none" />
+            </t>
+        </xpath>
+    </template>
+
+    <template id="custom_products_item_template" name="Products item">
         <!-- <t t-set="disable_footer">1</t> -->
         <t t-cache="pricelist,product,fiscal_position">
             <!-- TODO drop _get_first_possible_combination here -->
@@ -13,13 +381,17 @@
 
             <t t-call="website.layout">
                 <t t-set="additional_title" t-value="product.name" />
+            </t>
+
+            <t t-call="website.layout">
+                <t t-set="additional_title" t-value="product.name" />
                 <div id="product_detail" class="main">
                     <div class="container">
                         <nav style="--breadcrumb-divider: '>'" aria-label="breadcrumb">
                             <ol class="breadcrumb ps-0">
                                 <li class="breadcrumb-item">
                                     <a href="#">
-                                        <i class="fa-solid fa-house" style="color: #475467"></i>
+                                        <i class="fa fa-solid fa-house" style="color: #475467"></i>
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item" aria-current="page">MacBook</li>
@@ -30,7 +402,7 @@
                             </ol>
                         </nav>
                         <div class="row">
-                            <div class="col-5">
+                            <div class="col-12 col-md-5">
                                 <div class="card border-0 pos-sitcky">
                                     <img src="/custom_website/static/src/images/macbook.png"
                                         class="card-img-top" alt="..." />
@@ -59,7 +431,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form id="productForm" class="col d-flex flex-column">
+                            <form id="productForm" class="col-12 col-md-7 d-flex flex-column">
                                 <div style="margin-bottom: 28px">
                                     <h3 class="col pb-4 px-0 border-bottom mb-0">
                                         13-inch MacBook Air - Midnight
