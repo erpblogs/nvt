@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">view.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='contact_addresses']" position="replace">
+                <page string="Addresses" name="addresses">
+                    <field name="address_ids" string="Addresses">
+                        <tree editable="top">
+                            <field name="street"/>
+                            <field name="city"/>
+                            <field name="state_id" domain="[('country_id', '=', country_id)]"/>
+                            <field name="country_id"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
 
     <record id="res_partner_company_address_tree_view" model="ir.ui.view">
         <field name="name">res.partner.company.address.tree</field>
@@ -111,25 +130,21 @@
                     </group>
                     <notebook colspan="4">
                         <page name='users_information' string="Users" groups="custom_users.super_admin,custom_users.account_manager">
-                            <group name="container_row_2">
-                                <group name="sale" priority="1">
-                                    <field name="web_user_ids"
-                                        context="{'default_is_customer': True, 'default_portal_company_id': id}"
-                                        domain="[('is_customer', '=', True)]" >
-                                        <tree string="Users">
-                                            <field name="name" />
-                                            <field name="email" />
-                                            <field name="phone" />
-                                            <field name="user_department_id"  />
-                                            <field name="customer_group"  />
-                                            <field name="active" />
-                                            <field name="portal_company_id" invisible="1" />
-                                            <field name="is_customer" invisible="1" />
-                                            <field name="login_date" readonly="1" />
-                                        </tree>
-                                    </field>
-                                </group>
-                            </group>
+                            <field name="web_user_ids"
+                                context="{'default_is_customer': True, 'default_portal_company_id': id}"
+                                domain="[('is_customer', '=', True)]">
+                                <tree string="Users" editable="top">
+                                    <field name="partner_id" />
+                                    <field name="email" />
+                                    <field name="phone" />
+                                    <field name="user_department_id"  />
+                                    <field name="customer_group"  />
+                                    <field name="active" />
+                                    <field name="portal_company_id" invisible="1"/>
+                                    <field name="is_customer" invisible="1"/>
+                                    <field name="login_date" readonly="1" />
+                                </tree>
+                            </field>
                         </page>
                         <page name='sales_information' string="Sales" groups="custom_users.super_admin">
                             <group name="container_row_2">
@@ -144,10 +159,10 @@
                         </page>
                         <page string="Addresses" name="addresses">
                             <field name="address_ids" string="Addresses">
-                                <tree editable="bottom">
+                                <tree editable="top">
                                     <field name="street"/>
                                     <field name="city"/>
-                                    <field name="state_id"/>
+                                    <field name="state_id" domain="[('country_id', '=', country_id)]"/>
                                     <field name="country_id"/>
                                 </tree>
                             </field>

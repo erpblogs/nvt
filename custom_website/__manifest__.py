@@ -40,8 +40,8 @@ Long description of module's purpose
         'views/home_page.xml',
         'views/support_layout.xml',
         'views/product_layout.xml',
+        'views/website_portal.xml',
         'views/product_detail.xml',
-        
         # menu
         'views/hidden_menu.xml',
     ],
