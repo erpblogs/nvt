@@ -124,9 +124,7 @@
                                             </t>
                                         </t>
 
-                                        <p t-if="True"
-                                            class="css_not_available_msg alert alert-warning">This
-                                            combination does not exist.</p>
+                                        <p t-if="True" class="css_not_available_msg alert alert-warning">This combination does not exist.</p>
 
                                     </div>
 
@@ -137,22 +135,27 @@
                                         <t t-set="ctaSizeBig"
                                             t-value="not hasQuantities or not hasBuyNow" />
                                         <div class="container">
-                                            <div class="row p-4">
-                                                <div class="col d-flex justify-content-start align-items-center">
+                                            <div class="row p-4"> 
+                                                <div class="col d-flex justify-content-start">
                                                     <div class="bag-icon">
                                                         <img
                                                             src="/custom_website/static/src/images/apple-bag.svg"
                                                             width="25" height="25" />
                                                     </div>
-                                                    <div class="pickup">
-                                                        <span class="d-flex pickup-header">Pickup:</span>
-                                                        <span class="d-flex pickup-title">Check
-                                                            availability</span>
+                                                    <div class="pickup d-flex flex-column pickup">
+                                                        <span class="pickup-header">Pickup:</span>
+                                                        <span class="btn p-0 pickup-title">Check availability</span>
                                                     </div>
                                                 </div>
                                                 <div id="add_to_cart_wrap"
                                                 class="col d-flex justify-content-end align-items-center">
-                                                    <span class="total">22,890,000₫</span>
+                                                    <div class="total">
+                                                        <t t-call="website_sale.product_price"/>
+                                                        <small t-if="combination_info['base_unit_price']"
+                                                            class="ms-1 text-muted o_base_unit_price_wrapper d-none" groups="website_sale.group_show_uom_price">
+                                                            <t t-call='website_sale.base_unit_price'/>
+                                                        </small>
+                                                    </div>
                                                     <a
                                                         data-animation-selector=".o_wsale_product_images"
                                                         role="button" id="add_to_cart" name="submit"
@@ -185,70 +188,6 @@
             </t>
         </xpath>
     </template>
-
-    <template id="custom_products_item_template" name="Products item">
-        <t t-set="disable_footer">1</t>
-        <t t-cache="pricelist,product,fiscal_position">
-            <!-- TODO drop _get_first_possible_combination here -->
-            <t t-set="combination" t-value="product._get_first_possible_combination()" />
-            <t t-set="combination_info"
-                t-value="product._get_combination_info(combination, add_qty=add_qty)" />
-            <t t-set="product_variant"
-                t-value="product.env['product.product'].browse(combination_info['product_id'])" />
-
-            <t t-call="website.layout">
-                <t t-set="additional_title" t-value="product.name" />
-            </t>
-
-            <t t-call="website.layout">
-                <t t-set="additional_title" t-value="product.name" />
-                <div id="product_detail" class="main">
-                    <div class="container">
-                        <nav style="--breadcrumb-divider: '>'" aria-label="breadcrumb">
-                            <ol class="breadcrumb ps-0">
-                                <li class="breadcrumb-item">
-                                    <a href="#">
-                                        <i class="fa fa-solid fa-house" style="color: #475467"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item" aria-current="page">MacBook</li>
-                                <li class="breadcrumb-item" aria-current="page">MacBook Air</li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    13-inch MacBook Air - Midnight
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-
-                </div>
-                <div class="add-to-cart">
-                    <div class="container">
-                        <div class="container d-flex justify-content-between align-items-center">
-                            <div class="d-flex">
-                                <div class="bag-icon">
-                                    <img src="/custom_website/static/src/images/apple-bag.svg"
-                                        width="25" height="25" />
-                                </div>
-                                <div class="pickup">
-                                    <span class="d-flex pickup-header">Pickup:</span>
-                                    <span class="d-flex pickup-title">Check availability</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <span class="total">22,890,000₫</span>
-                                <button type="button" id="btnSubmit" name="submit"
-                                    class="btn btn-primary btn-add">Add to
-                                    Bag</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </t>
-        </t>
-
-    </template>
-
 
     <template id="variants" inherit_id="website_sale.variants">
         <xpath expr="//ul[contains(@t-attf-class, 'js_add_cart_variants')]" position="replace">
@@ -302,7 +241,6 @@
                                         style="margin: 0;">
                                         <label class="col-form-label w-100">
                                             <div class="form-check w-100">
-
                                                 <input
                                                     t-att-type="'radio' if ptal.attribute_id.display_type == 'radio' else 'checkbox'"
                                                     t-attf-class="form-check-input js_variant_change #{ptal.attribute_id.create_variant} option-check-input"
@@ -315,17 +253,12 @@
                                                     t-att-data-is_custom="ptav.is_custom"
                                                     t-att-data-is_single="single"
                                                     t-att-data-is_single_and_custom="single_and_custom" />
-
-                                                <label class="option-check-label"
-                                                    for="powerAdapter1">
-                                                    <span class="option-header" t-field="ptav.name">Product
-                                                        name</span>
+                                                <div class="radio_input_value form-check-label option-check-label">
+                                                    <span class="option-header"  t-field="ptav.name"/>
                                                     <span class="option-title">
-
-                                                        <t t-call="website_sale.badge_extra_price" />
+                                                        <t t-call="website_sale.badge_extra_price"/>
                                                     </span>
-                                                </label>
-
+                                                </div>
                                             </div>
                                         </label>
                                     </li>
@@ -333,7 +266,7 @@
                             </ul>
 
                         </t>
-                        <!--     
+                            
                         <t t-elif="ptal.attribute_id.display_type == 'pills'">
                             <ul t-att-data-attribute_id="ptal.attribute_id.id"
                                 t-attf-class="btn-group-toggle list-inline list-unstyled o_wsale_product_attribute #{'d-none' if
@@ -362,7 +295,7 @@
                                     </li>
                                 </t>
                             </ul>
-                        </t> -->
+                        </t>
 
                         <t t-elif="ptal.attribute_id.display_type == 'color'">
                             <ul t-att-data-attribute_id="ptal.attribute_id.id"
