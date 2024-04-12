@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="mrp_mps_production_schedule_form_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.production.schedule.form.view.inherit</field>
+        <field name="model">mrp.production.schedule</field>
+        <field name="inherit_id" ref="mrp_mps.mrp_mps_production_schedule_form_view"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//group//group" position="inside">
+                <field name="upt_demand_qty"/>
+                <field name="case_pack"/>
+                <field name="case_per_pallet"/>
+                <field name="pallet_per_cont"/>
+                <field name="cont_factor"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

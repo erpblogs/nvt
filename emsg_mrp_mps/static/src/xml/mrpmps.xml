@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="MpsLineComponent" t-inherit="mrp_mps.MpsLineComponent" t-inherit-mode="extension">
+        <!-- <xpath expr="//tr[@name='demand_forecast']" position="before">
+            <tr t-ref="gcprojectRow" name="demand_gc_project">
+                <th/>
+                <th scope="row">
+                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="Guest count projection">GC
+        Project</span>
+                </th>                
+                <th class="text-end">
+                    <button type="button" class="btn btn-link text-muted o_no_padding o_mrp_mps_edit"
+        t-on-click.stop="(ev) => this._onClickEdit(ev, productionSchedule.id)">
+                        <span class="fa fa-bullseye text-muted fa-fw" role="img" aria-label="UPT Demand/Case Pack"
+        title="UPT Demand/Case Pack"/>
+                        <t t-esc="productionSchedule.upt_demand_qty or 0.0"/>/<t t-esc="productionSchedule.case_pack or
+        0.0"/>
+                    </button>
+                </th>
+                <t t-foreach="productionSchedule.forecast_ids" t-as="forecast" t-key="forecast_index">
+                    <th class="text-end pe-4">
+                        <input type="text"
+                        t-att-data-date_index="forecast_index"
+                        t-attf-class="text-end form-control o_mrp_mps_input_gc_project_qty"
+                        t-att-value="formatFloat(forecast.gc_project_qty)"
+                        t-on-change.stop="(ev) => this._onChangeGCProject(ev, productionSchedule.id)"
+                        t-on-focus.prevent="_onFocusInput"/>
+                    </th>
+                </t>
+            </tr>
+            <tr t-ref="gcactualRow" name="gc_actual_qty">
+                <th/>
+                <th scope="row">
+                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="GC Actual">Wrin Des</span>
+                </th>
+                <th></th>
+                <t t-foreach="productionSchedule.forecast_ids" t-as="forecast" t-key="forecast_index">
+                    <th class="text-end pe-4">
+                        <input type="text"
+                        t-att-data-date_index="forecast_index"
+                        t-attf-class="text-end form-control o_mrp_mps_input_gc_actual_qty"
+                        t-att-value="formatFloat(forecast.gc_actual_qty)"
+                        t-on-change.stop="(ev) => this._onChangeGCActual(ev, productionSchedule.id)"
+                        t-on-focus.prevent="_onFocusInput"/>
+                    </th>
+                </t>
+            </tr>
+        </xpath> -->
+
+        <!-- <xpath expr="//tr[@name='to_replenish']" position="after">
+            <tr t-ref="uptdemandRow" name="upt_demand_qty">
+                <th/>
+                <th scope="row">
+                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="UPT Demand">UPT Demand</span>
+                </th>
+                <th></th>
+                <t t-foreach="productionSchedule.forecast_ids" t-as="forecast" t-key="forecast_index">
+                    <th class="text-end pe-4">
+                        <input type="text"
+                        t-att-data-date_index="forecast_index"
+                        t-attf-class="text-end form-control o_mrp_mps_input_upt_demand_qty"
+                        t-att-value="formatFloat(forecast.upt_demand_qty)"
+                        t-on-change.stop="(ev) => this._onChangeUptDemandQty(ev, productionSchedule.id)"
+                        t-on-focus.prevent="_onFocusInput"/>
+                    </th>
+                </t>
+            </tr>
+            <tr t-ref="casepackRow" name="case_pack">
+                <th/>
+                <th scope="row">
+                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="Case Pack">Case Pack</span>
+                </th>
+                <th></th>
+                <t t-foreach="productionSchedule.forecast_ids" t-as="forecast" t-key="forecast_index">
+                    <th class="text-end pe-4">
+                        <input type="text"
+                        t-att-data-date_index="forecast_index"
+                        t-attf-class="text-end form-control o_mrp_mps_input_case_pack"
+                        t-att-value="formatFloat(forecast.case_pack)"
+                        t-on-change.stop="(ev) => this._onChangeCasePack(ev, productionSchedule.id)"
+                        t-on-focus.prevent="_onFocusInput"/>
+                    </th>
+                </t>
+            </tr>
+        </xpath> -->
+
+        <xpath expr="//tr[@name='safety_stock']" position="after">
+            <tr t-ref="stockdaysRow" name="stock_days">
+                <th/>
+                <th scope="row">
+                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="Stock Days">Stock Days</span>
+                </th>
+                <th class="text-end">
+                    <button type="button" class="btn btn-link text-muted o_no_padding o_mrp_mps_edit" t-on-click.stop="(ev) => this._onClickEdit(ev, productionSchedule.id)">
+                        <span class="fa fa-bullseye text-muted fa-fw" role="img" aria-label="UPT Demand/Case Pack" title="UPT Demand/Case Pack"/>
+                        <t t-esc="productionSchedule.upt_demand_qty or 0.0"/>/<t t-esc="productionSchedule.case_pack or 0.0"/>
+                    </button>
+                </th>
+                <t t-foreach="productionSchedule.forecast_ids" t-as="forecast" t-key="forecast_index">
+                    <th class="text-end pe-4">
+                        <span t-attf-class="{{'text-end'}}" t-att-data-date_index="forecast_index" t-att-value="formatFloat(forecast.stock_days)" t-esc="formatFloat(forecast.stock_days)" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Stock days."/>
+                    </th>
+                </t>
+            </tr>
+        </xpath>
+
+        <!-- Quangtv: add actual remain quantity -->
+        <xpath expr="//span[@t-esc='formatFloat(forecast.starting_inventory_qty)']" position="before">
+            <span t-attf-class="{{! groups.mrp_mps_show_available_to_promise and 'o_hidden' or ''}}" t-esc="formatFloat(forecast.ending_inventory_qty)" />
+            <span t-attf-class="{{! (groups.mrp_mps_show_safety_stock and groups.mrp_mps_show_available_to_promise) and 'o_hidden' or ''}}"> / </span>
+        </xpath>
+
+        <xpath expr="//tr[@name='safety_stock']/t/th/span[@t-esc='formatFloat(forecast.safety_stock_qty)']" position="after">
+            <a href="#"
+                name="product_mps_detail"
+                t-on-click="() => this._onClickOpenMPSProductView(productionSchedule.product_id[0], productionSchedule.product_id[1])"
+                t-attf-class="btn fa fa-info-circle text-primary fa-fw {{(productionSchedule.manufacturing_period == 'day') and 'o_hidden' or ''}}" role="img" aria-label="MPS Detail" title="MPS Detail"></a>
+        </xpath>
+    </t>
+
+    <t t-name="emsg_mrp_mps.MpsGuestLineComponent">
+        <!-- <tbody class="o_mps_content"> -->
+            <tr t-ref="gcprojectRow" name="gc_project_qty">
+                <th/>
+                <th scope="row">
+                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="Guest count projection">GC Project</span>
+                </th>
+                <th></th>
+                <t t-foreach="guestSchedule" t-as="gforecast" t-key="gforecast_index">
+                    <th class="text-end pe-4">
+                        <input type="text"
+                        t-att-data-date_index="gforecast_index"
+                        t-attf-class="text-end form-control o_mrp_mps_input_gc_project_qty"
+                        t-att-value="formatFloat(gforecast.gc_project_qty)"
+                        t-on-change.stop="(ev) => this._onChangeGCProject(ev)"
+                        t-on-focus.prevent="_onFocusInput"/>
+                    </th>
+                </t>
+            </tr>
+            <tr t-ref="gcactualRow" name="gc_actual_qty">
+                <th/>
+                <th scope="row">
+                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="GC actual">Wrin Des</span>
+                </th>
+                <th></th>
+                <t t-foreach="guestSchedule" t-as="gforecast" t-key="gforecast_index">
+                    <th class="text-end pe-4">
+                        <input type="text"
+                        t-att-data-date_index="gforecast_index"
+                        t-attf-class="text-end form-control o_mrp_mps_input_gc_actual_qty"
+                        t-att-value="formatFloat(gforecast.gc_actual_qty)"
+                        t-on-change.stop="(ev) => this._onChangeGCActual(ev)"
+                        t-on-focus.prevent="_onFocusInput"/>
+                    </th>
+                </t>
+            </tr>
+        <!-- </tbody> -->
+    </t>
+
+    <!-- <t t-name="mrp_mps" t-inherit="mrp_mps.mrp_mps" t-inherit-mode="extension">
+        <xpath expr="//table[hasclass('o_mps_product_table')]//thead" position="after">
+            <t t-set="guestSchedule" t-value="guestlines"/>
+            <MpsGuestLineComponent data="guestSchedule" groups="groups"/>
+        </xpath>
+    </t> -->
+
+    <t t-name="mrp_mps" t-inherit="mrp_mps.mrp_mps" t-inherit-mode="extension">
+        <xpath expr="//table[hasclass('o_mps_product_table')]//thead//tr[hasclass('o_mps_period')]" position="after">
+            <t t-set="guestSchedule" t-value="guestlines"/>
+            <MpsGuestLineComponent data="guestSchedule" groups="groups"/>
+        </xpath>
+    </t>
+
+</templates>
