@@ -59,10 +59,10 @@
                         <p class="" for="name">Total Request</p>
                         <h2>10</h2>
                     </div>
-                    <div t-attf-class="col-xl-4">
+                    <div t-attf-class="col-xl-4"> 
                         <p class="" for="name">Request To Confirmation</p>
                         <h2>10</h2>
-                        <a href="#" style="font-size:15px;">View Request History <i class="fa fa-angle-right"></i></a>
+                        <a href="/my/orders" style="font-size:15px;">View Request History <i class="fa fa-angle-right"></i></a>
                     </div>
                     <div t-attf-class="col-xl-4">
                         <p class="" for="name">Request Completed</p>

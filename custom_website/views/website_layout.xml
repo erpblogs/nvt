@@ -151,6 +151,20 @@
         <xpath expr="//div[hasclass('o_brand_promotion')]" position="replace">
         </xpath>
     </template>
+
+    <template id="my_account_link" name="Link to frontend portal" inherit_id="portal.my_account_link">
+        <xpath expr="//a[@href='/my/home']" position="replace">
+            <a href="/my/account" role="menuitem" class="dropdown-item ps-3">
+                <i class="fa fa-fw fa-user me-1 small text-primary"/> My Information
+            </a>
+            <a href="/my/orders" role="menuitem" class="dropdown-item ps-3">
+                <i class="fa fa-fw fa-history me-1 small text-primary"/> My Request
+            </a>
+        </xpath>
+    </template>
+
+    
+
     <!-- <template id="brand_promotion" name="Brand Promotion">
         <div class="o_brand_promotion">
             <t t-call="web.brand_promotion_message">
