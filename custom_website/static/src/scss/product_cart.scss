@@ -1,0 +1,22 @@
+
+.oe_cart {
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    .oc_product_cart_lines {
+
+        padding: 24px;
+        gap: 24px;
+        border-radius: 16px;
+        opacity: 0px;
+
+        box-shadow: 0px 4px 12px 0px #0000001A;
+
+
+        .js_cart_lines {
+
+        }
+    }
+
+}

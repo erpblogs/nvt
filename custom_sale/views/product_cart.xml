@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="cart" inherit_id="website_sale.cart" name="Shopping Cart">
+		<xpath expr="//t[@t-set='show_footer']" position="replace">
+			<t t-set="show_footer" t-value="False" />
+		</xpath>
+
+	</template>
+</odoo>

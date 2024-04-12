@@ -24,6 +24,7 @@ from odoo.osv import expression
 from odoo.tools import lazy, str2bool
 from odoo.tools.json import scriptsafe as json_scriptsafe
 
+
 from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
 
 _logger = logging.getLogger(__name__)
@@ -270,8 +271,7 @@ class WebsiteSaleCustom(WebsiteSale):
     
     @http.route(['/shop/<model("product.template"):product>'], type='http', auth="public", website=True, sitemap=True)
     def product(self, product, category='', search='', **kwargs):
-        return request.render("custom_website.custom_products_item", self._prepare_product_values(product, category, search, **kwargs))
-        # return request.render("website_sale.product", self._prepare_product_values(product, category, search, **kwargs))
+        return request.render("website_sale.product", self._prepare_product_values(product, category, search, **kwargs))
         
  
     def _prepare_product_values(self, product, category, search, **kwargs):
@@ -311,3 +311,5 @@ class WebsiteSaleCustom(WebsiteSale):
             'add_qty': 1,
             'view_track': view_track,
         }
+        
+   
