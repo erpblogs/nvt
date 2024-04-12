@@ -140,14 +140,14 @@
 								and recreate existing variants and lead to the loss of their
 								possible customizations. </p>
 						</page>
-						<page string="Sales" name="sales" invisible="1 or not sale_ok">
+						<page string="Sales" name="sales" invisible="not sale_ok">
 							<!-- <group name="sale">
                                 <group string="Upsell &amp; Cross-Sell" name="upsell" invisible="1"/>
                             </group> -->
 							
 							<group>
-								<group string="Sales Description" name="description">
-									<field colspan="2" name="description_sale" nolabel="1"
+								<group string="eCommerce Description" name="description">
+									<field colspan="2" name="description_ecommerce" nolabel="1"
 										placeholder="This note is added to sales orders and invoices." />
 								</group>
 							</group>

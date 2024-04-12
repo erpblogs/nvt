@@ -24,6 +24,7 @@ from odoo.osv import expression
 from odoo.tools import lazy, str2bool
 from odoo.tools.json import scriptsafe as json_scriptsafe
 
+
 from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
 
 _logger = logging.getLogger(__name__)
@@ -310,3 +311,5 @@ class WebsiteSaleCustom(WebsiteSale):
             'add_qty': 1,
             'view_track': view_track,
         }
+        
+   
