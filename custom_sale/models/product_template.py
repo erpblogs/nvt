@@ -9,4 +9,9 @@ class ProductTemplateInherit(models.Model):
     
     part_number = fields.Char("Part Number")
     cto = fields.Char("CTO")
-    
+
+
+class ProductTemplateAttributeLine(models.Model):
+    _inherit = 'product.template.attribute.line'
+
+    detail_attribute = fields.Char(string="Detail")
