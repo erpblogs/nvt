@@ -3,23 +3,23 @@
     <template id="portal_my_details_fields_getdata">
         <div t-attf-class="mb-3 #{error.get('name') and 'o_has_error' or ''} col-xl-4">
             <h6 class="col-form-label" for="name">Name</h6>
-            <p class="mb-0 text-muted" t-out="name or partner.name"/>
+            <p class="mb-0 text-muted" t-out="name or partner.name" />
         </div>
         <div t-attf-class="mb-3 #{error.get('email') and 'o_has_error' or ''} col-xl-4">
             <h6 class="col-form-label" for="email">Email</h6>
-            <p class="mb-0 text-muted" t-out="email or partner.email"/>
+            <p class="mb-0 text-muted" t-out="email or partner.email" />
         </div>
         <div t-attf-class="mb-3 #{error.get('phone') and 'o_has_error' or ''} col-xl-4">
             <h6 class="col-form-label" for="phone">Phone</h6>
-            <p class="mb-0 text-muted" t-out="phone or partner.phone"/>
+            <p class="mb-0 text-muted" t-out="phone or partner.phone" />
         </div>
         <div t-attf-class="mb-3 #{error.get('name') and 'o_has_error' or ''} col-xl-4">
             <h6 class="col-form-label" for="name">Eligible Code</h6>
-            <p class="mb-0 text-muted" t-out="name or partner.name"/>
+            <p class="mb-0 text-muted" t-out="name or partner.name" />
         </div>
         <div t-attf-class="mb-3 #{error.get('name') and 'o_has_error' or ''} col-xl-4">
             <h6 class="col-form-label" for="email">ID</h6>
-            <p class="mb-0 text-muted" t-out="name or partner.name"/>
+            <p class="mb-0 text-muted" t-out="name or partner.name" />
         </div>
 
 
@@ -29,44 +29,51 @@
                 <div t-attf-class="mb-3 #{error.get('street') and 'o_has_error' or ''} col-xl-4">
                     <div class="address_portal">
                         <h6 class="col-form-label" for="street">Address 1</h6>
-                        <p class="mb-0 text-muted" t-out="street or partner.street"/>
+                        <p class="mb-0 text-muted" t-out="street or partner.street" />
                     </div>
                 </div>
-                <t t-foreach="partner.address_ids" t-as="address">
+
+                <t t-foreach="range(len(address_ids))" t-as="address_idx">
+                    <t t-set="address" t-value="address_ids[address_idx]" />
+                <!-- <t t-foreach="partner.address_ids" t-as="address"> -->
                     <div t-attf-class="mb-3 #{error.get('street') or ''} col-xl-4">
                         <div class="address_portal">
-                            <h6 class="col-form-label">Address <span style='font-weight: bold;' class="mb-0 text-muted" t-out="address.number"/></h6>
-                            <p class="mb-0 text-muted" t-out="address.street"/>
+                            <h6 class="col-form-label">Address <span style='font-weight: bold;'
+                                    class="mb-0 text-muted" t-out="address.number" /></h6>
+                            <p class="mb-0 text-muted" t-out="address.street" />
                         </div>
                     </div>
                 </t>
             </div>
         </div>
     </template>
+
     <template id="portal_my_details_custom" inherit_id="portal.portal_my_details">
         <xpath expr="//div[hasclass('o_portal_details')]" position="replace">
             <div>
                 <div class="justify-content-start align-items-center gap-3 mb-4"
-                     style="display:flex; flex-direction: column;">
+                    style="display:flex; flex-direction: column;">
                     <img class="o_portal_contact_img rounded o_object_fit_cover"
-                         t-att-src="image_data_uri(user_id.partner_id.avatar_128)" alt="Contact" width="100px"/>
+                        t-att-src="image_data_uri(user_id.partner_id.avatar_128)" alt="Contact"
+                        width="100px" />
                     <div class="justify-content-center">
-                        <h4 class="mb-0" t-out="user_id.name"/>
+                        <h4 class="mb-0" t-out="user_id.name" />
                     </div>
                 </div>
                 <div class="row class_portal class_request">
                     <div t-attf-class="col-xl-4">
                         <p class="" for="name">Total Request</p>
-                        <h2>10</h2>
+                        <h2 t-esc="total_rq"></h2>
                     </div>
-                    <div t-attf-class="col-xl-4"> 
+                    <div t-attf-class="col-xl-4">
                         <p class="" for="name">Request To Confirmation</p>
-                        <h2>10</h2>
-                        <a href="/my/orders" style="font-size:15px;">View Request History <i class="fa fa-angle-right"></i></a>
+                        <h2 t-esc="draft_rq"></h2>
+                        <a href="/my/orders" style="font-size:15px;">View Request History <i
+                                class="fa fa-angle-right"></i></a>
                     </div>
                     <div t-attf-class="col-xl-4">
                         <p class="" for="name">Request Completed</p>
-                        <h2>10</h2>
+                        <h2 t-esc="done_rq"></h2>
                     </div>
                 </div>
                 <div class="row o_portal_details class_portal">
@@ -77,17 +84,18 @@
                     </div>
                     <div class="">
                         <div class="row">
-                            <t t-call="custom_website.portal_my_details_fields_getdata"/>
-                            <input type="hidden" name="redirect" t-att-value="redirect"/>
+                            <t t-call="custom_website.portal_my_details_fields_getdata" />
+                            <input type="hidden" name="redirect" t-att-value="redirect" />
                         </div>
                     </div>
                 </div>
             </div>
         </xpath>
     </template>
+    
     <template id="frontend_layout" name="Main Frontend Layout" inherit_id="web.frontend_layout">
         <xpath expr="//div[@id='wrapwrap']" position="attributes">
-            <attribute name="t-attf-class" add="#{'bg-light' if is_portal else ''}" separator=" "/>
+            <attribute name="t-attf-class" add="#{'bg-light' if is_portal else ''}" separator=" " />
         </xpath>
     </template>
 </odoo>

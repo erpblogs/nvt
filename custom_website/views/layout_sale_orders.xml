@@ -1,0 +1,611 @@
+<odoo>
+
+    <template id="custom_portal_my_orders" name="My Sales Orders" inherit_id="sale.portal_my_orders">
+        <xpath expr="//t[@t-if='orders']" position="replace">
+            <t t-if="orders" t-call="portal.portal_table">
+                <div class="sale_order_history_layout">
+                    <div class="main">
+                        <div class="container">
+
+                            <div class="row justify-content-between mb-4">
+                                <div class="col-4">
+                                    <div class="input-group flex-nowrap">
+                                        <button name="search" class="input-group-text"
+                                            id="addon-wrapping">
+                                            <i
+                                                class="bi bi-search"></i>
+                                        </button>
+                                        <input type="text" class="form-control"
+                                            placeholder="Tìm kiếm yêu cầu" aria-label="search"
+                                            name="search" />
+                                    </div>
+                                </div>
+                                <div class="col-6 d-flex justify-content-end">
+                                    <div class="col-6">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">
+                                                <i class="bi bi-calendar"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="daterange" />
+                                        </div>
+                                    </div>
+                                    <div style="margin: 0 12px;">
+                                        <div class="dropdown-center">
+                                            <button class="btn dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="bi bi-filter"></i> Bộ lọc </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <button name="filter" value="0"
+                                                        class="dropdown-item" href="#">Action</button>
+                                                </li>
+                                                <li>
+                                                    <button name="filter" value="1"
+                                                        class="dropdown-item" href="#">Another
+                                                        action</button>
+                                                </li>
+                                                <li>
+                                                    <button name="filter" value="2"
+                                                        class="dropdown-item" href="#">Something
+                                                        else
+                                                        here</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="dropdown-center">
+                                            <button class="btn dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="bi bi-arrow-down-up"></i> Sắp xếp </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <button name="sort" value="1"
+                                                        class="dropdown-item"
+                                                        href="#">Action</button>
+                                                </li>
+                                                <li>
+                                                    <button name="sort" value="2"
+                                                        class="dropdown-item"
+                                                        href="#">Another
+                                                        action</button>
+                                                </li>
+                                                <li>
+                                                    <button name="sort" value="3"
+                                                        class="dropdown-item"
+                                                        href="#">Something else
+                                                        here</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-container">
+                                        <div class="table-header">
+                                            <div class="table-header-item col-1">STT</div>
+                                            <div class="table-header-item col-2">Thời gian </div>
+                                            <div class="table-header-item col">Yêu cầu</div>
+                                            <div class="table-header-item col-3 text-end"
+                                                style="max-width: 220px;">Tổng thành tiền
+                                            </div>
+                                            <div class="table-header-item col-2 text-end"
+                                                style="max-width: 180px;">Trạng thái</div>
+                                            <div class="table-header-item col-1"></div>
+                                        </div>
+                                        <div class="table-body">
+                                            <t t-foreach="orders" t-as="order">
+                                                <div class="table-content">
+
+                                                    <div class="table-content-item col-1">
+                                                        <a t-att-href="order.get_portal_url()">
+                                                            <t t-out="order.name" />
+                                                        </a>
+                                                    </div>
+                                                    <div
+                                                        class="table-content-item table-content-item-time col-2">
+                                                        <span t-field="order.date_order" />
+                                                    </div>
+                                                    <div class="table-content-item col"
+                                                        style="max-width: 464px;">
+                                                        <div
+                                                            class="product d-flex align-items-center">
+                                                            <div class="product-quantity">123x</div>
+                                                            <div class="mx-2">
+                                                                <img
+                                                                    src="/custom_website/static/src/images/order_history.png"
+                                                                    alt="" width="32"
+                                                                    height="32" />
+                                                            </div>
+                                                            <div class="flex-1 d-flex flex-column">
+                                                                <span class="product-title">13-inch
+                                                                    MacBook
+                                                                    Air</span>
+                                                                <span
+                                                                    class="product-subtitle text-truncate"
+                                                                    style="max-width: 326px;">16gb,
+                                                                    128gb, midnight
+                                                                    color, 35W Dual USB-C Port
+                                                                    Compact
+                                                                    Power Adapter</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="table-content-item col-3 justify-content-end"
+                                                        style="max-width: 220px;">
+                                                        <span t-field="order.amount_total" />
+                                                    </div>
+                                                    <div
+                                                        class="table-content-item col-2 d-flex justify-content-end"
+                                                        style="max-width: 180px;">
+                                                        <div class="chip-status success">
+                                                            <i class="bi bi-check-lg"></i>
+                                                            <span t-field="order.approval_state"/>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="table-content-item col-1 justify-content-center">
+                                                        <div class="dropdown-center more-action">
+                                                            <button
+                                                                class="btn btn-more-action dropdown-toggle"
+                                                                type="button"
+                                                                data-bs-toggle="dropdown"
+                                                                aria-expanded="false">
+                                                                <i class="fa fa-ellipsis-h"
+                                                                    aria-hidden="true"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <button
+                                                                        class="btn-detail dropdown-item"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#detailModal"
+                                                                        data-id="123"
+                                                                        data-status="processing"><i
+                                                                            class="bi bi-eye-fill"></i>Xem
+                                                                        chi tiết đơn hàng</button>
+                                                                </li>
+                                                                <li>
+                                                                    <button
+                                                                        class="btn-remove dropdown-item"
+                                                                        data-id="123"><i
+                                                                            class="bi bi-trash3-fill"></i>Xóa
+                                                                        yêu cầu</button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+
+                                            <div class="table-content">
+                                                <div class="table-content-item col-1">#3066</div>
+                                                <div
+                                                    class="table-content-item table-content-item-time col-2">21:02
+                                                    - 06/12/2024
+                                                </div>
+                                                <div
+                                                    class="table-content-item col d-flex flex-column"
+                                                    style="max-width: 464px;">
+                                                    <div class="product d-flex align-items-center">
+                                                        <div class="product-quantity">123x</div>
+                                                        <div class="mx-2">
+                                                            <img
+                                                                src="/custom_website/static/src/images/order_history.png"
+                                                                alt="" width="32"
+                                                                height="32" />
+                                                        </div>
+                                                        <div class="flex-1 d-flex flex-column">
+                                                            <span class="product-title">13-inch
+                                                                MacBook
+                                                                Air</span>
+                                                            <span
+                                                                class="product-subtitle text-truncate"
+                                                                style="max-width: 326px;">16gb,
+                                                                128gb, midnight
+                                                                color, 35W Dual USB-C Port Compact
+                                                                Power Adapter</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product d-flex align-items-center">
+                                                        <div class="product-quantity">123x</div>
+                                                        <div class="mx-2">
+                                                            <img
+                                                                src="/custom_website/static/src/images/order_history.png"
+                                                                alt="" width="32"
+                                                                height="32" />
+                                                        </div>
+                                                        <div class="flex-1 d-flex flex-column">
+                                                            <span class="product-title">13-inch
+                                                                MacBook
+                                                                Air</span>
+                                                            <span
+                                                                class="product-subtitle text-truncate"
+                                                                style="max-width: 326px;">16gb,
+                                                                128gb, midnight
+                                                                color, 35W Dual USB-C Port Compact
+                                                                Power Adapter</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product d-flex align-items-center">
+                                                        <div class="product-quantity">123x</div>
+                                                        <div class="mx-2">
+                                                            <img
+                                                                src="/custom_website/static/src/images/order_history.png"
+                                                                alt="" width="32"
+                                                                height="32" />
+                                                        </div>
+                                                        <div class="flex-1 d-flex flex-column">
+                                                            <span class="product-title">13-inch
+                                                                MacBook
+                                                                Air</span>
+                                                            <span
+                                                                class="product-subtitle text-truncate"
+                                                                style="max-width: 326px;">16gb,
+                                                                128gb, midnight
+                                                                color, 35W Dual USB-C Port Compact
+                                                                Power Adapter</span>
+                                                        </div>
+                                                    </div>
+                                                    <span
+                                                        class="product-more d-flex align-items-center justify-content-center">+3
+                                                        sản
+                                                        phẩm khác</span>
+                                                </div>
+                                                <div
+                                                    class="table-content-item col-3 justify-content-end"
+                                                    style="max-width: 220px;">
+                                                    130,000,000 VND
+                                                </div>
+                                                <div
+                                                    class="table-content-item col-2 d-flex justify-content-end"
+                                                    style="max-width: 180px;">
+                                                    <div class="chip-status">
+                                                        <i class="bi bi-check-lg"></i> Hoàn thành </div>
+                                                </div>
+                                                <div class="table-content-item col-1">
+                                                    <div class="dropdown-center more-action">
+                                                        <button
+                                                            class="btn btn-more-action dropdown-toggle"
+                                                            type="button"
+                                                            data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"
+                                                                aria-hidden="true"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <button
+                                                                    class="btn-detail dropdown-item"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#detailModal"
+                                                                    data-id="123"
+                                                                    data-status="success"><i
+                                                                        class="bi bi-eye-fill"></i>Xem
+                                                                    chi tiết đơn hàng</button>
+                                                            </li>
+                                                            <li>
+                                                                <button
+                                                                    class="btn-remove dropdown-item"><i
+                                                                        class="bi bi-trash3-fill"></i>Xóa
+                                                                    yêu cầu</button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-content">
+                                                <div class="table-content-item col-1">#3066</div>
+                                                <div
+                                                    class="table-content-item table-content-item-time col-2">21:02
+                                                    - 06/12/2024
+                                                </div>
+                                                <div class="table-content-item col"
+                                                    style="max-width: 464px;">
+                                                    <div class="product d-flex align-items-center">
+                                                        <div class="product-quantity">123x</div>
+                                                        <div class="mx-2">
+                                                            <img
+                                                                src="/custom_website/static/src/images/order_history.png"
+                                                                alt="" width="32"
+                                                                height="32" />
+                                                        </div>
+                                                        <div class="flex-1 d-flex flex-column">
+                                                            <span class="product-title">13-inch
+                                                                MacBook
+                                                                Air</span>
+                                                            <span
+                                                                class="product-subtitle text-truncate"
+                                                                style="max-width: 326px;">16gb,
+                                                                128gb, midnight
+                                                                color, 35W Dual USB-C Port Compact
+                                                                Power Adapter</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="table-content-item col-3 justify-content-end"
+                                                    style="max-width: 220px;">
+                                                    130,000,000 VND
+                                                </div>
+                                                <div
+                                                    class="table-content-item col-2 d-flex justify-content-end"
+                                                    style="max-width: 180px;">
+                                                    <div class="chip-status processing">
+                                                        <i class="bi bi-clock-history"></i> Đang xử
+                                                        lý </div>
+                                                </div>
+                                                <div class="table-content-item col-1">
+                                                    <div class="dropdown-center more-action">
+                                                        <button
+                                                            class="btn btn-more-action dropdown-toggle"
+                                                            type="button" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"
+                                                                aria-hidden="true"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <button
+                                                                    class="btn-detail dropdown-item"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#detailModal"
+                                                                    data-id="123"
+                                                                    data-status="success"><i
+                                                                        class="bi bi-eye-fill"></i>Xem
+                                                                    chi tiết đơn hàng</button>
+                                                            </li>
+                                                            <li>
+                                                                <button
+                                                                    class="btn-remove dropdown-item"><i
+                                                                        class="bi bi-trash3-fill"></i>Xóa
+                                                                    yêu cầu</button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-content">
+                                                <div class="table-content-item col-1">#3066</div>
+                                                <div
+                                                    class="table-content-item table-content-item-time col-2">21:02
+                                                    - 06/12/2024
+                                                </div>
+                                                <div class="table-content-item col"
+                                                    style="max-width: 464px;">
+                                                    <div class="product d-flex align-items-center">
+                                                        <div class="product-quantity">123x</div>
+                                                        <div class="mx-2">
+                                                            <img
+                                                                src="/custom_website/static/src/images/order_history.png"
+                                                                alt="" width="32"
+                                                                height="32" />
+                                                        </div>
+                                                        <div class="flex-1 d-flex flex-column">
+                                                            <span class="product-title">13-inch
+                                                                MacBook
+                                                                Air</span>
+                                                            <span
+                                                                class="product-subtitle text-truncate"
+                                                                style="max-width: 326px;">16gb,
+                                                                128gb, midnight
+                                                                color, 35W Dual USB-C Port Compact
+                                                                Power Adapter</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="table-content-item col-3 justify-content-end"
+                                                    style="max-width: 220px;">
+                                                    130,000,000 VND
+                                                </div>
+                                                <div
+                                                    class="table-content-item col-2 d-flex justify-content-end"
+                                                    style="max-width: 180px;">
+                                                    <div class="chip-status cancel">
+                                                        <i class="bi bi-x-lg"></i> Từ chối </div>
+                                                </div>
+                                                <div class="table-content-item col-1">
+                                                    <div class="dropdown-center more-action">
+                                                        <button
+                                                            class="btn btn-more-action dropdown-toggle"
+                                                            type="button" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-h"
+                                                                aria-hidden="true"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <button
+                                                                    class="btn-detail dropdown-item"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#detailModal"
+                                                                    data-id="123"
+                                                                    data-status="success"><i
+                                                                        class="bi bi-eye-fill"></i>Xem
+                                                                    chi tiết đơn hàng</button>
+                                                            </li>
+                                                            <li>
+                                                                <button
+                                                                    class="btn-remove dropdown-item"><i
+                                                                        class="bi bi-trash3-fill"></i>Xóa
+                                                                    yêu cầu</button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-footer">
+                                            <nav aria-label="Page navigation example">
+                                                <ul class="pagination">
+                                                    <li class="page-item-minus me-auto">
+                                                        <button name="pagination" value="minus"
+                                                            class="btn btn-pagination-arrow page-link"
+                                                            disabled="disabled"><i
+                                                                class="bi bi-arrow-left-short"></i>Trang
+                                                            trước</button>
+                                                    </li>
+                                                    <li class="page-item active">
+                                                        <button name="pagination" value="1"
+                                                            class="btn-number page-link">1</button>
+                                                    </li>
+                                                    <li class="page-item-more-first">
+                                                        <span class="btn-number">...</span>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <button name="pagination" value="2"
+                                                            class="btn-number page-link">2</button>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <button name="pagination" value="3"
+                                                            class="btn-number page-link">3</button>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <button name="pagination" value="4"
+                                                            class="btn-number page-link">4</button>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <button name="pagination" value="5"
+                                                            class="btn-number page-link">5</button>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <button name="pagination" value="6"
+                                                            class="btn-number page-link">6</button>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <button name="pagination" value="7"
+                                                            class="btn-number page-link">7</button>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <button name="pagination" value="8"
+                                                            class="btn-number page-link">8</button>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <button name="pagination" value="9"
+                                                            class="btn-number page-link">9</button>
+                                                    </li>
+                                                    <li class="page-item-more-last">
+                                                        <span class="btn-number">...</span>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <button name="pagination" value="10"
+                                                            class="btn-number page-link">10</button>
+                                                    </li>
+                                                    <li class="page-item-plus ms-auto">
+                                                        <button name="pagination" value="plus"
+                                                            class="btn btn-pagination-arrow page-link">Trang
+                                                            kế<i
+                                                                class="bi bi-arrow-right-short"></i></button>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="detailModal" tabindex="-1"
+                        aria-labelledby="detailModalLabel" aria-hidden="true">
+                        <div
+                            class="modal-dialog modal-dialog-centered d-flex justify-content-center">
+                            <div class="modal-content modal-detail-content">
+                                <div class="modal-detail-body">
+                                    <div class="row">
+                                        <div class="col card-container">
+                                            <div class="card-detail card">
+                                                <div
+                                                    class="card-detail-body product card-body d-flex flex-column"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="card-detail card pos-sitcky">
+                                                <div
+                                                    class="card-detail-body card-body d-flex flex-column">
+                                                    <div class="cart-detail-info">
+                                                        <span class="cart-detail-info-title">Trạng
+                                                            thái</span>
+                                                        <div class="chip-status">
+                                                            <i class="bi bi-check-lg"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cart-detail-info">
+                                                        <span class="cart-detail-info-title">Thời
+                                                            gian
+                                                            yêu
+                                                            cầu</span>
+                                                        <span class="cart-detail-info-value"
+                                                            id="requiredTime"></span>
+                                                    </div>
+                                                    <div class="cart-detail-info">
+                                                        <span class="cart-detail-info-title">Thời
+                                                            gian
+                                                            hoàn
+                                                            thành</span>
+                                                        <span class="cart-detail-info-value"
+                                                            id="finishTime"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-detail card pos-sitcky">
+                                                <div
+                                                    class="card-detail-body card-body d-flex flex-column">
+                                                    <div class="cart-detail-info">
+                                                        <span class="cart-detail-info-title">Tổng số
+                                                            lượng</span>
+                                                        <span class="cart-detail-info-value"
+                                                            id="quantity"></span>
+                                                    </div>
+                                                    <div class="cart-detail-info">
+                                                        <span class="cart-detail-info-title">Tạm
+                                                            tính</span>
+                                                        <span class="cart-detail-info-value"
+                                                            id="subtotal"></span>
+                                                    </div>
+                                                    <div class="cart-detail-info"
+                                                        id="discountContainer">
+                                                        <span class="cart-detail-info-title">Giảm
+                                                            giá
+                                                            (5%)</span>
+                                                        <span class="cart-detail-info-value"
+                                                            id="discount"></span>
+                                                    </div>
+                                                    <div class="cart-detail-info">
+                                                        <span class="cart-detail-info-title">VAT
+                                                            (10%)</span>
+                                                        <span class="cart-detail-info-value"
+                                                            id="vat"></span>
+                                                    </div>
+                                                    <div class="cart-detail-total">
+                                                        <span class="cart-detail-total-title">Tổng</span>
+                                                        <span class="cart-detail-total-value"
+                                                            id="total"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-detail-footer">
+                                        <button type="button" class="btn btn-delete"
+                                            data-bs-dismiss="modal">Xóa
+                                            yêu cầu</button>
+                                        <button type="button" class="btn btn-primary"
+                                            data-bs-dismiss="modal">Xong</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+
+
+        </xpath>
+    </template>
+</odoo>

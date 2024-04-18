@@ -26,12 +26,22 @@ from odoo.tools.json import scriptsafe as json_scriptsafe
 
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
+from odoo.addons.portal.controllers.portal import CustomerPortal
+
+
+from odoo.addons.web.controllers.home import ensure_db, Home, SIGN_UP_REQUEST_PARAMS, LOGIN_SUCCESSFUL_PARAMS
+from odoo.addons.auth_signup.controllers.main import AuthSignupHome
 
 _logger = logging.getLogger(__name__)
 
 Post_Count = 6
 Carousel_Count = 3
 
+
+TRUSTED_DEVICE_COOKIE = 'td_id'
+TRUSTED_DEVICE_AGE = 90*86400
+
+_logger = logging.getLogger(__name__)
 
 class WebsiteSaleCustom(WebsiteSale):
 
@@ -311,5 +321,138 @@ class WebsiteSaleCustom(WebsiteSale):
             'add_qty': 1,
             'view_track': view_track,
         }
+    
+    
+    @http.route('/shop/payment/validate', type='http', auth="public", website=True, sitemap=False)
+    def shop_payment_validate(self, sale_order_id=None, **post):
+        """ Method that should be called by the server when receiving an update
+        for a transaction. State at this point :
+
+         - UDPATE ME
+        """
+        if request.website.is_public_user():
+            return request.redirect('/web/login?redirect=/shop/cart')
+            
+        if sale_order_id is None:
+            order = request.website.sale_get_order()
+            if not order and 'sale_last_order_id' in request.session:
+                # Retrieve the last known order from the session if the session key `sale_order_id`
+                # was prematurely cleared. This is done to prevent the user from updating their cart
+                # after payment in case they don't return from payment through this route.
+                last_order_id = request.session['sale_last_order_id']
+                order = request.env['sale.order'].sudo().browse(last_order_id).exists()
+        else:
+            order = request.env['sale.order'].sudo().browse(sale_order_id)
+            assert order.id == request.session.get('sale_last_order_id')
+
+
+        # tobe add code to check history request
+        errors = self._get_shop_payment_errors(order)
+        if errors:
+            first_error = errors[0]  # only display first error
+            error_msg = f"{first_error[0]}\n{first_error[1]}"
+            raise ValidationError(error_msg)
+
+        if not order:
+            return request.redirect('/shop')
         
+        order.with_context(send_email=True).with_user(SUPERUSER_ID).action_send_request()
+        return request.redirect(order.get_portal_url())
    
+
+class OnlineSynchronizationPortal(CustomerPortal):
+   
+    @http.route(['/my/orders', '/my/orders/page/<int:page>'], type='http', auth="user", website=True)
+    def portal_my_orders(self, **kwargs):
+        values = self._prepare_sale_portal_rendering_values(quotation_page=False, **kwargs)
+        request.session['my_orders_history'] = values['orders'].ids[:100]
+        
+        return request.render("sale.portal_my_orders", values)
+        return request.render("custom_website.custom_portal_my_orders", values)
+
+    def _prepare_orders_custom_domain(self, partner, state=False):
+        default_domain = [
+            ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id])
+        ]
+        if state:
+            default_domain.append(('approval_state', '=', state))
+        return default_domain
+    
+    def _prepare_sale_request_information(self):
+        partner = request.env.user.partner_id
+        SaleOrder = request.env['sale.order']
+        # Total Request
+        total_rq = SaleOrder.search_count(self._prepare_orders_custom_domain(partner))
+        done_rq = SaleOrder.search_count(self._prepare_orders_custom_domain(partner, 'done'))
+        draft_rq = SaleOrder.search_count(self._prepare_orders_custom_domain(partner, 'draft'))
+        
+        return total_rq, done_rq, draft_rq
+        
+        
+    @route(['/my/account'], type='http', auth='user', website=True)
+    def account(self, redirect=None, **post):
+        values = self._prepare_portal_layout_values()
+        partner = request.env.user.partner_id
+        values.update({
+            'error': {},
+            'error_message': [],
+        })
+
+        if post and request.httprequest.method == 'POST':
+            if not partner.can_edit_vat():
+                post['country_id'] = str(partner.country_id.id)
+
+            error, error_message = self.details_form_validate(post)
+            values.update({'error': error, 'error_message': error_message})
+            values.update(post)
+            if not error:
+                values = {key: post[key] for key in self._get_mandatory_fields()}
+                values.update({key: post[key] for key in self._get_optional_fields() if key in post})
+                for field in set(['country_id', 'state_id']) & set(values.keys()):
+                    try:
+                        values[field] = int(values[field])
+                    except:
+                        values[field] = False
+                values.update({'zip': values.pop('zipcode', '')})
+                self.on_account_update(values, partner)
+                partner.sudo().write(values)
+                if redirect:
+                    return request.redirect(redirect)
+                return request.redirect('/my/home')
+
+        countries = request.env['res.country'].sudo().search([])
+        states = request.env['res.country.state'].sudo().search([])
+
+        total_rq, done_rq, draft_rq = self._prepare_sale_request_information()
+    
+        # partner address 
+        # ('group_user_sa_manager', 'SA manager'),
+        # ('group_user_cfo', 'CFO'),
+        # ('group_user_cooperate', 'Cooperate'),
+        # ('group_user_employee', 'Employee')
+        # ], string='Role')
+        if request.env.user.customer_group in ['group_user_sa_manager', 'group_user_cfo']:
+            address_ids = request.env.user.portal_company_id and request.env.user.portal_company_id.address_ids
+        else:
+            address_ids = partner.address_ids
+        
+        values.update({
+            'partner': partner,
+            'countries': countries,
+            'states': states,
+            'address_ids': address_ids,
+            'has_check_vat': hasattr(request.env['res.partner'], 'check_vat'),
+            'partner_can_edit_vat': partner.can_edit_vat(),
+            'redirect': redirect,
+            'page_name': 'my_details',
+            'total_rq': total_rq,
+            'done_rq': done_rq,
+            'draft_rq': draft_rq,
+        })
+
+        response = request.render("portal.portal_my_details", values)
+        response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+        response.headers['Content-Security-Policy'] = "frame-ancestors 'self'"
+        return response
+
+

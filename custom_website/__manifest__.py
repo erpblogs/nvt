@@ -43,6 +43,7 @@ Long description of module's purpose
         'views/website_portal.xml',
         'views/product_detail.xml',
         'views/product_cart.xml',
+        'views/layout_sale_orders.xml',
         # menu
         'views/hidden_menu.xml',
     ],
@@ -52,6 +53,11 @@ Long description of module's purpose
     ],
     'assets': {
         'web.assets_frontend': [
+            
+            'custom_website/static/src/js/lib/moment.min.js',
+            'custom_website/static/src/js/lib/daterangepicker.js',
+            'custom_website/static/src/js/lib/daterangepicker.css',
+            
             'custom_website/static/src/scss/lib/custom_bootstrap.scss',
             'custom_website/static/src/scss/style.scss',
             'custom_website/static/src/scss/login_layout.scss',
@@ -63,8 +69,11 @@ Long description of module's purpose
             'custom_website/static/src/scss/product_detail.scss',
             'custom_website/static/src/js/product.js',
             'custom_website/static/src/scss/product_cart.scss',
+            'custom_website/static/src/js/sale_order_history.js',
+            'custom_website/static/src/scss/sale_order_history.scss',
             # 'custom_website/static/src/scss/product.scss',
             # 'custom_website/static/src/js/homepage.js',
+            
         ],
         'web._assets_primary_variables': [
             # ('after', 'web/static/src/scss/primary_variables.scss', 'custom_website/static/src/**/*.variables.scss'),
@@ -78,6 +87,7 @@ Long description of module's purpose
             # 'vti_theme/static/src/scss/reboot.scss',
             # 'vti_theme/static/src/scss/navbar.scss',
         ],
+        
     }
 }
 

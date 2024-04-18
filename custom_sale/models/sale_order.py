@@ -62,3 +62,9 @@ class SaleOrderInherit(models.Model):
          if self.approval_state:
              return dict(self._fields['old_state']._description_selection(self.env)).get(self.approval_state)
     
+    
+    def action_send_request(self):
+        for r in self:
+            # r.write({'approval_state': 'draft', 'state': 'sent',})
+            r.approval_state = 'draft'
+            r.action_confirm()
