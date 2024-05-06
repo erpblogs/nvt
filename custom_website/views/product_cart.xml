@@ -195,7 +195,14 @@
     </template>
 
 
-    <template id="checkout_layout" inherit_id="website_sale.checkout_layout"
+    <!-- <template id="checkout_layout" inherit_id="website_sale.checkout_layout"
+        name="Checkout layout page">
+        <xpath expr="//t[@t-set='show_wizard_checkout']" position="replace">
+            <t t-set="show_wizard_checkout" t-value="True" />
+        </xpath>
+    </template> -->
+    
+    <template id="checkout_layoutX" 
         name="Checkout layout page">
         <xpath expr="//t[@t-call='website_sale.navigation_buttons']" position="replace">
             <t t-set="step_specific_values" t-value="website._get_checkout_steps(xmlid)" />
@@ -233,5 +240,25 @@
             </div>
         </xpath>
 
+    </template>
+
+    <!-- Called in `website_sale.payment`. -->
+    <template id="address_on_payment" inherit_id="website_sale.address_on_payment" name="Address on payment">
+        <xpath expr="//div[@class='card']" position="replace">
+            <div class="card">
+                <div class="card-body" id="shipping_and_billing">
+                    <a class="float-end no-decoration" href="/shop/checkout"><i class="fa fa-pencil me-1"/>Edit</a>
+                    <t t-set="same_shipping" t-value="bool(order.partner_shipping_id==order.partner_invoice_id or only_services)" />
+                    <div class="d-none">
+                        <b>Billing<t t-if="same_shipping and not only_services"> &amp; Shipping</t>: </b>
+                        <span t-esc="order.partner_invoice_id" t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/>
+                    </div>
+                    <div t-if="not same_shipping and not only_services" groups="account.group_delivery_invoice_address">
+                        <b>Shipping: </b>
+                        <span t-esc="order.partner_shipping_id" t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
     </template>
 </odoo>

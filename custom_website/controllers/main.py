@@ -32,16 +32,12 @@ from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.web.controllers.home import ensure_db, Home, SIGN_UP_REQUEST_PARAMS, LOGIN_SUCCESSFUL_PARAMS
 from odoo.addons.auth_signup.controllers.main import AuthSignupHome
 
-_logger = logging.getLogger(__name__)
-
 Post_Count = 6
 Carousel_Count = 3
 
 
 TRUSTED_DEVICE_COOKIE = 'td_id'
 TRUSTED_DEVICE_AGE = 90*86400
-
-_logger = logging.getLogger(__name__)
 
 class WebsiteSaleCustom(WebsiteSale):
 
@@ -286,12 +282,14 @@ class WebsiteSaleCustom(WebsiteSale):
  
     def _prepare_product_values(self, product, category, search, **kwargs):
         ProductCategory = request.env['product.public.category']
-
         if not category and product.public_categ_ids:
             category = product.public_categ_ids[0]
-        category = ProductCategory.browse(int(category)).exists()
-            
-
+        # category = ProductCategory.browse(int(category)).exists()
+        try:
+            category = ProductCategory.browse(int(category)).exists()
+        except:
+            raise ValidationError(_("Product public category does not exits!"))
+                
         attrib_list = request.httprequest.args.getlist('attrib')
         attrib_values = [[int(x) for x in v.split("-")] for v in attrib_list if v]
         attrib_set = {v[1] for v in attrib_values}
@@ -299,7 +297,7 @@ class WebsiteSaleCustom(WebsiteSale):
         keep = QueryURL(
             '/shop',
             **self._product_get_query_url_kwargs(
-                category=category and category.id,
+                category=category,
                 search=search,
                 **kwargs,
             ),
@@ -359,6 +357,31 @@ class WebsiteSaleCustom(WebsiteSale):
         order.with_context(send_email=True).with_user(SUPERUSER_ID).action_send_request()
         return request.redirect(order.get_portal_url())
    
+   
+    @http.route(['/shop/checkout'], type='http', auth="public", website=True, sitemap=False)
+    def checkout(self, **post):
+        order_sudo = request.website.sale_get_order()
+
+        redirection = self.checkout_redirection(order_sudo)
+        if redirection:
+            return redirection
+
+        # if order_sudo._is_public_order():
+        #     return request.redirect('/shop/address')
+
+        redirection = self.checkout_check_address(order_sudo)
+        if redirection:
+            return redirection
+
+        if post.get('express'):
+            return request.redirect('/shop/confirm_order')
+
+        values = self.checkout_values(order_sudo, **post)
+
+        # Avoid useless rendering if called in ajax
+        if post.get('xhr'):
+            return 'ok'
+        return request.render("website_sale.checkout", values)
 
 class OnlineSynchronizationPortal(CustomerPortal):
    
