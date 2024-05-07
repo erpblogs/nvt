@@ -37,7 +37,108 @@ Carousel_Count = 3
 
 
 TRUSTED_DEVICE_COOKIE = 'td_id'
-TRUSTED_DEVICE_AGE = 90*86400
+TRUSTED_USER_COOKIE = 'pre_uid'
+REMEMBER_COOKIE = 'remember'
+TRUSTED_DEVICE_AGE = 90 * 86400
+
+
+INCORRECT_EMAIL_WARNING = _('Your email was incorrect. Please try again.')
+INACTIVE_EMAIL_WARNING = _('This email address is no longer active. Please use a different account to log in.')
+WRONG_EMAIL_PASSWORD = _("Wrong email or password. Please try again.")
+WRONG_EMAIL_FORMAT = _('Wrong email format. Please try again.')
+
+
+class AuthSignupHome(Home):
+    
+    @http.route()
+    def web_login(self, redirect=None, **kw):
+
+        response = super().web_login(redirect, **kw)
+
+        not_admin = response.qcontext.get('login', '') != 'admin'
+        if not_admin and response.qcontext.get('login') and not tools.email_normalize(
+                response.qcontext.get('login', '')):
+            response.qcontext['account_error'] = WRONG_EMAIL_FORMAT
+
+        elif response.qcontext.get('error') and not request.params.get('oauth_error'):
+            response.qcontext['error'] = WRONG_EMAIL_PASSWORD
+            if response.qcontext.get('login'):
+                user_count = request.env['res.users'].sudo().search([
+                    ('login', '=ilike', response.qcontext['login']),
+                    ('active', 'in', [True, False])
+                ])
+                if not user_count:
+                    response.qcontext['account_error'] = INCORRECT_EMAIL_WARNING
+                elif not user_count.active:
+                    response.qcontext['account_error'] = INACTIVE_EMAIL_WARNING
+
+        if kw.get('remember'):
+            name = _("%(browser)s on %(platform)s",
+                     browser=request.httprequest.user_agent.browser.capitalize(),
+                     platform=request.httprequest.user_agent.platform.capitalize(),
+                     )
+
+            if request.geoip.city.name:
+                name += f" ({request.geoip.city.name}, {request.geoip.country_name})"
+
+            key = request.env['auth_totp.device']._generate("browser", name)
+            response.set_cookie(
+                key=TRUSTED_DEVICE_COOKIE,
+                value=key,
+                max_age=TRUSTED_DEVICE_AGE,
+                httponly=True,
+                samesite='Lax',
+
+            )
+
+            # start thêm remember vào coockies
+            response.set_cookie(
+                key=REMEMBER_COOKIE,
+                value=kw.get('remember'),
+                max_age=TRUSTED_DEVICE_AGE,
+                httponly=True,
+                samesite='Lax',
+
+            )
+            # end thêm remember vào coockies
+
+            if request.session.uid:
+                response.set_cookie(
+                    key=TRUSTED_USER_COOKIE,
+                    value=f'{request.session.uid}',
+                    max_age=TRUSTED_DEVICE_AGE,
+                    httponly=True,
+                    samesite='Lax',
+                )
+
+            # Crapy workaround for unupdatable Odoo Mobile App iOS (Thanks Apple :@)
+            request.session.touch()
+        else:
+            response.delete_cookie(REMEMBER_COOKIE)
+
+        if not request.session.uid:
+
+            cookies = request.httprequest.cookies
+            pre_uid = cookies.get(TRUSTED_USER_COOKIE)
+            user = None
+            try:
+                user = request.env['res.users'].sudo().browse(int(pre_uid))
+            except:
+                pass
+            key = cookies.get(TRUSTED_DEVICE_COOKIE)
+            remember = cookies.get(REMEMBER_COOKIE)
+            if key and user:
+                user_match = request.env['auth_totp.device']._check_credentials_for_uid(
+                    scope="browser", key=key, uid=user.id)
+                if user_match:
+                    if remember:
+                        # request.session.finalize(request.env)
+                        # kw['login'] = user.login
+                        response.qcontext['login'] = user.login
+                        response.qcontext['remember'] = True
+
+        return response
+
 
 class WebsiteSaleCustom(WebsiteSale):
 
