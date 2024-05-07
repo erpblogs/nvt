@@ -26,13 +26,18 @@
             sequence="50"/>
         
         <menuitem id="prod_config_main"
-            name="Products"
+            name="Configuration"
             sequence="100">
             
             <menuitem id="menu_product_attribute_action"
                 action="product.attribute_action"
                 groups="product.group_product_variant"
                 sequence="10"/>
+
+
+            <menuitem id="menu_product_tags_action"
+                action="product.product_tag_action"
+                sequence="20"/>
 
             </menuitem>
     </menuitem>
