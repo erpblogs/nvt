@@ -17,7 +17,7 @@ Long description of module's purpose
     'category': 'website',
     'version': '0.1',
     # any module necessary for this one to work correctly
-    'depends': ['base', 'portal', 'website', 'website_sale'],
+    'depends': ['base', 'portal', 'website', 'website_sale', 'custom_sale'],
 
     # always loaded
     'data': [
